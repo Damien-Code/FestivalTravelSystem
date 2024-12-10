@@ -7,17 +7,30 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 
+// No login required for homepage
 Route::get('/', function () {
     return view('homepage');
-})->middleware('auth', 'verified')->name('homepage');
+})->name('homepage');
 
+// Login required for dashboard
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// No login required for vip
+Route::get('/vip', function () {
+    return view('vip.index');
+})->name('vip.index');
+
+// No login required for festivals
 Route::get('/festivals', function () {
     return view('festivals.index');
-})->middleware(['auth', 'verified'])->name('festivals.index');
+})->name('festivals.index');
+
+// No login required for contact
+Route::get('/contact', function () {
+    return view('contact.index');
+})->name('contact.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

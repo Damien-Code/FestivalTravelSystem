@@ -1,3 +1,3 @@
-<div>
-    <!-- You must be the change you wish to see in the world. - Mahatma Gandhi -->
-</div>
+<x-app-layout>
+    <h1 class="text-6xl text-white">VIP</h1>
+</x-app-layout>

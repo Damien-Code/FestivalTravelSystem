@@ -1,3 +1,3 @@
-<div>
-    <!-- Because you are alive, everything is possible. - Thich Nhat Hanh -->
-</div>
+<x-app-layout>
+    <h1 class="text-6xl text-white  ">CONTACT</h1>
+</x-app-layout>
