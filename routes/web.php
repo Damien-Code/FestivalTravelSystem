@@ -27,6 +27,9 @@ Route::get('/festivals', function () {
     return view('festivals.index');
 })->name('festivals.index');
 
+Route::get('/festivals.show', function () {
+    return view('festivals.show');
+})->name('festivals.show');
 // No login required for contact
 Route::get('/contact', function () {
     return view('contact.index');
