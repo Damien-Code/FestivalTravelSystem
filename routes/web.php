@@ -51,6 +51,14 @@ Route::get('/admin/show_users', function () {
     return view('admin.show_users');
 })->middleware(['auth', 'verified'])->name('admin.show_users');
 
+Route::get('/admin/show_festivals', function () {
+    return view('admin.show_festivals');
+})->middleware(['auth', 'verified'])->name('admin.show_festivals');
+
+Route::get('/admin/show_busses', function () {
+    return view('admin.show_busses');
+})->middleware(['auth', 'verified'])->name('admin.show_busses');
+
 
 
 
