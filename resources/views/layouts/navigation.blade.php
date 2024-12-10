@@ -42,13 +42,16 @@
                             </div>
                         </button>
                     </x-slot>
-
+                    {{--            User needs to be logged in to see admin. This will change to only see when user is admin--}}
                     <x-slot name="content">
                         <x-dropdown-link :href="route('dashboard')">
                             {{ __('Dashboard') }}
                         </x-dropdown-link>
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('admin.index')">
+                            {{ __('Admin') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -107,6 +110,12 @@
             <x-responsive-nav-link :href="route('contact.index')" :active="request()->routeIs('contact.index')">
                 {{ __('Contact') }}
             </x-responsive-nav-link>
+{{--            User needs to be logged in to see admin. This will change to only see when user is admin--}}
+            @auth()
+                <x-responsive-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
+                    {{ __('Admin') }}
+                </x-responsive-nav-link>
+            @endauth
         </div>
 
         <!-- Responsive Settings Options -->
@@ -135,7 +144,7 @@
                 </div>
             @else
                 <!-- Guest required -->
-                <div class="mt-3 space-y-1">
+                <div class="space-y-1">
                     <x-responsive-nav-link :href="route('login')" :active="request()->routeIs('login')">
                         Login
                     </x-responsive-nav-link>
