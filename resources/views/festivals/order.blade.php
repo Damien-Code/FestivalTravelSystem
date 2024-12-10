@@ -1,3 +1,3 @@
-<div>
-    <!-- Simplicity is the essence of happiness. - Cedric Bledsoe -->
-</div>
+<x-app-layout>
+    <h1 class="text-6xl text-white">Order</h1>
+</x-app-layout>
