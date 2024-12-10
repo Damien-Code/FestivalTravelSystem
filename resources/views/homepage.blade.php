@@ -1,2 +1,3 @@
-@vite(['resources/css/app.css', 'resources/js/app.js'])
-@include('layouts.navigation')
+<x-app-layout>
+
+</x-app-layout>
