@@ -1,5 +1,9 @@
 <x-app-layout>
-    <h1 class="text-6xl text-white">HOMEPAGE</h1>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Home') }}
+        </h2>
+    </x-slot>
         <form method="get" action="{{route('festivals.show')}}" class="flex flex-col w-56 text-white">
             @csrf
             <label>Festival</label>

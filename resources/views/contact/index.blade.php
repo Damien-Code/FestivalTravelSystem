@@ -1,5 +1,9 @@
 <x-app-layout>
-    <h1 class="text-6xl text-white  ">CONTACT US</h1>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Contact') }}
+        </h2>
+    </x-slot>
     <form class="flex flex-col text-white w-56">
         <label>Naam</label>
         <input>

@@ -1,3 +1,8 @@
 <x-app-layout>
-    <h1 class="text-6xl text-white">FESTIVALS</h1>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Festivals') }}
+        </h2>
+    </x-slot>
+
 </x-app-layout>
