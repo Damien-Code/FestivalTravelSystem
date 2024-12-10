@@ -50,6 +50,9 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
+                        <x-dropdown-link :href="route('admin.index')">
+                            {{ __('Admin') }}
+                        </x-dropdown-link>
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
@@ -107,6 +110,11 @@
             <x-responsive-nav-link :href="route('contact.index')" :active="request()->routeIs('contact.index')">
                 {{ __('Contact') }}
             </x-responsive-nav-link>
+            @auth()
+                <x-responsive-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
+                    {{ __('Admin') }}
+                </x-responsive-nav-link>
+            @endauth
         </div>
 
         <!-- Responsive Settings Options -->
