@@ -135,7 +135,7 @@
                 </div>
             @else
                 <!-- Guest required -->
-                <div class="mt-3 space-y-1">
+                <div class="space-y-1">
                     <x-responsive-nav-link :href="route('login')" :active="request()->routeIs('login')">
                         Login
                     </x-responsive-nav-link>
