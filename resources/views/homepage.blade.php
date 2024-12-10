@@ -1,3 +1,2 @@
-<div>
-    <!-- Simplicity is the consequence of refined emotions. - Jean D'Alembert -->
-</div>
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+@include('layouts.navigation')
