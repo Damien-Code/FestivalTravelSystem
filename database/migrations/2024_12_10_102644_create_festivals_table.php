@@ -21,7 +21,7 @@ return new class extends Migration
 
         Schema::create('festivals', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('info_festival_id')->constrained('info_festivals');
+            $table->foreignId('info_festival_id')->constrained('festival_info');
             $table->foreignId('location_id')->constrained('locations');
             $table->dateTime('date');
             $table->timestamps();
