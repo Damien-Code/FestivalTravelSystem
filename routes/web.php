@@ -28,13 +28,13 @@ Route::get('/festivals', function () {
 })->name('festivals.index');
 
 // No login required for festivals.show
-Route::get('/festivals/show', function () {
-    return view('festivals.show');
+Route::get('/festivals/{festival}', function (int $festival) {
+    return view('festivals.show', compact('festival'));
 })->name('festivals.show');
 
 // No login required for festivals.order
-Route::get('/festivals/order', function () {
-    return view('festivals.order');
+Route::get('/festivals/{festival}/order', function (int $festival) {
+    return view('festivals.order', compact('festival'));
 })->name('festivals.order');
 
 // No login required for contact
