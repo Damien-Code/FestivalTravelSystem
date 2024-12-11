@@ -8,7 +8,7 @@
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             <div class="max-w-xl">
                 <!-- TODO: make action go to special page for searching -->
-                <form method="get" action="#" class="flex flex-col w-56 text-white">
+                <form method="get" action="{{route('festivals.show', 1)}}" class="flex flex-col w-56 text-white">
                     @csrf
                     <label>Festival</label>
                     {{-- TODO: add dropdown  --}}
