@@ -10,6 +10,17 @@
                 <p>Festivals</p>
             </div>
         </div>
+        <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4">
+            @for($i=0;$i<10;$i++)
+                <div id="{{ $i }}" class="p-4 sm:p-6 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                    <p class="font-bold text-lg">Hello {{ $i }}</p>
+                    <div class="flex flex-row">
+                        <div>{{ fake()->sentence() }}</div>
+                        <div class="w-12 ml-auto mt-auto"><a href="#">Order</a></div>
+                    </div>
+                </div>
+            @endfor
+        </div>
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             <div class="max-w-xl">
                 <p>1</p>
