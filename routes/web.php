@@ -28,7 +28,7 @@ Route::get('/festivals', function () {
 })->name('festivals.index');
 
 // No login required for festivals.show
-Route::get('/festivals/{festival}}', function (int $festival) {
+Route::get('/festivals/{festival}', function (int $festival) {
     return view('festivals.show', compact('festival'));
 })->name('festivals.show');
 

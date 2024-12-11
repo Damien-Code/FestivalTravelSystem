@@ -16,7 +16,7 @@
                     <p class="font-bold text-lg">{{ fake()->unique()->word() }} {{ $i }}</p>
                     <div class="flex flex-row h-full">
                         <div>{{ fake()->date('d-m-Y', '12-12-2026') }}</div>
-                        <div class="ml-auto mt-auto pl-2"><a href="{{ route('festivals.show') }}" class="text-blue-400 hover:text-blue-600 dark:hover:text-white">Order</a></div>
+                        <div class="ml-auto mt-auto pl-2"><a href="{{ route('festivals.show', $i) }}" class="text-blue-400 hover:text-blue-600 dark:hover:text-white">Order</a></div>
                     </div>
                 </div>
             @endfor
