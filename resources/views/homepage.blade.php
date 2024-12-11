@@ -13,7 +13,7 @@
                     <label>Festival</label>
                     {{-- TODO: add dropdown  --}}
                     <input>
-                    <label>Datum</label> 
+                    <label>Datum</label>
                     {{-- TODO: add calendar popup --}}
                     <input>
                     <button type="submit"
