@@ -7,7 +7,8 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6">
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             <div class="max-w-xl">
-                <form method="get" action="{{route('festivals.show')}}" class="flex flex-col w-56 text-white">
+                <!-- TODO: make action go to special page for searching -->
+                <form method="get" action="#" class="flex flex-col w-56 text-white">
                     @csrf
                     <label>Festival</label>
                     <input>
