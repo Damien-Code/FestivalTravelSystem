@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('routes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('festival_id')->constrained('festivals');
-            $table->foreignId('start_location_id')->constrained('locations');
+            $table->foreignId('location_id')->constrained('locations');
             $table->dateTime('departure_time');
+            $table->date('date');
             $table->double('price');
             $table->timestamps();
         });

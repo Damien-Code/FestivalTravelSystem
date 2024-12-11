@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('info_festivals', function (Blueprint $table) {
+        Schema::create('festival_info', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title', 45);
             $table->text('description');
-            $table->string('image')->nullable();
+            $table->binary('image')->nullable();
             $table->timestamps();
         });
 

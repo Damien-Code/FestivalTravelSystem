@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('bus_info', function (Blueprint $table) {
             $table->id();
+            $table->string('licence_plate', 45);
             $table->timestamps();
         });
 
