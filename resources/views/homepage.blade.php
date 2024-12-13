@@ -12,14 +12,11 @@
                     @csrf
                     <label>Festival</label>
                     {{-- TODO: add dropdown  --}}
-                    <input>
+                    <input class="rounded-lg w-56">
                     <label>Datum</label>
                     {{-- TODO: add calendar popup --}}
-                    <input>
-                    <button type="submit"
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Bekijk busreizen
-                    </button>
+                    <input class="rounded-lg mb-6 w-56">
+                    <x-primary-button>Bekijk busreizen</x-primary-button>
                 </form>
             </div>
         </div>
