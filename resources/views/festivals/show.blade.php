@@ -19,10 +19,11 @@
                         <td>23/35</td>
                         <td>$15</td>
                         <td><a href="{{route('festivals.order', 1)}}">
-                                <button type="submit"
-                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                    Bestel
-                                </button>
+{{--                                <button type="submit"--}}
+{{--                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">--}}
+{{--                                    Bestel--}}
+{{--                                </button>--}}
+                                <x-primary-button>Bestel</x-primary-button>
                             </a></td>
                     </tr>
                     <tr>
@@ -31,10 +32,11 @@
                         <td>13/35</td>
                         <td>$15</td>
                         <td><a href="{{route('festivals.order', 1)}}">
-                                <button type="submit"
-                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                    Bestel
-                                </button>
+{{--                                <button type="submit"--}}
+{{--                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">--}}
+{{--                                    Bestel--}}
+{{--                                </button>--}}
+                                <x-primary-button>Bestel</x-primary-button>
                             </a></td>
                     </tr>
                     <tr>
@@ -43,10 +45,11 @@
                         <td>33/35</td>
                         <td>$35</td>
                         <td><a href="{{route('festivals.order', 1)}}">
-                                <button type="submit"
-                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                    Bestel
-                                </button>
+{{--                                <button type="submit"--}}
+{{--                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">--}}
+{{--                                    Bestel--}}
+{{--                                </button>--}}
+                                <x-primary-button>Bestel</x-primary-button>
                             </a></td>
                     </tr>
                     </tbody>
