@@ -41,6 +41,11 @@
                     <p>Datum boeking</p>
                     <p>Locatie</p>
                 </div>
+                <div class="flex justify-between bg-gray-900 rounded-lg p-6 mb-6">
+                    <p>Festival</p>
+                    <p>Datum boeking</p>
+                    <p>Locatie</p>
+                </div>
             </div>
         </div>
     </div>
