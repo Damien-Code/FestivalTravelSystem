@@ -12,7 +12,9 @@
                     <label class="text-white">VIP punten</label>
                     <input class="rounded-lg">
                     <label class="text-white">Prijs</label>
-                    <input class="rounded-lg mb-8">
+                    <input class="rounded-lg">
+                    <label class="text-white">Aantal:</label>
+                    <input type="number" class="rounded-lg mb-6" value="1">
                     <x-primary-button>Bestel Ticket</x-primary-button>
                 </form>
             </div>
