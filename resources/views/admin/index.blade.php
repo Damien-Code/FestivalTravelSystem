@@ -4,16 +4,16 @@
             {{ __('Admin') }}
         </h2>
     </x-slot>
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6 text-white">
-        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-            <div class="max-w-xl">
+    <div class="sm:px-6 lg:px-8 pt-6 text-white flex justify-between h-96 gap-6 max-w-full">
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg w-1/3">
+            <div class="max-w-xl flex justify-between flex-col">
                 <p>Gebruikers</p>
                 <a href="{{route('admin.show_users')}}">
                     <x-primary-button>Edit</x-primary-button>
                 </a>
             </div>
         </div>
-        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg w-1/3">
             <div class="max-w-xl">
                 <p>Festivals</p>
                 <a href="{{route('admin.show_festivals')}}">
@@ -21,7 +21,7 @@
                 </a>
             </div>
         </div>
-        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg w-1/3">
             <div class="max-w-xl">
                 <p>Busreizen</p>
                 <a href="{{route('admin.show_busses')}}">
