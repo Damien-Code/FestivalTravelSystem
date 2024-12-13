@@ -1,0 +1,24 @@
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Festivals') }}
+        </h2>
+    </x-slot>
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6 text-white">
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+            <div class="max-w-xl">
+                <p>Festivals</p>
+            </div>
+        </div>
+        <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4">
+            @for($i=0;$i<10;$i++)
+                <div id="{{ $i }}" class="p-4 sm:p-6 bg-white dark:bg-gray-800 shadow sm:rounded-lg flex flex-col">
+                    <p class="font-bold text-lg">{{ fake()->unique()->word() }} {{ $i }}</p>
+                    <div class="flex flex-row h-full">
+                        <div>{{ fake()->date('d-m-Y', '12-12-2026') }}</div>
+                        <div class="ml-auto mt-auto pl-2"><a href="{{ route('festivals.show', $i) }}"><x-primary-button>Order</x-primary-button></a>
+                        </div>
+                    </div>
+                </div>
+            @endfor
+</x-app-layout>
