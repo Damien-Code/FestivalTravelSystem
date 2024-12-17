@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Festival;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class FestivalController extends Controller
@@ -10,8 +11,9 @@ class FestivalController extends Controller
     /**
      * @author Damiën van den IJssel
      * Display a listing of the resource.
+     * @return \Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index() : View
     {
         $festivals = Festival::all();
         return view('festivals.index', compact('festivals'));
