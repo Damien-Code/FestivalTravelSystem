@@ -17,7 +17,9 @@ class FestivalInfoFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => $this->faker->title(),
+            'description' => $this->faker->paragraph(),
+            // image not yet added since we may need to check how to do those (blobs arent a faker thing)
         ];
     }
 }

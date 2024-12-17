@@ -17,7 +17,9 @@ class RouteFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'departure_time' => $this->faker->dateTime(),
+            'date' => $this->faker->date(),
+            'price' => $this->faker->numberBetween(2.5,12.5),
         ];
     }
 }

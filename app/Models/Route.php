@@ -10,5 +10,9 @@ class Route extends Model
     /** @use HasFactory<\Database\Factories\RouteFactory> */
     use HasFactory;
 
-    protected $table = 'routes';
+    protected $fillable = [
+        'departure_time',
+        'date',
+        'price',
+    ];
 }

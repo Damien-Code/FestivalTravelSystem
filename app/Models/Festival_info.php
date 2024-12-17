@@ -10,5 +10,9 @@ class Festival_info extends Model
     /** @use HasFactory<\Database\Factories\FestivalInfoFactory> */
     use HasFactory;
 
-    protected $table = 'festival_info';
+    protected $fillable = [
+        'title',
+        'description',
+        'image',
+    ];
 }

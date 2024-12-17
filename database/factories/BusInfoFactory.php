@@ -17,7 +17,7 @@ class BusInfoFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'license_plate' => $this->faker->unique()->bothify('######'),
         ];
     }
 }
