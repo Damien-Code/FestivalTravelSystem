@@ -25,9 +25,7 @@ class FestivalController extends Controller
 //            $festivalInfo = Festival::whereHas('festivalInfo', function ($query) {
 //                $query->where('title', 'like', '%' . request('search') . '%');
 //            });
-            dd($festivalInfo);
         }
-
         return view('festivals.index', compact('festivals', 'festivalInfo'));
     }
 
