@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 class FestivalController extends Controller
 {
     /**
+     * @author Damiën van den IJssel
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $festivals = Festival::all();
+        return view('festival.index', compact('festivals'));
     }
 
     /**
