@@ -21,21 +21,15 @@ class FestivalController extends Controller
         $festivals = Festival::all();
         $festivalInfo = Festival_info::all();
 
-        if(request()->has('search')){
-//            $festivalInfo = Festival_info::all()->where('title', 'like', '%'.request('search').'%')->get();
+        // Check if there is a search
+        // If there is, check the search value with db
+        if(request()->has('search')) {
+            $search = request()->has('search');
             /** https://stackoverflow.com/questions/38631486/laravel-query-model-if-values-contain-a-certain-string-taken-from-search-inpu */
             $festivals = Festival::join('festival_info', 'festival_info.id', '=', 'festivals.info_festival_id')
-                ->where('festival_info.title', 'like', '%'.request('search').'%')
+                ->where('festival_info.title', 'like', '%' . $search . '%')
                 ->get();
-//            $festivalInfo = Festival_info::with('festivals')->where('title', 'like', '%'.request('search').'%')->get();
-//            $festivals = Festival::all();
-//            $festivalInfo = Festival_info::where('title', 'LIKE', '%'.request('search').'%')->get();
-//            $festivalInfo = Festival::whereHas('festivalInfo', function ($query) {
-//                $query->where('title', 'like', '%' . request('search') . '%');
-//            });
-//            dd($festivalInfo);
         }
-
         return view('festivals.index', compact('festivals', 'festivalInfo'));
     }
 
