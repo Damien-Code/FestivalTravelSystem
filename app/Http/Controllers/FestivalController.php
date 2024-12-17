@@ -26,7 +26,7 @@ class FestivalController extends Controller
             $search = request()->get('search');
             /** https://stackoverflow.com/questions/38631486/laravel-query-model-if-values-contain-a-certain-string-taken-from-search-inpu */
             $festivals = Festival::join('festival_info', 'festival_info.id', '=', 'festivals.info_festival_id')
-                ->where('festival_info.title', 'like', '%' . $search . '%')
+                ->where('festival_info.title', 'like', "%{$search}%")
                 ->get();
         }
         return view('festivals.index', compact('festivals'));
