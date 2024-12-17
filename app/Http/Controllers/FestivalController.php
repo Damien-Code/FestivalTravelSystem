@@ -25,10 +25,6 @@ class FestivalController extends Controller
              * https://stackoverflow.com/questions/38631486/laravel-query-model-if-values-contain-a-certain-string-taken-from-search-inpu
              * https://dev.to/othmane_nemli/laravel-wherehas-and-with-550o
              */
-//            $festivals = Festival::with('festivalInfo')
-//                ->whereHas('festivalInfo', function (Builder $query) use ($search) {
-//                    $query->where('festival_info.title', 'like', "%{$search}%");
-//            })->get();
             $festivals = Festival::withWhereHas('festivalInfo', function ($query) use ($search) {
                 $query->where('festival_info.title', 'like', "%{$search}%");
             })->get();
