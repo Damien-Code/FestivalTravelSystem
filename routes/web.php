@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FestivalController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,9 +24,13 @@ Route::get('/vip', function () {
 })->name('vip.index');
 
 // No login required for festivals
-Route::get('/festivals', function () {
-    return view('festivals.index');
-})->name('festivals.index');
+//Route::get('/festivals', function () {
+//    return view('festivals.index');
+//})->name('festivals.index');
+
+Route::resource('festivals', FestivalController::class)
+    ->only(['index', 'show', 'store', 'update', 'destroy']);
+
 
 // No login required for festivals.show
 Route::get('/festivals/{festival}', function (int $festival) {
