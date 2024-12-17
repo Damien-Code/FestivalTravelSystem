@@ -15,10 +15,9 @@
         </div>
         <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4">
             @foreach($festivals as $festival)
-                @foreach($festivalInfo as $festInfo)
                     <div id="{{$festival->id}}"
                          class="p-4 sm:p-6 bg-white dark:bg-gray-800 shadow sm:rounded-lg flex flex-col">
-                        <p class="font-bold text-lg">{{$festInfo->title}}</p>
+                        <p class="font-bold text-lg">{{$festival->festival_info->title}}</p>
                         <p class="font-bold text-lg">{{$festival->date}}</p>
                         <div class="flex flex-row h-full">
                             <div class="ml-auto mt-auto pl-2"><a href="{{ route('festivals.show', $festival->id) }}">
@@ -27,6 +26,5 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
             @endforeach
 </x-app-layout>
