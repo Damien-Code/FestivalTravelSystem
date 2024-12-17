@@ -16,6 +16,9 @@ class FestivalController extends Controller
     public function index() : View
     {
         $festivals = Festival::all();
+        if(request()->has('search')){
+
+        }
         return view('festivals.index', compact('festivals'));
     }
 

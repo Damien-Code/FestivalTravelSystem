@@ -6,8 +6,11 @@
     </x-slot>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6 text-white">
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-            <div class="max-w-xl">
-                <p>Festivals</p>
+            <div class="max-w-xl m-auto">
+                <form action="{{'festivals.index'}}" method="GET">
+                    <input name="search" placeholder="..." type="text" class="text-black rounded-lg w-3/4">
+                    <x-primary-button>Search</x-primary-button>
+                </form>
             </div>
         </div>
         <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4">
