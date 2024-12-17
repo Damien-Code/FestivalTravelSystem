@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Festival;
+use App\Models\Festival_info;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
@@ -15,12 +16,12 @@ class FestivalController extends Controller
      */
     public function index() : View
     {
-
         $festivals = Festival::all();
+        $festivalInfo = Festival_info::all();
         if(request()->has('search')){
             $festivals = Festival::where('name', 'like', '%'.request('search').'%')->get();
         }
-        return view('festivals.index', compact('festivals'));
+        return view('festivals.index', compact('festivals', 'festivalInfo'));
     }
 
     /**
