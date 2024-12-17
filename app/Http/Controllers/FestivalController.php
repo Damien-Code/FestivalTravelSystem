@@ -16,6 +16,7 @@ class FestivalController extends Controller
      */
     public function index() : View
     {
+//        $festivalInfo = Festival_info::with('festival')->findOrFail($id);
         $festivals = Festival::all();
         $festivalInfo = Festival_info::all();
         if(request()->has('search')){
