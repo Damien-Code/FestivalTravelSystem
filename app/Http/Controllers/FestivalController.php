@@ -15,9 +15,10 @@ class FestivalController extends Controller
      */
     public function index() : View
     {
+
         $festivals = Festival::all();
         if(request()->has('search')){
-
+            $festivals = Festival::where('name', 'like', '%'.request('search').'%')->get();
         }
         return view('festivals.index', compact('festivals'));
     }

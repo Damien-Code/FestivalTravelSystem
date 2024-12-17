@@ -14,14 +14,15 @@
             </div>
         </div>
         <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4">
-            @for($i=0;$i<10;$i++)
-                <div id="{{ $i }}" class="p-4 sm:p-6 bg-white dark:bg-gray-800 shadow sm:rounded-lg flex flex-col">
-                    <p class="font-bold text-lg">{{ fake()->unique()->word() }} {{ $i }}</p>
+            @foreach($festivals as $festival)
+                <div id="{{$festival->id}}" class="p-4 sm:p-6 bg-white dark:bg-gray-800 shadow sm:rounded-lg flex flex-col">
+                    <p class="font-bold text-lg">{{$festival->date}}</p>
                     <div class="flex flex-row h-full">
-                        <div>{{ fake()->date('d-m-Y', '12-12-2026') }}</div>
-                        <div class="ml-auto mt-auto pl-2"><a href="{{ route('festivals.show', $i) }}"><x-primary-button>Order</x-primary-button></a>
+                        <div class="ml-auto mt-auto pl-2"><a href="{{ route('festivals.show', $festival->id) }}">
+                                <x-primary-button>Order</x-primary-button>
+                            </a>
                         </div>
                     </div>
                 </div>
-            @endfor
+    @endforeach
 </x-app-layout>
