@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Festival;
 use App\Models\Festival_info;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Http\Request;
 
 class FestivalController extends Controller
@@ -20,8 +22,14 @@ class FestivalController extends Controller
         $festivalInfo = Festival_info::all();
 
         if(request()->has('search')){
-            $festivals = Festival::all();
-            $festivalInfo = Festival_info::where('title', 'LIKE', '%'.request('search').'%')->get();
+//            $festivalInfo = Festival_info::all()->where('title', 'like', '%'.request('search').'%')->get();
+            /** https://stackoverflow.com/questions/38631486/laravel-query-model-if-values-contain-a-certain-string-taken-from-search-inpu */
+            $festivalInfo = Festival::join('festival_info', 'festival_info.id', '=', 'festivals.info_festival_id')
+                ->where('festival_info.title', 'like', '%'.request('search').'%')
+                ->get();
+//            $festivalInfo = Festival_info::with('festivals')->where('title', 'like', '%'.request('search').'%')->get();
+//            $festivals = Festival::all();
+//            $festivalInfo = Festival_info::where('title', 'LIKE', '%'.request('search').'%')->get();
 //            $festivalInfo = Festival::whereHas('festivalInfo', function ($query) {
 //                $query->where('title', 'like', '%' . request('search') . '%');
 //            });
