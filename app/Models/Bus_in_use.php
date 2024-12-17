@@ -5,12 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Festival extends Model
+class Bus_in_use extends Model
 {
-    /** @use HasFactory<\Database\Factories\FestivalFactory> */
+    /** @use HasFactory<\Database\Factories\BusInUseFactory> */
     use HasFactory;
 
-    protected $fillable = [
-        'date',
-    ];
+    protected $table = 'bus_in_use';
 }

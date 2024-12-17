@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Festival extends Model
+class Order extends Model
 {
-    /** @use HasFactory<\Database\Factories\FestivalFactory> */
+    /** @use HasFactory<\Database\Factories\OrderFactory> */
     use HasFactory;
 
     protected $fillable = [
-        'date',
+        'tokens_used',
+        'final_price',
+        'amount_of_tickets',
     ];
 }

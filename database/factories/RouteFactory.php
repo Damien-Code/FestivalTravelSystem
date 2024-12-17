@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Festival>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Route>
  */
-class FestivalFactory extends Factory
+class RouteFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,9 @@ class FestivalFactory extends Factory
     public function definition(): array
     {
         return [
+            'departure_time' => $this->faker->dateTime(),
             'date' => $this->faker->date(),
+            'price' => $this->faker->numberBetween(2.5,12.5),
         ];
     }
 }

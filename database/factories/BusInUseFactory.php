@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Festival>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Bus_in_use>
  */
-class FestivalFactory extends Factory
+class BusInUseFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,7 @@ class FestivalFactory extends Factory
     public function definition(): array
     {
         return [
-            'date' => $this->faker->date(),
+            //
         ];
     }
 }

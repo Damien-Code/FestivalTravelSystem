@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Festival extends Model
+class Route extends Model
 {
-    /** @use HasFactory<\Database\Factories\FestivalFactory> */
+    /** @use HasFactory<\Database\Factories\RouteFactory> */
     use HasFactory;
 
     protected $fillable = [
+        'departure_time',
         'date',
+        'price',
     ];
 }
