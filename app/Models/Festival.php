@@ -13,4 +13,17 @@ class Festival extends Model
     protected $fillable = [
         'date',
     ];
+    public function route(){
+        return $this->hasMany(Route::class);
+    }
+
+    public function location(){
+        return $this->hasOne(Location::class);
+    }
+
+    public function festivalInfo(){
+        return $this->hasOne(Festival_info::class);
+    }
+
+    protected $table = 'festivals';
 }

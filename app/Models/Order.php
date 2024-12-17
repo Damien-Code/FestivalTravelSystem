@@ -15,4 +15,13 @@ class Order extends Model
         'final_price',
         'amount_of_tickets',
     ];
+    public function user(){
+        return $this->hasOne(User::class);
+    }
+
+    public function route(){
+        return $this->hasOne(Route::class);
+    }
+
+    protected $table = 'orders';
 }
