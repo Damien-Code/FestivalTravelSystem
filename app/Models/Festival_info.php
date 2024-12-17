@@ -9,6 +9,10 @@ class Festival_info extends Model
 {
     /** @use HasFactory<\Database\Factories\FestivalInfoFactory> */
     use HasFactory;
+    
+    public function Festival(){
+        return $this->hasMany(Festival::class);
+    }
 
     protected $table = 'festival_info';
 

@@ -10,6 +10,10 @@ class Bus_info extends Model
     /** @use HasFactory<\Database\Factories\BusInfoFactory> */
     use HasFactory;
 
+    public function bus_in_use(){
+        return $this->hasMany(Bus_in_use::class);
+    }
+
     protected $fillable = [
         'license_plate',
     ];
