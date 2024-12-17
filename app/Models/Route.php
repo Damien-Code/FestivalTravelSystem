@@ -9,4 +9,6 @@ class Route extends Model
 {
     /** @use HasFactory<\Database\Factories\RouteFactory> */
     use HasFactory;
+
+    protected $table = 'routes';
 }

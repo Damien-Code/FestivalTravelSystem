@@ -9,4 +9,6 @@ class Festival extends Model
 {
     /** @use HasFactory<\Database\Factories\FestivalFactory> */
     use HasFactory;
+
+    protected $table = 'festivals';
 }

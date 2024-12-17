@@ -9,4 +9,6 @@ class Bus_info extends Model
 {
     /** @use HasFactory<\Database\Factories\BusInfoFactory> */
     use HasFactory;
+
+    protected $table = 'bus_info';
 }
