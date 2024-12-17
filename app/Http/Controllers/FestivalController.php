@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Festival;
-use App\Models\Festival_info;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class FestivalController extends Controller
@@ -24,10 +22,14 @@ class FestivalController extends Controller
         // If there is, check the search value with db
         if(request()->has('search')) {
             $search = request()->get('search');
-            /** https://stackoverflow.com/questions/38631486/laravel-query-model-if-values-contain-a-certain-string-taken-from-search-inpu */
-            $festivals = Festival::join('festival_info', 'festival_info.id', '=', 'festivals.info_festival_id')
-                ->where('festival_info.title', 'like', "%{$search}%")
-                ->get();
+            /**
+             * https://stackoverflow.com/questions/38631486/laravel-query-model-if-values-contain-a-certain-string-taken-from-search-inpu
+             * https://dev.to/othmane_nemli/laravel-wherehas-and-with-550o
+             */
+            $festivals = Festival::with('festivalInfo')
+                ->whereHas('festivalInfo', function (Builder $query) use ($search) {
+                    $query->where('festival_info.title', 'like', "%{$search}%");
+            })->get();
         }
         return view('festivals.index', compact('festivals'));
     }
