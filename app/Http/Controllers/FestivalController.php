@@ -16,12 +16,18 @@ class FestivalController extends Controller
      */
     public function index() : View
     {
-//        $festivalInfo = Festival_info::with('festival')->findOrFail($id);
         $festivals = Festival::all();
         $festivalInfo = Festival_info::all();
+
         if(request()->has('search')){
-            $festivals = Festival::where('name', 'like', '%'.request('search').'%')->get();
+            $festivals = Festival::all();
+            $festivalInfo = Festival_info::where('title', 'LIKE', '%'.request('search').'%')->get();
+//            $festivalInfo = Festival::whereHas('festivalInfo', function ($query) {
+//                $query->where('title', 'like', '%' . request('search') . '%');
+//            });
+            dd($festivalInfo);
         }
+
         return view('festivals.index', compact('festivals', 'festivalInfo'));
     }
 
