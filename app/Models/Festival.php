@@ -13,7 +13,7 @@ class Festival extends Model
     protected $fillable = [
         'date',
     ];
-    public function route(){
+    public function routes(){
         return $this->hasMany(Route::class);
     }
 
