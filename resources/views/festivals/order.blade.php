@@ -7,20 +7,49 @@
                     <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{auth()->user()->name ?? "no name"}}" readonly>
                     <label class="text-white">Email</label>
                     <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{auth()->user()->email ?? "no email"}}" readonly>
-                    <!--NEEDS TO BE PULLED FROM DB MODEL-->
+                    <!--PULLED FROM DB MODEL-->
+                    <!--TODO: DATA MUST BE PASSED FROM PREVIOUS PAGE-->
                     <label class="text-white">Festival</label>
-                    <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{"TODO"}}" readonly>
+                    <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{"TODO: see comment"}}" readonly>
                     <!--NEEDS TO BE A CHECKBOX-->
-                    <label class="text-white">VIP punten</label>
-                    <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{"TODO"}}">
+                    <div class="flex justify-between">
+                        <label class="text-white">Gebruik VIP punten</label>
+                        <input id="vip-checkbox" class="h-5 w-5 rounded bg-neutral-300 text-gray-400" type="checkbox" onclick="UpdatePrice()">
+                    </div>
                     <label class="text-white">Aantal:</label>
-                    <input type="number" class="rounded-lg" value="1" MIN="1" MAX="35">
+                    <input id="ticket-amount" type="number" class="rounded-lg" value="1" MIN="1" MAX="35" onclick="UpdatePrice()">
                     <!--NEEDS TO BE CALCULATED WITH TICKET * AMOUNT * VIP DISCOUNT(optional)-->
                     <label class="text-white">Prijs:</label>
-                    <input class="rounded-lg mb-6" type="text" disabled>
+                    <input id="total-price" class="rounded-lg mb-6" type="text" value="" readonly>
+                    <!--Hidden input hardcoded, only used for initial logic testing-->
+                    <!--TODO: VALUE MUST BE PULLED FROM PREVIOUS PAGE DATA-->
+                    <input id="ticket-price" type="hidden" value="30.95">
                     <x-primary-button>Bestel Ticket</x-primary-button>
                 </form>
             </div>
         </div>
     </div>
 </x-app-layout>
+
+<script>
+    /* Calculates price, applies discount if applicable and rounds the price on 2 decimals */
+    function UpdatePrice(){
+        /* Obtain current inputs from the form */
+        let ticketPrice = document.getElementById("ticket-price").value;
+        let ticketAmount = document.getElementById("ticket-amount").value;
+        let isVIPCheckbox = document.getElementById("vip-checkbox").checked;
+
+        const ticketTotalPrice = document.getElementById("total-price");
+
+        /* Default is full price so default value of 1 (100%) */
+        let discount = 1;
+
+        /* Apply 20% discount if true */
+        if(isVIPCheckbox){
+            discount = 0.8;
+        }
+
+        /* Set price value */
+        ticketTotalPrice.value = (ticketPrice * ticketAmount) * discount.toFixed(2)
+    }
+</script>
