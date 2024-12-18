@@ -10,8 +10,8 @@ class BusInUse extends Model
     /** @use HasFactory<\Database\Factories\BusInUseFactory> */
     use HasFactory;
 
-    public function bus_info(){
-        return $this->hasOne(BusInfo::class);
+    public function busInfo(){
+        return $this->belongsTo(BusInfo::class);
     }
     public function belongsToRoute(){
         return $this->belongsTo(Route::class);

@@ -31,24 +31,20 @@ class DatabaseSeeder extends Seeder
             'email' => 'brighton@vanrouendal.nl',
             'role_id' => '1'
         ]);
-        User::factory(1)->create(['role_id' => 3]);
-        Location::factory(1)->create();
-        FestivalInfo::factory(1)->create();
-        Festival::factory(1)->create();
-        BusInfo::factory(1)->create();
-        Route::factory(1)
-            ->has(
-                BusInUse::factory(1)
-
-                    ->has(User::factory(1, ['role_id' => 3]))
-            )
+        User::factory(20)->create(['role_id' => 3]);
+        Location::factory(100)->create();
+        FestivalInfo::factory(100)->create();
+        Festival::factory(100)->create();
+        BusInfo::factory(100)->create();
+        Route::factory(100)
+            ->has(BusInUse::factory(rand(1, 3)))
             ->create();
 //            ->has(
 //                BusInUse::factory(1)
 //////                    ->has(User::factory(1, ['role_id' => 3]))
 //            )
-        User::factory(1)
-            ->has(Order::factory(1))
+        User::factory(100)
+            ->has(Order::factory(rand(1, 3)))
             ->create();
     }
 }
