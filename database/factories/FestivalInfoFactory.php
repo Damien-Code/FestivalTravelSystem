@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Festival_info>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\FestivalInfo>
  */
 class FestivalInfoFactory extends Factory
 {
@@ -17,7 +17,7 @@ class FestivalInfoFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->title(),
+            'title' => $this->faker->words(2, true),
             'description' => $this->faker->paragraph(),
             // image not yet added since we may need to check how to do those (blobs arent a faker thing)
         ];

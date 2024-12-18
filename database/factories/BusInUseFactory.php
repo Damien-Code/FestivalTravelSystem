@@ -2,10 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\BusInfo;
+use App\Models\Route;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Bus_in_use>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\BusInUse>
  */
 class BusInUseFactory extends Factory
 {
@@ -18,6 +21,9 @@ class BusInUseFactory extends Factory
     {
         return [
             //
+            'bus_id' => BusInfo::inRandomOrder()->first(),
+            'route_id' => Route::inRandomOrder()->first(),
+            'user_id' => User::where('role_id', 3)->inRandomOrder()->first(),
         ];
     }
 }

@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Festival_info extends Model
+class FestivalInfo extends Model
 {
     /** @use HasFactory<\Database\Factories\FestivalInfoFactory> */
     use HasFactory;
-    
+
     public function Festival(){
         return $this->hasMany(Festival::class);
     }
@@ -19,4 +19,6 @@ class Festival_info extends Model
         'description',
         'image',
     ];
+
+    protected $table = 'festival_info';
 }
