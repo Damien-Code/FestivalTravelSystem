@@ -9,16 +9,25 @@
                 <x-danger-button>Delete</x-danger-button>
             </div>
         </div>
-        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-            <div class="max-w-xl">
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg flex justify-between min-w-full">
+            <div class="max-w-xl h-56">
                 @if($errors->any())
                     {!! implode('', $errors->all('<div>:message</div>')) !!}
                 @endif
-                <form action="{{route('festivals.store')}}" method="post" enctype="multipart/form-data" class="text-black">
+                <form action="{{route('festivals.store')}}" method="post" enctype="multipart/form-data" class="text-black flex flex-col justify-evenly min-h-full">
                     @csrf
-                    <input type="text" name="title">
-                    <input type="text" name="description">
-                    <input type="file" name="image">
+                    <input type="text" name="title" class="rounded-lg" placeholder="Title">
+                    <input type="text" name="description" class="rounded-lg" placeholder="Description">
+                    <input type="file" name="image" class="rounded-lg bg-gray-50">
+                    <x-primary-button >Save</x-primary-button>
+                </form>
+            </div>
+            <div class="max-w-xl h-56">
+                <form action="{{route('festivals.store')}}" method="post" enctype="multipart/form-data" class="text-black flex flex-col justify-evenly min-h-full">
+                    @csrf
+                    <input type="text" name="title" class="rounded-lg" placeholder="Title">
+                    <input type="text" name="description" class="rounded-lg" placeholder="Description">
+                    <input type="file" name="image" class="rounded-lg bg-gray-50">
                     <x-primary-button >Save</x-primary-button>
                 </form>
             </div>
