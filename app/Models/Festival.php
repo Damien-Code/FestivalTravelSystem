@@ -13,7 +13,7 @@ class Festival extends Model
     protected $fillable = [
         'date',
     ];
-    public function routes(){
+    public function route(){
         return $this->hasMany(Route::class);
     }
 
@@ -22,7 +22,7 @@ class Festival extends Model
     }
 
     public function festivalInfo(){
-        return $this->belongsTo(FestivalInfo::class);
+        return $this->belongsTo(FestivalInfo::class, 'info_festival_id');
     }
 
     protected $table = 'festivals';
