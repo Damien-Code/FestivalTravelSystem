@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Bus_info;
+use App\Models\Route;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,6 +21,9 @@ class BusInUseFactory extends Factory
     {
         return [
             //
+            'bus_info_id' => Bus_info::factory()->create(),
+            'route_id' => Route::factory()->create(),
+            'user_id' => User::factory()->create(),
         ];
     }
 }
