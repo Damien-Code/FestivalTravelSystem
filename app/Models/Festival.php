@@ -22,7 +22,7 @@ class Festival extends Model
     }
 
     public function festivalInfo(){
-        return $this->belongsTo(Festival_info::class, 'info_festival_id');
+        return $this->belongsTo(FestivalInfo::class, 'info_festival_id');
     }
 
     protected $table = 'festivals';

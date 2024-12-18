@@ -64,8 +64,10 @@ Route::get('/admin/show_busses', function () {
     return view('admin.show_busses');
 })->middleware(['auth', 'verified'])->name('admin.show_busses');
 
+// Routes for image
+Route::post('/admin/show_festivals', [FestivalController::class, 'store'])->name('festivals.store');
 
-
+//Route::get('/festivals',[FestivalController::class, 'decodeImage']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -15,11 +15,11 @@ class Location extends Model
         'city',
         'address',
     ];
-    public function route(){
+    public function routes(){
         return $this->hasMany(Route::class);
     }
 
-    public function festival(){
+    public function festivals(){
         return $this->hasMany(Festival::class);
     }
 
