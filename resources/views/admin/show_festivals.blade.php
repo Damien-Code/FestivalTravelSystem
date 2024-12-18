@@ -11,9 +11,15 @@
         </div>
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             <div class="max-w-xl">
-                <form>
+                @if($errors->any())
+                    {!! implode('', $errors->all('<div>:message</div>')) !!}
+                @endif
+                <form action="{{route('festivals.store')}}" method="post" enctype="multipart/form-data" class="text-black">
+                    @csrf
+                    <input type="text" name="title">
+                    <input type="text" name="description">
                     <input type="file" name="image">
-                    <x-primary-button>Save</x-primary-button>
+                    <x-primary-button >Save</x-primary-button>
                 </form>
             </div>
         </div>

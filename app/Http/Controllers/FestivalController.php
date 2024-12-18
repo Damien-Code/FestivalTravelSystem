@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Festival;
+use App\Models\Festival_info;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
@@ -45,7 +46,19 @@ class FestivalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:45|min:3',
+            'description' => 'required|string|min:10',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+        $image = $request->file('image');
+        $data = base64_encode(file_get_contents($image->getRealPath()));
+        Festival_info::create([
+            'title' => $validatedData['title'],
+            'description' => $validatedData['description'],
+            'image' => $data,
+        ]);
+        return redirect()->route('admin.show_festivals');
     }
 
     /**
