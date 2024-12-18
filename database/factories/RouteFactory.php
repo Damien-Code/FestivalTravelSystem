@@ -19,7 +19,7 @@ class RouteFactory extends Factory
     public function definition(): array
     {
         return [
-            'festival_id' => Festival::factory(),
+            'festival_id' => Festival::inRandomOrder()->first(),
             'location_id' => Location::factory(),
             'departure_time' => $this->faker->dateTime(),
 //            'date' => $this->faker->date(),
