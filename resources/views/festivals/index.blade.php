@@ -15,18 +15,22 @@
         </div>
         <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4">
             @foreach($festivals as $festival)
-{{--                {{ $festival->festivalInfo }}--}}
-                    <div id="{{$festival->id}}"
-                         class="p-4 sm:p-6 bg-white dark:bg-gray-800 shadow sm:rounded-lg flex flex-col">
-                        <img src="{{$festival->festivalInfo->image}}" alt="a">
-                        <p class="font-bold text-lg">{{$festival->festivalInfo->title}}</p>
-                        <p class="font-bold text-lg">{{$festival->date}}</p>
-                        <div class="flex flex-row h-full">
-                            <div class="ml-auto mt-auto pl-2"><a href="{{ route('festivals.show', $festival->id) }}">
-                                    <x-primary-button>Order</x-primary-button>
-                                </a>
-                            </div>
+                {{--                {{ $festival->festivalInfo }}--}}
+                <div id="{{$festival->id}}"
+                     class="p-4 sm:p-6 bg-white dark:bg-gray-800 shadow sm:rounded-lg flex flex-col">
+                    <p class="font-bold text-lg">{{$festival->festivalInfo->title}}</p>
+                    <p class="font-bold text-lg">{{$festival->date}}</p>
+                    <img src="{{$festival->festivalInfo->image}}" alt="a" class="w-24">
+                    <div class="flex flex-row h-full">
+                        <div class="ml-auto mt-auto pl-2"><a href="{{ route('festivals.show', $festival->id) }}">
+                                <x-primary-button>Order</x-primary-button>
+                            </a>
                         </div>
                     </div>
+                </div>
             @endforeach
+        </div>
+        <div class="w-full flex justify-center p-8">
+            {{$festivals->links()}}
+        </div>
 </x-app-layout>

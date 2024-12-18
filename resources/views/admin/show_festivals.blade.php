@@ -26,8 +26,12 @@
                 <form action="{{route('festivals.store')}}" method="post" enctype="multipart/form-data" class="text-black flex flex-col justify-evenly min-h-full">
                     @csrf
                     <input type="text" name="title" class="rounded-lg" placeholder="Title">
-                    <input type="text" name="description" class="rounded-lg" placeholder="Description">
-                    <input type="file" name="image" class="rounded-lg bg-gray-50">
+                    <select name="cars" id="cars" class="rounded-lg">
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                        <option value="mercedes">Mercedes</option>
+                        <option value="audi">Audi</option>
+                    </select>
                     <x-primary-button >Save</x-primary-button>
                 </form>
             </div>
