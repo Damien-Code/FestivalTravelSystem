@@ -59,14 +59,21 @@ class FestivalController extends Controller
         return redirect()->route('admin.show_festivals');
     }
 
-    // Decode the blob from db
-//    public function decodeImage()
-//    {
-//        $festivals = Festival_info::all();
-//        $file_contents = base64_decode(request('image'));
-//        dd(request('image'));
-//        return view('festivals.index', compact('file_contents'));
-//    }
+
+    //Store an added festival and date to db
+    public function new(Request $request)
+    {
+        $validatedData = $request->validate([
+            'festival' => 'required',
+            'date' => 'required|date',
+        ]);
+        Festival::create([
+            'info_festival_id' => $validatedData['festival'],
+            'location_id' => 1, // TODO: make admin be able to assign location
+            'date' => $validatedData['date'],
+        ]);
+        return redirect()->route('admin.show_festivals');
+    }
 
     /**
      * Display the specified resource.

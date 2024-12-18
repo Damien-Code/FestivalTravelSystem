@@ -14,25 +14,28 @@
                 @if($errors->any())
                     {!! implode('', $errors->all('<div>:message</div>')) !!}
                 @endif
-                <form action="{{route('festivals.store')}}" method="post" enctype="multipart/form-data" class="text-black flex flex-col justify-evenly min-h-full">
+                <form action="{{route('festivals.store')}}" method="post" enctype="multipart/form-data"
+                      class="text-black flex flex-col justify-evenly min-h-full">
                     @csrf
                     <input type="text" name="title" class="rounded-lg" placeholder="Title">
                     <input type="text" name="description" class="rounded-lg" placeholder="Description">
                     <input type="file" name="image" class="rounded-lg bg-gray-50">
-                    <x-primary-button >Save</x-primary-button>
+                    <x-primary-button>Save</x-primary-button>
                 </form>
             </div>
             <div class="max-w-xl h-56">
-                <form action="{{route('festivals.store')}}" method="post" enctype="multipart/form-data" class="text-black flex flex-col justify-evenly min-h-full">
+                <form action="{{route('festivals.new')}}" method="post"
+                      class="text-black flex flex-col justify-evenly min-h-full">
                     @csrf
-                    <input type="text" name="title" class="rounded-lg" placeholder="Title">
-                    <select name="cars" id="cars" class="rounded-lg">
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
-                        <option value="mercedes">Mercedes</option>
-                        <option value="audi">Audi</option>
+                    <select name="festival" class="rounded-lg">
+                        @foreach($festivalsInfo as $info)
+                        <option value="{{$info->id}}" class="text-black">{{$info->title}}</option>
+                        @endforeach
                     </select>
-                    <x-primary-button >Save</x-primary-button>
+                    {{--                    Location will be used after location is finished--}}
+                    {{--                    <input type="text" name="title" class="rounded-lg" placeholder="Location">--}}
+                    <input type="date" name="date" class="rounded-lg" placeholder="Date">
+                    <x-primary-button>Save</x-primary-button>
                 </form>
             </div>
         </div>

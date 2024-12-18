@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\FestivalController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Festival;
+use App\Models\FestivalInfo;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/welcome', function () {
@@ -57,7 +59,9 @@ Route::get('/admin/show_users', function () {
 })->middleware(['auth', 'verified'])->name('admin.show_users');
 
 Route::get('/admin/show_festivals', function () {
-    return view('admin.show_festivals');
+    $festivals = Festival::all();
+    $festivalsInfo = FestivalInfo::all();
+    return view('admin.show_festivals', compact('festivals', 'festivalsInfo'));
 })->middleware(['auth', 'verified'])->name('admin.show_festivals');
 
 Route::get('/admin/show_busses', function () {
@@ -66,6 +70,7 @@ Route::get('/admin/show_busses', function () {
 
 // Routes for image
 Route::post('/admin/show_festivals', [FestivalController::class, 'store'])->name('festivals.store');
+Route::post('/admin/show_festivals/new', [FestivalController::class, 'new'])->name('festivals.new');
 
 //Route::get('/festivals',[FestivalController::class, 'decodeImage']);
 
