@@ -8,10 +8,13 @@
                     <label class="text-white">Email</label>
                     <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{auth()->user()->email ?? "no email"}}" readonly>
                     <!--PULLED FROM DB MODEL-->
-                    <!--TODO: DATA MUST BE PASSED FROM PREVIOUS PAGE-->
+                    <!--TODO: DATA MUST BE PASSED FROM PREVIOUS PAGE OR URI-->
                     <label class="text-white">Festival</label>
                     <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{"TODO: see comment"}}" readonly>
-                    <!--NEEDS TO BE A CHECKBOX-->
+                    <label class="text-white">Start locatie</label>
+                    <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{"TODO: see comment"}}" readonly>
+                    <label class="text-white">Datum</label>
+                    <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{"TODO: see comment"}}" readonly>
                     <div class="flex justify-between">
                         <label class="text-white">Gebruik VIP punten</label>
                         <input id="vip-checkbox" class="h-5 w-5 rounded bg-neutral-300 text-gray-400" type="checkbox" onclick="UpdatePrice()">
@@ -20,7 +23,7 @@
                     <input id="ticket-amount" type="number" class="rounded-lg" value="1" MIN="1" MAX="35" onclick="UpdatePrice()">
                     <!--NEEDS TO BE CALCULATED WITH TICKET * AMOUNT * VIP DISCOUNT(optional)-->
                     <label class="text-white">Prijs:</label>
-                    <input id="total-price" class="rounded-lg mb-6" type="text" value="" readonly>
+                    <input id="total-price" class="rounded-lg mb-6" type="text" value="30.95" readonly>
                     <!--Hidden input hardcoded, only used for initial logic testing-->
                     <!--TODO: VALUE MUST BE PULLED FROM PREVIOUS PAGE DATA-->
                     <input id="ticket-price" type="hidden" value="30.95">
