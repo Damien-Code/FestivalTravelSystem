@@ -7,6 +7,7 @@ use App\Models\Bus_info;
 use App\Models\Festival;
 use App\Models\Festival_info;
 use App\Models\Location;
+use App\Models\Order;
 use App\Models\Route;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -30,7 +31,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'brighton@vanrouendal.nl',
             'role_id' => '1'
         ]);
-        User::factory(50)->create();
         Location::factory(100)->create();
         Festival_info::factory(100)->create();
         Festival::factory(100)->create();
@@ -40,6 +40,9 @@ class DatabaseSeeder extends Seeder
                     ->has(Bus_info::factory()->create())
                     ->has(User::factory()->create(['role_id' => 3]))
             )
+            ->create();
+        User::factory(100)
+            ->has(Order::factory(rand(1,3))->create())
             ->create();
     }
 }
