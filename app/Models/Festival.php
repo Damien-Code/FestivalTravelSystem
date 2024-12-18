@@ -11,6 +11,8 @@ class Festival extends Model
     use HasFactory;
 
     protected $fillable = [
+        'info_festival_id',
+        'location_id',
         'date',
     ];
     public function route(){
