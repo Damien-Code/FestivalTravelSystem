@@ -29,7 +29,7 @@ Route::get('/festivals', function () {
 
 // No login required for festivals.show
 Route::get('/festivals/{festival}', function (\App\Models\Festival $festival) {
-    $festival->load('routes');
+    $festival->load(['routes']);
     return view('festivals.show', compact('festival'));
 })->name('festivals.show');
 
