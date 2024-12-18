@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Festival;
+use App\Models\Festival_info;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,6 +19,7 @@ class FestivalFactory extends Factory
     public function definition(): array
     {
         return [
+            'info_festival_id' => Festival_info::inRandomOrder()->first(),
             'date' => $this->faker->date(),
         ];
     }

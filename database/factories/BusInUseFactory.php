@@ -21,9 +21,9 @@ class BusInUseFactory extends Factory
     {
         return [
             //
-            'bus_info_id' => Bus_info::factory()->create(),
-            'route_id' => Route::factory()->create(),
-            'user_id' => User::factory()->create(),
+            'bus_info_id' => Bus_info::inRandomOrder()->first(),
+            'route_id' => Route::inRandomOrder()->first(),
+            'user_id' => User::inRandomOrder()->first(),
         ];
     }
 }
