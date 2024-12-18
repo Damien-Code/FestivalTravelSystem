@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Festival_info extends Model
+class FestivalInfo extends Model
 {
     /** @use HasFactory<\Database\Factories\FestivalInfoFactory> */
     use HasFactory;

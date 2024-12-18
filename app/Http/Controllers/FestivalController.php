@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Festival;
-use App\Models\Festival_info;
+use App\Models\FestivalInfo;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
@@ -55,7 +55,7 @@ class FestivalController extends Controller
         $data = "data:image/{$image->extension()};base64, ";
         $data .= base64_encode($image->openFile()->fread($image->getSize()));
 
-        Festival_info::create([
+        FestivalInfo::create([
             'title' => $validatedData['title'],
             'description' => $validatedData['description'],
             'image' => $data,

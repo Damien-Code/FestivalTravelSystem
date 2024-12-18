@@ -19,7 +19,6 @@
                     <div id="{{$festival->id}}"
                          class="p-4 sm:p-6 bg-white dark:bg-gray-800 shadow sm:rounded-lg flex flex-col">
                         <img src="{{$festival->festivalInfo->image}}" alt="a">
-                        <p>{{$festival->festivalInfo->image}}</p>
                         <p class="font-bold text-lg">{{$festival->festivalInfo->title}}</p>
                         <p class="font-bold text-lg">{{$festival->date}}</p>
                         <div class="flex flex-row h-full">
