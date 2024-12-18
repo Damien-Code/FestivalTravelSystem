@@ -22,7 +22,7 @@ class Festival extends Model
     }
 
     public function festivalInfo(){
-        return $this->hasOne(Festival_info::class);
+        return $this->hasOne(FestivalInfo::class);
     }
 
     protected $table = 'festivals';

@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Festival;
-use App\Models\Festival_info;
+use App\Models\FestivalInfo;
 use App\Models\Location;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,8 +20,8 @@ class FestivalFactory extends Factory
     public function definition(): array
     {
         return [
-            'info_festival_id' => Festival_info::inRandomOrder()->first(),
-            'location_id' => Location::inRandomOrder()->first(),
+            'info_festival_id' => FestivalInfo::inRandomOrder()->first(),
+            'location_id' => Location::inRandomOrder()->first() ?? Location::factory()->create(),
             'date' => $this->faker->dateTimeBetween('now', '+1 years')->format('Y-m-d'),
         ];
     }

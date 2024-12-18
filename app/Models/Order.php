@@ -16,7 +16,7 @@ class Order extends Model
         'amount_of_tickets',
     ];
     public function user(){
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function route(){
