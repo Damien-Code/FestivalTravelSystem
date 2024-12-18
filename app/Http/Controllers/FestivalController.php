@@ -52,7 +52,9 @@ class FestivalController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
         $image = $request->file('image');
-        $data = base64_encode(file_get_contents($image->getRealPath()));
+        $data = "data:image/{$image->extension()};base64, ";
+        $data .= base64_encode($image->openFile()->fread($image->getSize()));
+
         Festival_info::create([
             'title' => $validatedData['title'],
             'description' => $validatedData['description'],
@@ -60,6 +62,15 @@ class FestivalController extends Controller
         ]);
         return redirect()->route('admin.show_festivals');
     }
+
+    // Decode the blob from db
+//    public function decodeImage()
+//    {
+//        $festivals = Festival_info::all();
+//        $file_contents = base64_decode(request('image'));
+//        dd(request('image'));
+//        return view('festivals.index', compact('file_contents'));
+//    }
 
     /**
      * Display the specified resource.

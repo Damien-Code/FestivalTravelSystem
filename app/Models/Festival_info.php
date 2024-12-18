@@ -14,6 +14,11 @@ class Festival_info extends Model
         return $this->hasMany(Festival::class);
     }
 
+    public function decodeImage()
+    {
+        return base64_decode($this->image) ?? null;
+    }
+
     protected $table = 'festival_info';
 
     protected $fillable = [
@@ -21,8 +26,4 @@ class Festival_info extends Model
         'description',
         'image',
     ];
-    public function decodeImage()
-    {
-        return base64_decode($this->image);
-    }
 }
