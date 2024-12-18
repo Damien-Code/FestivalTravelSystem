@@ -10,10 +10,10 @@
                     <!--PULLED FROM DB MODEL-->
                     <!--TODO: DATA MUST BE PASSED FROM PREVIOUS PAGE OR URI-->
                     <label class="text-white">Festival</label>
-                    <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{"TODO: see comment"}}" readonly>
+                    <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{$festival}}" readonly>
                     <label class="text-white">Start locatie</label>
                     <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{"TODO: see comment"}}" readonly>
-                    <label class="text-white">Datum</label>
+                    <label class="text-white">Vertrekdatum</label>
                     <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{"TODO: see comment"}}" readonly>
                     <div class="flex justify-between">
                         <label class="text-white">Gebruik VIP punten</label>
