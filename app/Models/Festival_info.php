@@ -9,7 +9,7 @@ class Festival_info extends Model
 {
     /** @use HasFactory<\Database\Factories\FestivalInfoFactory> */
     use HasFactory;
-    
+
     public function Festival(){
         return $this->hasMany(Festival::class);
     }
@@ -21,4 +21,8 @@ class Festival_info extends Model
         'description',
         'image',
     ];
+    public function decodeImage()
+    {
+        return base64_decode($this->image);
+    }
 }
