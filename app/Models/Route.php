@@ -15,11 +15,16 @@ class Route extends Model
         'date',
         'price',
     ];
-    public function bus_in_use(){
-        return $this->hasMany(Bus_in_use::class);
+//    public function bus_in_use(){
+//        return $this->hasMany(BusInUse::class);
+//    }
+
+    public function busInUses()
+    {
+        return $this->hasMany(BusInUse::class);
     }
 
-    public function order(){
+    public function orders(){
         return $this->hasMany(Order::class);
     }
 
