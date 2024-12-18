@@ -32,7 +32,7 @@
                         </tr>
                     @empty
                         <tr>
-                            No Routes
+                            <td>No Routes</td>
                         </tr>
                     @endforelse
 {{--                    <tr>--}}
