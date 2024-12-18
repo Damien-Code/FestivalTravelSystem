@@ -28,6 +28,10 @@ class Route extends Model
         return $this->hasMany(Order::class);
     }
 
+    public function signups(){
+        return $this->hasMany(Order::class)->sum('amount_of_tickets');
+    }
+
     public function festival(){
         return $this->hasOne(Festival::class);
     }
