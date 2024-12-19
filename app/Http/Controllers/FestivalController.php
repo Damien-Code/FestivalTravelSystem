@@ -25,6 +25,7 @@ class FestivalController extends Controller
          */
         $festivals = Festival::withWhereHas('festivalInfo', function ($query) use ($search) {
             $query->where('festival_info.title', 'like', "%{$search}%");
+            // Order the festivals on date
         })->orderBy('festivals.date')->paginate(15);
         return view('festivals.index', compact('festivals'));
     }
@@ -42,15 +43,18 @@ class FestivalController extends Controller
      */
     public function store(Request $request)
     {
+        // Validate the request and resource
         $validatedData = $request->validate([
             'title' => 'required|string|max:45|min:3',
             'description' => 'required|string|min:10',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
+        // Encode the uploaded image to base64
         $image = $request->file('image');
         $data = "data:image/{$image->extension()};base64, ";
         $data .= base64_encode($image->openFile()->fread($image->getSize()));
 
+        // create the resource
         FestivalInfo::create([
             'title' => $validatedData['title'],
             'description' => $validatedData['description'],
@@ -60,8 +64,9 @@ class FestivalController extends Controller
     }
 
 
-    //Store an added festival and date to db
-    public function new(Request $request)
+    // Store an added festival and date to db
+    // Get the added festival from the store method and add a location and date to it
+    public function storeDate(Request $request)
     {
         $validatedData = $request->validate([
             'festival' => 'required',
