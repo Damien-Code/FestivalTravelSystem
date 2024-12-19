@@ -20,7 +20,9 @@
                      class="p-4 sm:p-6 bg-white dark:bg-gray-800 shadow sm:rounded-lg flex flex-col">
                     <p class="font-bold text-lg">{{$festival->festivalInfo->title}}</p>
                     <p class="font-bold text-lg">{{$festival->date}}</p>
-                    <img src="{{$festival->festivalInfo->image}}" alt="a" class="w-24">
+                    @if(isset($festival->festivalInfo->image))
+                        <img src="{{$festival->festivalInfo->image}}" alt="a" class="w-24">
+                    @endif
                     <div class="flex flex-row h-full">
                         <div class="ml-auto mt-auto pl-2"><a href="{{ route('festivals.show', $festival->id) }}">
                                 <x-primary-button>Order</x-primary-button>
