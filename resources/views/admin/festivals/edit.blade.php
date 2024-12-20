@@ -10,7 +10,7 @@
             @if($errors->any())
                 {!! implode('', $errors->all('<div>:message</div>')) !!}
             @endif
-            <form action="{{route('festivals.update', $festival->id)}}" method="post" enctype="multipart/form-data"
+            <form action="{{route('admin.festivals.update', $festival->id)}}" method="post" enctype="multipart/form-data"
                   class="text-black flex flex-col justify-evenly min-h-full">
                 @method('PATCH')
                 @csrf
@@ -34,7 +34,7 @@
 
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
         <div class="max-w-xl">
-            <a href="{{route('admin.festivals.show_festivals')}}">
+            <a href="{{route('admin.festivals.index')}}">
                 <x-primary-button>Back</x-primary-button>
             </a>
         </div>

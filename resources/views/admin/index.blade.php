@@ -23,7 +23,7 @@
                     <p>Totaal aantal festivals: {{$festivalCount}}</p>
                 </div>
                 <div class="flex justify-between">
-                    <a href="{{route('admin.festivals.show_festivals')}}">
+                    <a href="{{route('admin.festivals.index')}}">
                         <x-primary-button>Show festivals</x-primary-button>
                     </a>
                 </div>

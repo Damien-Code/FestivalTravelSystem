@@ -10,7 +10,7 @@
                 @if($errors->any())
                     {!! implode('', $errors->all('<div>:message</div>')) !!}
                 @endif
-                <form action="{{route('festivals.store')}}" method="post" enctype="multipart/form-data"
+                <form action="{{route('admin.festivals.store')}}" method="post" enctype="multipart/form-data"
                       class="text-black flex flex-col justify-evenly min-h-full">
                     @csrf
                     <label class="text-white text-2xl">Create a new festival:</label>
@@ -21,7 +21,7 @@
                 </form>
             </div>
             <div class="max-w-xl h-72">
-                <form action="{{route('festivals.new')}}" method="post"
+                <form action="{{route('admin.festivals.planFestival')}}" method="post"
                       class="text-black flex flex-col justify-evenly min-h-full">
                     @csrf
                     <label class="text-white text-2xl">Pair a festival:</label>
@@ -30,7 +30,7 @@
                             <option value="{{$info->id}}" class="text-black">{{$info->title}}</option>
                         @endforeach
                     </select>
-                    {{--                    Location will be used after location is finished--}}
+{{--                                        Location will be used after location is finished--}}
                     <input type="text" class="rounded-lg" placeholder="Location">
                     <input type="date" name="date" class="rounded-lg" placeholder="Date">
                     <x-primary-button>Save</x-primary-button>
@@ -40,7 +40,7 @@
 
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             <div class="max-w-xl">
-                <a href="{{route('admin.festivals.show_festivals')}}">
+                <a href="{{route('admin.festivals.index')}}">
                     <x-primary-button>Back</x-primary-button>
                 </a>
             </div>
