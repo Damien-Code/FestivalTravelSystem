@@ -10,8 +10,9 @@
             @if($errors->any())
                 {!! implode('', $errors->all('<div>:message</div>')) !!}
             @endif
-            <form action="{{route('festivals.store')}}" method="post" enctype="multipart/form-data"
+            <form action="{{route('festivals.update', $festival->id)}}" method="post" enctype="multipart/form-data"
                   class="text-black flex flex-col justify-evenly min-h-full">
+                @method('PATCH')
                 @csrf
                 <input type="text" name="title" class="rounded-lg" value="{{$festival->festivalInfo->title}}">
                 <input type="text" name="description" class="rounded-lg" value="{{$festival->festivalInfo->description}}">

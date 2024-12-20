@@ -51,14 +51,17 @@ Route::get('/contact', function () {
 
 // Login required for admin
 Route::get('/admin', function () {
+    $festival = Festival::all();
+    $festivalInfo = FestivalInfo::all();
     $festivalCount = Festival::all()->count();
-    return view('admin.index', compact('festivalCount'));
+    return view('admin.index', compact('festivalCount', 'festival', 'festivalInfo'));
 })->middleware(['auth', 'verified'])->name('admin.index');
 
 // Login required for admin
 Route::get('/admin/show_users', function () {
     return view('admin.show_users');
 })->middleware(['auth', 'verified'])->name('admin.show_users');
+
 
 // Login required for admin
 Route::get('/admin/festivals/create_festivals', function () {
@@ -77,7 +80,7 @@ Route::get('/admin/festivals/show_festivals', function () {
     return view('admin.festivals.show_festivals', compact('festivals'));
 })->middleware(['auth', 'verified'])->name('admin.festivals.show_festivals');
 
-
+Route::patch('/admin/festivals/edit_festivals/{festival}', [FestivalController::class, 'update'])->middleware(['auth', 'verified'])->name('admin.festivals.edit_festivals.update');
 // Login required for admin
 Route::get('/admin/show_busses', function () {
     return view('admin.show_busses');
@@ -87,6 +90,9 @@ Route::get('/admin/show_busses', function () {
 Route::post('/admin/festivals/create_festivals', [FestivalController::class, 'store'])->name('festivals.store');
 Route::post('/admin/show_festivals/storeDate', [FestivalController::class, 'storeDate'])->name('festivals.new');
 
+//Route::resource('admin.festivals', FestivalController::class and FestivalInfo::class )
+//    ->only(['index', 'show', 'store', 'edit','update', 'destroy'])
+//    ->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

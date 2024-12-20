@@ -101,9 +101,23 @@ class FestivalController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Festival $festival)
+    public function update(Request $request, FestivalInfo $festivalInfo, Festival $festival)
     {
-
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:45|min:3',
+            'description' => 'required|string|min:10',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+        // Encode the uploaded image to base64
+        // Image is nullable, so added if statement
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $data = "data:image/{$image->extension()};base64, ";
+            $data = base64_encode($image->openFile()->fread($image->getSize()));
+        }
+        // Update the resource
+        $festival->festivalInfo()->update($validatedData);
+        return redirect(route('admin.festivals.show_festivals'));
     }
 
     /**
