@@ -51,7 +51,8 @@ Route::get('/contact', function () {
 
 // Login required for admin
 Route::get('/admin', function () {
-    return view('admin.index');
+    $festivalCount = Festival::all()->count();
+    return view('admin.index', compact('festivalCount'));
 })->middleware(['auth', 'verified'])->name('admin.index');
 
 // Login required for admin
@@ -60,11 +61,22 @@ Route::get('/admin/show_users', function () {
 })->middleware(['auth', 'verified'])->name('admin.show_users');
 
 // Login required for admin
-Route::get('/admin/show_festivals', function () {
+Route::get('/admin/festivals/create_festivals', function () {
     $festivals = Festival::all();
     $festivalsInfo = FestivalInfo::all();
-    return view('admin.show_festivals', compact('festivals', 'festivalsInfo'));
-})->middleware(['auth', 'verified'])->name('admin.show_festivals');
+    return view('admin.festivals.create_festivals', compact('festivals', 'festivalsInfo'));
+})->middleware(['auth', 'verified'])->name('admin.festivals.create_festivals');
+
+// Login required for admin
+Route::get('/admin/festivals/show_festivals', function () {
+    $festivals = Festival::all();
+    return view('admin.festivals.show_festivals', compact('festivals'));
+})->middleware(['auth', 'verified'])->name('admin.festivals.show_festivals');
+
+Route::get('/admin/festivals/edit_festivals', function () {
+    $festivals = Festival::all();
+    return view('admin.festivals.edit_festivals', compact('festivals'));
+})->middleware(['auth', 'verified'])->name('admin.festivals.edit_festivals');
 
 // Login required for admin
 Route::get('/admin/show_busses', function () {
@@ -72,7 +84,7 @@ Route::get('/admin/show_busses', function () {
 })->middleware(['auth', 'verified'])->name('admin.show_busses');
 
 // Routes for image
-Route::post('/admin/show_festivals', [FestivalController::class, 'store'])->name('festivals.store');
+Route::post('/admin/festivals/create_festivals', [FestivalController::class, 'store'])->name('festivals.store');
 Route::post('/admin/show_festivals/storeDate', [FestivalController::class, 'storeDate'])->name('festivals.new');
 
 

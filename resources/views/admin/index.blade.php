@@ -20,11 +20,13 @@
             <div class="max-w-xl flex justify-between flex-col h-full">
                 <div>
                     <p class="text-2xl pb-10">Festivals</p>
-                    <p>Totaal aantal festivals: 49</p>
+                    <p>Totaal aantal festivals: {{$festivalCount}}</p>
                 </div>
-                <a href="{{route('admin.show_festivals')}}">
-                    <x-primary-button>Edit</x-primary-button>
-                </a>
+                <div class="flex justify-between">
+                    <a href="{{route('admin.festivals.show_festivals')}}">
+                        <x-primary-button>Show festivals</x-primary-button>
+                    </a>
+                </div>
             </div>
         </div>
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg w-1/3">

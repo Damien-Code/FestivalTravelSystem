@@ -62,7 +62,7 @@ class FestivalController extends Controller
             'description' => $validatedData['description'],
             'image' => $data ?? null // add image or null
         ]);
-        return redirect()->route('admin.show_festivals');
+        return redirect()->route('admin.festivals.create_festivals');
     }
 
 
@@ -79,7 +79,7 @@ class FestivalController extends Controller
             'location_id' => 1, // TODO: make admin be able to assign location
             'date' => $validatedData['date'],
         ]);
-        return redirect()->route('admin.show_festivals');
+        return redirect()->route('admin.festivals.create_festivals');
     }
 
     /**
