@@ -101,7 +101,7 @@ class FestivalController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, FestivalInfo $festivalInfo, Festival $festival)
+    public function update(Request $request, Festival $festival)
     {
         $validatedData = $request->validate([
             'title' => 'required|string|max:45|min:3',
