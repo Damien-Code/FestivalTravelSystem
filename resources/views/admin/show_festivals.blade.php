@@ -29,7 +29,7 @@
                     @csrf
                     <select name="festival" class="rounded-lg">
                         @foreach($festivalsInfo as $info)
-                        <option value="{{$info->id}}" class="text-black">{{$info->title}}</option>
+                            <option value="{{$info->id}}" class="text-black">{{$info->title}}</option>
                         @endforeach
                     </select>
                     {{--                    Location will be used after location is finished--}}

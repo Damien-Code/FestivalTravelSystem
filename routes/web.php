@@ -55,25 +55,27 @@ Route::get('/admin', function () {
     return view('admin.index');
 })->middleware(['auth', 'verified'])->name('admin.index');
 
+// Login required for admin
 Route::get('/admin/show_users', function () {
     return view('admin.show_users');
 })->middleware(['auth', 'verified'])->name('admin.show_users');
 
+// Login required for admin
 Route::get('/admin/show_festivals', function () {
     $festivals = Festival::all();
     $festivalsInfo = FestivalInfo::all();
     return view('admin.show_festivals', compact('festivals', 'festivalsInfo'));
 })->middleware(['auth', 'verified'])->name('admin.show_festivals');
 
+// Login required for admin
 Route::get('/admin/show_busses', function () {
     return view('admin.show_busses');
 })->middleware(['auth', 'verified'])->name('admin.show_busses');
 
 // Routes for image
 Route::post('/admin/show_festivals', [FestivalController::class, 'store'])->name('festivals.store');
-Route::post('/admin/show_festivals/new', [FestivalController::class, 'new'])->name('festivals.new');
+Route::post('/admin/show_festivals/storeDate', [FestivalController::class, 'storeDate'])->name('festivals.new');
 
-//Route::get('/festivals',[FestivalController::class, 'decodeImage']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
