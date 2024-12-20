@@ -20,8 +20,6 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6">
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             <div class="flex justify-center">
-
-
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -70,11 +68,11 @@
                                     </a>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a>
-                                        <x-danger-button>
-                                            Delete
-                                        </x-danger-button>
-                                    </a>
+                                    {{--                                    <form method="post" action="{{route('festivals.destroy', $festival->id)}}">--}}
+                                    @method('DELETE')
+                                    @csrf
+                                    <x-danger-button>Delete</x-danger-button>
+                                    {{--                                    </form>--}}
                                 </td>
                             </tr>
                         @endforeach

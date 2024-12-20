@@ -113,10 +113,14 @@ class FestivalController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $data = "data:image/{$image->extension()};base64, ";
-            $data = base64_encode($image->openFile()->fread($image->getSize()));
+            $data .= base64_encode($image->openFile()->fread($image->getSize()));
         }
         // Update the resource
-        $festival->festivalInfo()->update($validatedData);
+        $festival->festivalInfo()->update([
+            'title' => $validatedData['title'],
+            'description' => $validatedData['description'],
+            'image' => $data ?? null
+        ]);
         return redirect(route('admin.festivals.show_festivals'));
     }
 
@@ -125,6 +129,7 @@ class FestivalController extends Controller
      */
     public function destroy(Festival $festival)
     {
-        //
+        $festival->delete();
+        return redirect()->route('admin.festivals.show_festivals');
     }
 }

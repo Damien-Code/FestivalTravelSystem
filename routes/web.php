@@ -80,7 +80,10 @@ Route::get('/admin/festivals/show_festivals', function () {
     return view('admin.festivals.show_festivals', compact('festivals'));
 })->middleware(['auth', 'verified'])->name('admin.festivals.show_festivals');
 
-Route::patch('/admin/festivals/edit_festivals/{festival}', [FestivalController::class, 'update'])->middleware(['auth', 'verified'])->name('admin.festivals.edit_festivals.update');
+Route::patch('/admin/festivals/edit_festivals/{festival}', [FestivalController::class, 'update', 'destroy'])
+    ->middleware(['auth', 'verified'])
+    ->name('admin.festivals.edit_festivals.update');
+
 // Login required for admin
 Route::get('/admin/show_busses', function () {
     return view('admin.show_busses');
