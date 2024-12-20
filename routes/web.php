@@ -67,16 +67,16 @@ Route::get('/admin/festivals/create_festivals', function () {
     return view('admin.festivals.create_festivals', compact('festivals', 'festivalsInfo'));
 })->middleware(['auth', 'verified'])->name('admin.festivals.create_festivals');
 
+Route::get('/admin/festivals/edit_festivals/{festival}', function (Festival $festival) {
+    return view('admin.festivals.edit_festivals', compact('festival'));
+})->middleware(['auth', 'verified'])->name('admin.festivals.edit_festivals');
+
 // Login required for admin
 Route::get('/admin/festivals/show_festivals', function () {
     $festivals = Festival::all();
     return view('admin.festivals.show_festivals', compact('festivals'));
 })->middleware(['auth', 'verified'])->name('admin.festivals.show_festivals');
 
-Route::get('/admin/festivals/edit_festivals', function () {
-    $festivals = Festival::all();
-    return view('admin.festivals.edit_festivals', compact('festivals'));
-})->middleware(['auth', 'verified'])->name('admin.festivals.edit_festivals');
 
 // Login required for admin
 Route::get('/admin/show_busses', function () {

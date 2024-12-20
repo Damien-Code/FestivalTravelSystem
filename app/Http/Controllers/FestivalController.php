@@ -103,7 +103,7 @@ class FestivalController extends Controller
      */
     public function update(Request $request, Festival $festival)
     {
-        //
+
     }
 
     /**

@@ -14,11 +14,6 @@
                         Create new festivals
                     </x-primary-button>
                 </a>
-                <a href="{{route('admin.festivals.edit_festivals')}}">
-                    <x-primary-button>
-                        Edit festival
-                    </x-primary-button>
-                </a>
             </div>
         </div>
     </div>
@@ -68,14 +63,14 @@
                                     Amsterdam
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href="{{route('admin.festivals.edit_festivals')}}">
+                                    <a href="{{route('admin.festivals.edit_festivals', $festival->id)}}">
                                         <x-primary-button>
                                             Edit
                                         </x-primary-button>
                                     </a>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href="{{route('admin.festivals.edit_festivals')}}">
+                                    <a>
                                         <x-danger-button>
                                             Delete
                                         </x-danger-button>
@@ -86,7 +81,6 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
         </div>
     </div>

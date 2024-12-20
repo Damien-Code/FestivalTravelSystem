@@ -38,7 +38,7 @@
 
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             <div class="max-w-xl">
-                <a href="{{route('admin.index')}}">
+                <a href="{{route('admin.festivals.show_festivals')}}">
                     <x-primary-button>Back</x-primary-button>
                 </a>
             </div>
