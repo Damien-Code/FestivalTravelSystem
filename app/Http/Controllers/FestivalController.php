@@ -50,15 +50,16 @@ class FestivalController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
         // Encode the uploaded image to base64
-        $image = $request->file('image');
-        $data = "data:image/{$image->extension()};base64, ";
-        $data .= base64_encode($image->openFile()->fread($image->getSize()));
-
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $data = "data:image/{$image->extension()};base64, ";
+            $data .= base64_encode($image->openFile()->fread($image->getSize()));
+        }
         // create the resource
         FestivalInfo::create([
             'title' => $validatedData['title'],
             'description' => $validatedData['description'],
-            'image' => $data,
+            'image' => $data ?? null
         ]);
         return redirect()->route('admin.show_festivals');
     }
