@@ -5,7 +5,7 @@
                 <p class="text-white text-3xl font-bold">Festivals</p>
                 <a href="{{route('admin.festivals.create')}}">
                     <x-primary-button>
-                        Create new festivals
+                        Create new festival
                     </x-primary-button>
                 </a>
             </div>
@@ -13,15 +13,11 @@
     </div>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6">
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 text-white">
-                <div class=" sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                    <div class="max-w-xl">
-                        <form action="{{route('admin.festivals.index')}}" method="GET">
-                            <input name="search" placeholder="..." type="text" class="text-black rounded-lg w-3/4">
-                            <x-primary-button>Search</x-primary-button>
-                        </form>
-                    </div>
-                </div>
+            <div class="max-w-xl pb-6">
+                <form action="{{route('admin.festivals.index')}}" method="GET">
+                    <input name="search" placeholder="..." type="text" class="text-black rounded-lg w-3/4">
+                    <x-primary-button>Search</x-primary-button>
+                </form>
             </div>
             <div class="flex justify-center">
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
