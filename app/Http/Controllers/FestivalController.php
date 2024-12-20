@@ -50,6 +50,7 @@ class FestivalController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
         // Encode the uploaded image to base64
+        // Image is nullable, so added if statement
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $data = "data:image/{$image->extension()};base64, ";
@@ -59,7 +60,7 @@ class FestivalController extends Controller
         FestivalInfo::create([
             'title' => $validatedData['title'],
             'description' => $validatedData['description'],
-            'image' => $data ?? null
+            'image' => $data ?? null // add image or null
         ]);
         return redirect()->route('admin.show_festivals');
     }
