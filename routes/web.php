@@ -65,8 +65,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 });
 
-
-
 // Login required for admin
 Route::get('/admin/show_busses', function () {
     return view('admin.show_busses');
