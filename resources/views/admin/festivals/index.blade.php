@@ -3,11 +3,18 @@
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             <div class="flex justify-between">
                 <p class="text-white text-3xl font-bold">Festivals</p>
-                <a href="{{route('admin.festivals.create')}}">
-                    <x-primary-button>
-                        Create new festival
-                    </x-primary-button>
-                </a>
+                <div>
+                    <a href="{{route('admin.festivals.create')}}">
+                        <x-primary-button>
+                            Create new festival
+                        </x-primary-button>
+                    </a>
+                    <a>
+                        <x-primary-button>
+                            Pair a festival
+                        </x-primary-button>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

@@ -8,7 +8,7 @@
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             <div class="max-w-xl m-auto">
                 <form action="{{route('festivals.index')}}" method="GET">
-                    <input name="search" placeholder="..." type="text" class="text-black rounded-lg w-3/4">
+                    <input value="{{request('search', '')}}" name="search" placeholder="..." type="text" class="text-black rounded-lg w-3/4">
                     <x-primary-button>Search</x-primary-button>
                 </form>
             </div>
@@ -34,6 +34,7 @@
         </div>
         {{--        Pagination for festivals--}}
         <div class="w-full flex justify-center p-8">
-            {{$festivals->links()}}
+            {{$festivals->withQueryString()->links()}}
         </div>
+    </div>
 </x-app-layout>
