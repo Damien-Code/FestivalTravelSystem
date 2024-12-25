@@ -53,48 +53,46 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if(count($festivals) > 0)
-                            @foreach($festivals as $festival)
-                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                    <th scope="row"
-                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{$festival->festivalInfo->title}}
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        {{$festival->festivalInfo->description}}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{$festival->date}}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        Amsterdam
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="{{route('admin.festivals.edit', $festival->id)}}">
-                                            <x-primary-button>
-                                                Edit
-                                            </x-primary-button>
-                                        </a>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <form method="post"
-                                              action="{{route('admin.festivals.destroy', $festival->id)}}">
-                                            @method('DELETE')
-                                            @csrf
-                                            <x-danger-button>Delete</x-danger-button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        @else
+                        @forelse($festivals as $festival)
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <th scope="row"
+                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    {{$festival->festivalInfo->title}}
+                                </th>
+                                <td class="px-6 py-4">
+                                    {{$festival->festivalInfo->description}}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{$festival->date}}
+                                </td>
+                                <td class="px-6 py-4">
+                                    Amsterdam
+                                </td>
+                                <td class="px-6 py-4">
+                                    <a href="{{route('admin.festivals.edit', $festival->id)}}">
+                                        <x-primary-button>
+                                            Edit
+                                        </x-primary-button>
+                                    </a>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <form method="post"
+                                          action="{{route('admin.festivals.destroy', $festival->id)}}">
+                                        @method('DELETE')
+                                        @csrf
+                                        <x-danger-button>Delete</x-danger-button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 whitespace-nowrap">
                                 <td class="px-6 py-4">No results found.</td>
                             </tr>
-                        @endif
+                        @endforelse
                         </tbody>
                     </table>
                     <div class="w-full flex justify-center p-8">
-                            {{$festivals->withQueryString()->links()}}
+                        {{$festivals->withQueryString()->links()}}
                     </div>
                 </div>
             </div>
