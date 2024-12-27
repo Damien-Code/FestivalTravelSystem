@@ -23,7 +23,7 @@
             <div class="max-w-xl pb-6">
                 <form action="{{route('admin.festivals.index')}}" method="GET">
                     <input value="{{request('search', '')}}" name="search" placeholder="..." type="text"
-                           class="text-black rounded-lg w-3/4">
+                           class="text-black rounded-lg w-3/5 md:w-3/4">
                     <x-primary-button>Search</x-primary-button>
                 </form>
             </div>

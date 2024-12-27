@@ -19,7 +19,7 @@
                     </select>
                     {{--                                                            Location will be used after location is finished--}}
                     <input type="text" class="rounded-lg" placeholder="Location">
-                    <input type="date" name="date" class="rounded-lg" placeholder="Date">
+                    <input type="date" name="date" class="rounded-lg" placeholder="Date" min="{{date('Y-m-d')}}">
                     <x-primary-button>Save</x-primary-button>
                 </form>
             </div>
