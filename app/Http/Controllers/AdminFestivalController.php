@@ -57,7 +57,7 @@ class AdminFestivalController extends Controller
             'description' => $validatedData['description'],
             'image' => $data ?? null // add image or null
         ]);
-        return redirect()->route('admin.festivals.create');
+        return redirect()->route('admin.festivals.index');
     }
 
     // Show the form for pairing festival
