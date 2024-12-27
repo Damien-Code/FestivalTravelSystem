@@ -17,7 +17,7 @@
                             <option value="{{$info->id}}" class="text-black">{{$info->title}}</option>
                         @endforeach
                     </select>
-{{--                                                            Location will be used after location is finished--}}
+                    {{--                                                            Location will be used after location is finished--}}
                     <input type="text" class="rounded-lg" placeholder="Location">
                     <input type="date" name="date" class="rounded-lg" placeholder="Date">
                     <x-primary-button>Save</x-primary-button>

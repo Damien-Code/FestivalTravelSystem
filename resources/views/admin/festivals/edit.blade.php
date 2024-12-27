@@ -20,16 +20,6 @@
                 <x-primary-button>Update</x-primary-button>
             </form>
         </div>
-{{--        <div class="max-w-xl h-56">--}}
-{{--                <form action="{{route('festivals.new')}}" method="post"--}}
-{{--                      class="text-black flex flex-col justify-evenly min-h-full">--}}
-{{--                    @csrf--}}
-{{--                                        Location will be used after location is finished--}}
-{{--                                        <input type="text" name="title" class="rounded-lg" placeholder="Location">--}}
-{{--                    <input type="date" name="date" class="rounded-lg" placeholder="Date">--}}
-{{--                    <x-primary-button>Save</x-primary-button>--}}
-{{--                </form>--}}
-{{--        </div>--}}
     </div>
 
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">

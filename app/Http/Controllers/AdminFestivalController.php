@@ -60,6 +60,7 @@ class AdminFestivalController extends Controller
         return redirect()->route('admin.festivals.create');
     }
 
+    // Show the form for pairing festival
     public function pair(Festival $festival)
     {
         $festivalsInfo = FestivalInfo::all();
