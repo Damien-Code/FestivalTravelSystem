@@ -1,15 +1,15 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6">
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-            <div class="flex justify-between">
-                <p class="text-white text-3xl font-bold">Festivals</p>
+            <div class="md:flex justify-between sm:flex-none">
+                <p class="text-white text-3xl font-bold pb-6 md:pb-0">Festivals</p>
                 <div>
                     <a href="{{route('admin.festivals.create')}}">
                         <x-primary-button>
                             Create new festival
                         </x-primary-button>
                     </a>
-                    <a>
+                    <a href="{{route('admin.festivals.pair')}}">
                         <x-primary-button>
                             Pair a festival
                         </x-primary-button>

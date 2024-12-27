@@ -60,6 +60,12 @@ class AdminFestivalController extends Controller
         return redirect()->route('admin.festivals.create');
     }
 
+    public function pair(Festival $festival)
+    {
+        $festivalsInfo = FestivalInfo::all();
+        return view('admin.festivals.pair', compact('festivalsInfo'));
+    }
+
     // Store an added festival and date to db
     // Get the added festival from the store method and add a location and date to it
     public function planFestival(Request $request)

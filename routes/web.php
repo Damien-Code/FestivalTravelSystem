@@ -60,6 +60,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::prefix('admin')->group(function () {
             Route::resource('festivals', AdminFestivalController::class)
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+            Route::get('/festivals/pair', [AdminFestivalController::class, 'pair'])->name('festivals.pair');
             Route::post('/festivals/planFestival', [AdminFestivalController::class, 'planFestival'])->name('festivals.planFestival');
         });
     });
