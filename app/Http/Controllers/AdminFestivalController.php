@@ -4,14 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Festival;
 use App\Models\FestivalInfo;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\View\View;
+use PHPUnit\TextUI\Application;
 
 class AdminFestivalController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
         // Check if there is a search
         // If there is, check the search value with db
@@ -27,7 +32,7 @@ class AdminFestivalController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
         $festivalsInfo = FestivalInfo::all();
         return view('admin.festivals.create', compact('festivalsInfo'));
@@ -36,7 +41,7 @@ class AdminFestivalController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         // Validate the request and resource
         $validatedData = $request->validate([
@@ -61,7 +66,7 @@ class AdminFestivalController extends Controller
     }
 
     // Show the form for pairing festival
-    public function pair(Festival $festival)
+    public function pair(Festival $festival): View
     {
         $festivalsInfo = FestivalInfo::all();
         return view('admin.festivals.pair', compact('festivalsInfo'));
@@ -69,7 +74,7 @@ class AdminFestivalController extends Controller
 
     // Store an added festival and date to db
     // Get the added festival from the store method and add a location and date to it
-    public function planFestival(Request $request)
+    public function planFestival(Request $request): RedirectResponse
     {
         $validatedData = $request->validate([
             'festival' => 'required',
@@ -94,7 +99,7 @@ class AdminFestivalController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Festival $festival)
+    public function edit(Festival $festival): View
     {
         return view('admin.festivals.edit', compact('festival'));
     }
@@ -102,7 +107,7 @@ class AdminFestivalController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Festival $festival)
+    public function update(Request $request, Festival $festival): RedirectResponse
     {
         $validatedData = $request->validate([
             'title' => 'required|string|max:45|min:3',
@@ -128,7 +133,7 @@ class AdminFestivalController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Festival $festival)
+    public function destroy(Festival $festival): RedirectResponse
     {
         $festival->delete();
         return redirect()->route('admin.festivals.index');

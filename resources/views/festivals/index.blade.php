@@ -19,7 +19,7 @@
                 <div id="{{$festival->id}}"
                      class="p-4 sm:p-6 bg-white dark:bg-gray-800 shadow sm:rounded-lg flex flex-col">
                     <p class="font-bold text-lg">{{$festival->festivalInfo->title}}</p>
-                    <p class="font-bold text-lg">{{$festival->date}}</p>
+                    <p class="font-bold text-lg">{{\Carbon\Carbon::parse($festival->date)->format('j M Y')}}</p>
                     {{--                    Only show the image if the image is set to that festival--}}
                     @if(isset($festival->festivalInfo->image))
                         <img src="{{$festival->festivalInfo->image}}" alt="image" class="w-24">
