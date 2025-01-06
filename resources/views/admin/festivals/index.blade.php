@@ -63,7 +63,7 @@
                                     {{$festival->festivalInfo->description}}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{$festival->date}}
+                                    {{\Carbon\Carbon::parse($festival->date)->format('Y-m-d')}}
                                 </td>
                                 <td class="px-6 py-4">
                                     Amsterdam
