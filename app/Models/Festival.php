@@ -15,7 +15,7 @@ class Festival extends Model
         'location_id',
         'date',
     ];
-    public function route(){
+    public function routes(){
         return $this->hasMany(Route::class);
     }
 

@@ -30,10 +30,9 @@ Route::get('/vip', function () {
 Route::resource('festivals', FestivalController::class)
     ->only(['index', 'show']);
 
-
 // No login required for festivals.order
-Route::get('/festivals/{festival}/order', function (int $festival) {
-    return view('festivals.order', compact('festival'));
+Route::get('/festivals/{festival}/order/{route}', function (\App\Models\Festival $festival, \App\Models\Route $route) {
+    return view('festivals.order', compact('festival', 'route'));
 })->name('festivals.order');
 
 // No login required for contact
