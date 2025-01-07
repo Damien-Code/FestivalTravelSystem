@@ -14,11 +14,11 @@ class FestivalInfo extends Model
         return $this->hasMany(Festival::class);
     }
 
+    protected $table = 'festival_info';
+
     protected $fillable = [
         'title',
         'description',
         'image',
     ];
-
-    protected $table = 'festival_info';
 }

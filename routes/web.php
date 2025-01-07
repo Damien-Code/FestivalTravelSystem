@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FestivalController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,18 +24,23 @@ Route::get('/vip', function () {
 })->name('vip.index');
 
 // No login required for festivals
-Route::get('/festivals', function () {
-    return view('festivals.index');
-})->name('festivals.index');
+//Route::get('/festivals', function () {
+//    return view('festivals.index');
+//})->name('festivals.index');
+
+Route::resource('festivals', FestivalController::class)
+    ->only(['index', 'show', 'store', 'update', 'destroy']);
+
 
 // No login required for festivals.show
-Route::get('/festivals/{festival}', function (int $festival) {
+Route::get('/festivals/{festival}', function (\App\Models\Festival $festival) {
+    $festival->load(['routes']);
     return view('festivals.show', compact('festival'));
 })->name('festivals.show');
 
 // No login required for festivals.order
-Route::get('/festivals/{festival}/order', function (int $festival) {
-    return view('festivals.order', compact('festival'));
+Route::get('/festivals/{festival}/order/{route}', function (\App\Models\Festival $festival, \App\Models\Route $route) {
+    return view('festivals.order', compact('festival', 'route'));
 })->name('festivals.order');
 
 // No login required for contact
@@ -59,8 +65,10 @@ Route::get('/admin/show_busses', function () {
     return view('admin.show_busses');
 })->middleware(['auth', 'verified'])->name('admin.show_busses');
 
+// Routes for image
+Route::post('/admin/show_festivals', [FestivalController::class, 'store'])->name('festivals.store');
 
-
+//Route::get('/festivals',[FestivalController::class, 'decodeImage']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
