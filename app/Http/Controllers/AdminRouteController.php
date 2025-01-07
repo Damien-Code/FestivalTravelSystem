@@ -13,6 +13,13 @@ class AdminRouteController extends Controller
     public function index()
     {
         //
+        $search = request()->get('search') ?? '';
+        $routes = Route::withWhereHas('festival', function ($query) use ($search) {
+            $query->withWhereHas('festivalInfo', function ($query2) use ($search) {
+                $query2->where('festival_info.title', 'like', "%{$search}%");
+            });
+        })->orderBy('routes.departure_time')->paginate(15);
+        return view('admin.routes.index', compact('routes'));
     }
 
     /**
