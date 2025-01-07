@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BusInfo;
+use App\Models\BusInUse;
+use App\Models\Festival;
 use App\Models\Route;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminRouteController extends Controller
@@ -28,7 +32,9 @@ class AdminRouteController extends Controller
     public function create()
     {
         //
-        return view('admin.routes.create');
+        $festivals = Festival::with('festivalInfo')->where('date', '>=', now())->orderBy('date')->get();
+
+        return view('admin.routes.create', compact('festivals'));
     }
 
     /**
@@ -37,6 +43,41 @@ class AdminRouteController extends Controller
     public function store(Request $request)
     {
         //
+        $validated = $request->validate([
+            'festival' => 'required',
+            'location' => 'required',
+            'date' => 'required|date',
+            'time' => 'required',
+            'price' => 'required',
+        ]);
+        $busInUse = BusInUse::withWhereHas('routes', function ($query) use ($validated) {
+            $query->whereBetween('departure_time', [$validated['date'].' 00:00:00', $validated['date'].' 23:59:59',]);
+        })->get();
+
+        $bus = BusInfo::whereNotIn('id', $busInUse->pluck('id'))->first();
+        if ($bus == null) {
+            return redirect()->back()->withErrors('bus', 'No Bus Available On This Date');
+        }
+
+        $user = User::where('role_id', '=', 3)->withWhereHas('busInUse', function ($query) use ($busInUse) {
+            $query->whereNotIn('id', $busInUse->pluck('id'));
+        })->first();
+
+        $route = Route::create([
+            'festival_id' => $validated['festival'],
+            'location_id' => 1,
+            'departure_time' => $validated['date'],
+            'date' => now()->format('Y-m-d'),
+            'price' => $validated['price'],
+        ]);
+
+        BusInUse::create([
+            'route_id' => $route->id,
+            'user_id' => $user->id,
+            'bus_id' => $bus->id,
+        ]);
+
+        return redirect()->route('admin.routes.index');
     }
 
     /**
