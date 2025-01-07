@@ -4,7 +4,7 @@
             Festival - {{ $festival->festivalInfo->title }}
         </h2>
     </x-slot>
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6 text-white">
+    <div class="mx-auto sm:px-6 lg:px-8 space-y-6 pt-6 text-white">
         <section class="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
             <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0" id="{{$festival->id}}">
                 <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
@@ -15,16 +15,21 @@
                     </div>
 
                     <div class="mt-6 sm:mt-8 lg:mt-0">
-                        <h1
-                            class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white"
-                        >
-                            {{$festival->festivalInfo->title}}
-                        </h1>
+                        <div class="flex justify-between">
+                            <h1
+                                class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white"
+                            >
+                                {{$festival->festivalInfo->title}}
+                            </h1>
+                            <a href="{{route('festivals.index')}}">
+                                <x-primary-button>Back</x-primary-button>
+                            </a>
+                        </div>
                         <div class="mt-4 sm:items-center sm:gap-4 sm:flex">
                             <p
                                 class="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white"
                             >
-                                $1,249.99
+                                {{$festival->location->city}} , {{$festival->location->country}}
                             </p>
 
                             <div class="flex items-center gap-2 mt-2 sm:mt-0">
@@ -39,13 +44,12 @@
                         <hr class="my-6 md:my-8border-gray-200 dark:border-gray-800"/>
 
                         <p class="mb-6 text-gray-500 dark:text-gray-400">
-                            {{$festival->location->city}} , {{$festival->location->country}}
+                            Adress: {{$festival->location->address}}
                         </p>
 
                         <p class="text-gray-500 dark:text-gray-400 pb-6">
                             {{$festival->festivalInfo->description}}
                         </p>
-
 
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
