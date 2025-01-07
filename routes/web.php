@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminFestivalController;
 use App\Http\Controllers\AdminRouteController;
 use App\Http\Controllers\FestivalController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Festival;
 use App\Models\FestivalInfo;
@@ -36,6 +37,9 @@ Route::resource('festivals', FestivalController::class)
 Route::get('/festivals/{festival}/order/{route}', function (\App\Models\Festival $festival, \App\Models\Route $route) {
     return view('festivals.order', compact('festival', 'route'));
 })->name('festivals.order');
+
+// Route for storing tickets
+Route::post('/festivals/{festival}/order/{route}', [OrderController::class, 'store'])->name('order.store');
 
 // No login required for contact
 Route::get('/contact', function () {
