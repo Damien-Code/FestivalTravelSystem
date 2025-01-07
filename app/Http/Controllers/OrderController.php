@@ -33,6 +33,7 @@ class OrderController extends Controller
      */
     public function store(Request $request, Festival $festival, Route $route)
     {
+        //Validate form data
         $validatedData = $request->validate([
             'ticket-amount' => 'required',
             'total-price' => 'required',
@@ -40,9 +41,11 @@ class OrderController extends Controller
 
         //Validate submitted price
         if($request->get('total-price') != $route->price * $request->get('ticket-amount') * ($request->has('vip-checkbox') ? 0.8 : 1.0)) {
-            //set error msg and return to order screen
+            //Set error msg and return to order screen
             return redirect()->back()->withErrors(['error' => 'The submitted price is incorrect. Please try again.']);
         }
+
+        //TODO: subtract/add points to the user
 
         Order::create([
             'user_id' => auth()->user()->id,
