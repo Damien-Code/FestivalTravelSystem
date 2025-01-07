@@ -19,6 +19,8 @@ class FestivalInfoFactory extends Factory
         return [
             'title' => $this->faker->words(2, true),
             'description' => $this->faker->paragraph(),
+//            'image' => 'https://source.unsplash.com/random/800x800',
+            'image' => $this->faker->imageUrl(),
             // image not yet added since we may need to check how to do those (blobs arent a faker thing)
         ];
     }
