@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Festival;
+use App\Models\FestivalInfo;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
