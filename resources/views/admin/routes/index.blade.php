@@ -4,11 +4,11 @@
             <div class="md:flex justify-between sm:flex-none">
                 <p class="text-white text-3xl font-bold pb-6 md:pb-0">Festivals</p>
                 <div>
-{{--                    <a href="{{route('admin.routes.create')}}">--}}
-{{--                        <x-primary-button>--}}
-{{--                            Create new route--}}
-{{--                        </x-primary-button>--}}
-{{--                    </a>--}}
+                    <a href="{{route('admin.routes.create')}}">
+                        <x-primary-button>
+                            Create new route
+                        </x-primary-button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -30,6 +30,9 @@
                         <tr>
                             <th scope="col" class="px-6 py-3">
                                 Festival name
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Festival date
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Location
@@ -56,11 +59,14 @@
                                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{$route->festival->festivalInfo->title}}
                                 </th>
+                                <th class="px-6 py-4">
+                                    {{ \Carbon\Carbon::parse($route->festival->date)->format('Y-m-d')  }}
+                                </th>
                                 <td class="px-6 py-4">
                                     {{$route->location->city}}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{\Carbon\Carbon::parse($route->departure_time)->format('Y-m-d')}}
+                                    {{\Carbon\Carbon::parse($route->departure_time)->format('Y-m-d / H:i')}}
                                 </td>
                                 <td class="px-6 py-4">
                                     {{ $route->price }}
@@ -74,7 +80,7 @@
                         </tbody>
                     </table>
                     <div class="w-full flex justify-center p-8">
-{{--                        {{$festivals->withQueryString()->links()}}--}}
+                        {{$routes->withQueryString()->links()}}
                     </div>
                 </div>
             </div>
