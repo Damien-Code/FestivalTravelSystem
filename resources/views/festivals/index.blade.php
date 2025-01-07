@@ -5,15 +5,19 @@
         </h2>
     </x-slot>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6 text-white">
-        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-            <div class="max-w-xl m-auto">
-                <form action="{{route('festivals.index')}}" method="GET">
-                    <input value="{{request('search', '')}}" name="search" placeholder="..." type="text"
-                           class="text-black rounded-lg w-3/4">
-                    <x-primary-button>Search</x-primary-button>
-                </form>
+        <form class="max-w-md mx-auto" action="{{route('festivals.index')}}" method="GET">
+            <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+            <div class="relative">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                    </svg>
+                </div>
+
+                <input  value="{{request('search', '')}}" name="search" type="text" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search festivals..." required />
+                <x-primary-button class="absolute end-2.5 bottom-2.5" >Search</x-primary-button>
             </div>
-        </div>
+        </form>
         @forelse($festivals as $festival)
             <section class="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
                 <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0" id="{{$festival->id}}">
