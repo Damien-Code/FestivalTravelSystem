@@ -10,10 +10,16 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use PHPUnit\TextUI\Application;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class AdminFestivalController extends Controller
 {
     /**
+     * @author Damiën van den IJssel & Brighton van Rouendal
+     * @return View
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      * Display a listing of the resource.
      */
     public function index(): View
@@ -30,7 +36,9 @@ class AdminFestivalController extends Controller
     }
 
     /**
+     * @author Damiën van den IJssel
      * Show the form for creating a new resource.
+     * @return View
      */
     public function create(): View
     {
@@ -39,6 +47,8 @@ class AdminFestivalController extends Controller
     }
 
     /**
+     * @author Damiën van den IJssel
+     * @return RedirectResponse
      * Store a newly created resource in storage.
      */
     public function store(Request $request): RedirectResponse
@@ -65,13 +75,22 @@ class AdminFestivalController extends Controller
         return redirect()->route('admin.festivals.index');
     }
 
-    // Show the form for pairing festival
-    public function pair(Festival $festival): View
+    /**
+     * @author Damiën van den IJssel
+     * @return View
+     * Show the form for pairing festival
+     */
+    public function pair(): View
     {
         $festivalsInfo = FestivalInfo::all();
         return view('admin.festivals.pair', compact('festivalsInfo'));
     }
 
+    /**
+     * @author Damiën van den IJssel
+     * @param Request $request
+     * @return RedirectResponse
+     */
     // Store an added festival and date to db
     // Get the added festival from the store method and add a location and date to it
     public function planFestival(Request $request): RedirectResponse
@@ -97,6 +116,8 @@ class AdminFestivalController extends Controller
     }
 
     /**
+     * @author Damiën van den IJssel
+     * @return View
      * Show the form for editing the specified resource.
      */
     public function edit(Festival $festival): View
@@ -105,6 +126,8 @@ class AdminFestivalController extends Controller
     }
 
     /**
+     * @author Damiën van den IJssel
+     * @return RedirectResponse
      * Update the specified resource in storage.
      */
     public function update(Request $request, Festival $festival): RedirectResponse
@@ -131,6 +154,8 @@ class AdminFestivalController extends Controller
     }
 
     /**
+     * @author Damiën van den IJssel
+     * @return RedirectResponse
      * Remove the specified resource from storage.
      */
     public function destroy(Festival $festival): RedirectResponse
