@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminFestivalController;
+use App\Http\Controllers\AdminRouteController;
 use App\Http\Controllers\FestivalController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Festival;
@@ -61,6 +62,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
             Route::get('/festivals/pair', [AdminFestivalController::class, 'pair'])->name('festivals.pair');
             Route::post('/festivals/planFestival', [AdminFestivalController::class, 'planFestival'])->name('festivals.planFestival');
+
+            Route::resource('/routes', AdminRouteController::class)
+                ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
         });
     });
 });
