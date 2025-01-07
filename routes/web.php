@@ -6,6 +6,7 @@ use App\Http\Controllers\FestivalController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Festival;
 use App\Models\FestivalInfo;
+use App\Models\Route as ModelsRoute;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/welcome', function () {
@@ -46,7 +47,8 @@ Route::get('/admin', function () {
     $festival = Festival::all();
     $festivalInfo = FestivalInfo::all();
     $festivalCount = Festival::all()->count();
-    return view('admin.index', compact('festivalCount', 'festival', 'festivalInfo'));
+    $routesCount = ModelsRoute::all()->count();
+    return view('admin.index', compact('festivalCount', 'festival', 'festivalInfo', 'routesCount'));
 })->middleware(['auth', 'verified'])->name('admin.index');
 
 // Login required for admin
