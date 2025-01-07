@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FestivalController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -69,6 +70,9 @@ Route::get('/admin/show_busses', function () {
 Route::post('/admin/show_festivals', [FestivalController::class, 'store'])->name('festivals.store');
 
 //Route::get('/festivals',[FestivalController::class, 'decodeImage']);
+
+// Route for storing tickets
+Route::post('/festivals/order', [OrderController::class, 'store'])->name('order.store');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

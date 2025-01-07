@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Festival;
+use App\Models\Order;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -11,7 +13,7 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index() : RedirectResponse
+    public function index(Request $request) : RedirectResponse
     {
         //
         return Redirect::route('festival.order');
@@ -30,7 +32,36 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        //TODO:Ticket processing
+        $validatedData = $request->validate([
+            //tokens_used?
+            //user_id doesn't need to be validated?
+            //'user_id' => 'required',
+            //can final_price be calculated and validated here?
+            //price validation here?
+            //'vip-checkbox' => 'required', // 100 if checked, 0 if not?
+            'route-id' => 'required',
+            'ticket-amount' => 'required',
+            'total-price' => 'required',
+        ]);
+
+        //TODO:change to single line if statement in create
+        $tokensUsed = 0;
+
+        //checkbox doesn't get passed when unchecked
+        if($request->get('vip-checkbox') != null){
+            $tokensUsed = 100;
+        }
+
         //
+        Order::create([
+            'user_id' => auth()->user()->id,
+            'route_id' => $validatedData['route-id'],
+            'tokens_used' => $tokensUsed,
+            'amount_of_tickets' => $validatedData['ticket-amount'],
+            'final_price' => $validatedData['total-price'],
+        ]);
+        return redirect()->route('festivals.index');
     }
 
     /**

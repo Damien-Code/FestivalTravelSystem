@@ -2,25 +2,29 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6">
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg flex flex-row justify-between">
             <div class="max-w-xl mr-4">
-                <form class="flex flex-col gap-2 w-80" action="{{route('festivals.index')}}">
-                    <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{auth()->user()->name ?? "no name"}}" readonly>
-                    <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{auth()->user()->email ?? "no email"}}" readonly>
+                <form class="flex flex-col gap-2 w-80" method="POST" action="{{route('order.store')}}">
+                    @csrf
+                    <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{auth()->user()->name ?? "no name"}}" disabled>
+                    <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{auth()->user()->email ?? "no email"}}" disabled>
                     <!--PULLED FROM DB MODEL-->
                     <!--TODO: DATA MUST BE PASSED FROM PREVIOUS PAGE OR URI-->
-                    <input class="rounded-lg bg-neutral-300 text-gray-400" value="festival id: {{$festival}}" readonly>
-                    <input class="rounded-lg bg-neutral-300 text-gray-400" placeholder="start locatie" readonly>
-                    <input class="rounded-lg bg-neutral-300 text-gray-400" placeholder="vertrekdatum" readonly>
+                    <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{$festival->festivalInfo->title ?? "no festival title"}}" disabled>
+                    <input class="rounded-lg bg-neutral-300 text-gray-400" name="route-id" value="{{$route->id}}" hidden>
+                    <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{$route->location->country . " " . $route->location->city . " " . $route->location->address ?? "no festival location"}}" disabled>
+                    <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{$route->departure_time ?? "no festival departure time"}}" disabled>
                     <div class="flex justify-between border rounded-lg p-2">
                         <label class="text-white">Gebruik VIP punten</label>
-                        <input id="vip-checkbox" class="h-5 w-5 rounded bg-neutral-300 text-gray-400" type="checkbox" onclick="UpdatePrice()">
+                        <input name="vip-checkbox" id="vip-checkbox" class="h-5 w-5 rounded bg-neutral-300 text-gray-400" type="checkbox" onclick="UpdatePrice()">
                     </div>
                     <div class="flex flex-row justify-between gap-2">
-                        <input id="ticket-amount" type="number" class="rounded-lg w-1/2" value="1" MIN="1" MAX="35" onclick="UpdatePrice()">
-                        <input id="total-price" class="rounded-lg w-1/2" type="text" value="30.95" readonly>
+                        <input name="ticket-amount" id="ticket-amount" type="number" class="rounded-lg w-1/2" value="1" MIN="1" MAX="35" onclick="UpdatePrice()">
+                        <span class="valuta">
+                            <input name="total-price" id="total-price" class="rounded-lg pl-4" type="text" value="{{$route->price}}" readonly>
+                        </span>
                     </div>
                     <!--Hidden input hardcoded, only used for initial logic testing-->
                     <!--TODO: VALUE MUST BE PULLED FROM PREVIOUS PAGE DATA-->
-                    <input id="ticket-price" type="hidden" value="30.95">
+                    <input id="ticket-price" type="hidden" value="{{$route->price}}">
                     <x-primary-button class="justify-center">Bestel Ticket</x-primary-button>
                 </form>
             </div>
@@ -31,6 +35,7 @@
             </div>
         </div>
     </div>
+    <!--url error handling. Check if festival id is the same route id, else throw error page-->
 </x-app-layout>
 
 <script>
