@@ -29,7 +29,7 @@
                     <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
                         <div class="shrink-0 max-w-md lg:max-w-lg mx-auto">
                             @if(isset($festival->festivalInfo->image))
-                                <img class="w-full" src="{{$festival->festivalInfo->image}}" alt="image" class="w-24">
+                                <img class="w-full rounded-lg" src="{{$festival->festivalInfo->image}}" alt="image" class="w-24">
                             @endif
                         </div>
 
