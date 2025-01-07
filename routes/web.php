@@ -44,6 +44,9 @@ Route::get('/festivals/{festival}/order/{route}', function (\App\Models\Festival
     return view('festivals.order', compact('festival', 'route'));
 })->name('festivals.order');
 
+// Route for storing tickets
+Route::post('/festivals/{festival}/order/{route}', [OrderController::class, 'store'])->name('order.store');
+
 // No login required for contact
 Route::get('/contact', function () {
     return view('contact.index');
@@ -70,9 +73,6 @@ Route::get('/admin/show_busses', function () {
 Route::post('/admin/show_festivals', [FestivalController::class, 'store'])->name('festivals.store');
 
 //Route::get('/festivals',[FestivalController::class, 'decodeImage']);
-
-// Route for storing tickets
-Route::post('/festivals/order', [OrderController::class, 'store'])->name('order.store');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

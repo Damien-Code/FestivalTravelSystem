@@ -2,14 +2,14 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6">
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg flex flex-row justify-between">
             <div class="max-w-xl mr-4">
-                <form class="flex flex-col gap-2 w-80" method="POST" action="{{route('order.store')}}">
+            @include('layouts.error')
+                <form class="flex flex-col gap-2 w-80" method="POST" action="{{route('order.store', [$festival, $route])}}">
                     @csrf
                     <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{auth()->user()->name ?? "no name"}}" disabled>
                     <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{auth()->user()->email ?? "no email"}}" disabled>
                     <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{$festival->festivalInfo->title ?? "no festival title"}}" disabled>
                     <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{$route->location->country . " " . $route->location->city . " " . $route->location->address ?? "no festival location"}}" disabled>
                     <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{$route->departure_time ?? "no festival departure time"}}" disabled>
-                    <input class="rounded-lg bg-neutral-300 text-gray-400" name="route-id" value="{{$route->id}}" hidden>
                     <div class="flex justify-between border rounded-lg p-2">
                         <label class="text-white">Gebruik VIP punten</label>
                         <input name="vip-checkbox" id="vip-checkbox" class="h-5 w-5 rounded bg-neutral-300 text-gray-400" type="checkbox" onclick="UpdatePrice()">

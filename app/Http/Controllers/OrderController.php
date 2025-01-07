@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Festival;
 use App\Models\Order;
+use App\Models\Route;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -30,23 +31,22 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Festival $festival, Route $route)
     {
-        //TODO:Ticket processing
         $validatedData = $request->validate([
-            //tokens_used?
-            //user_id doesn't need to be validated?
-            //'user_id' => 'required',
-            //can final_price be calculated and validated here?
-            //price validation here?
-            'route-id' => 'required',
             'ticket-amount' => 'required',
             'total-price' => 'required',
         ]);
 
+        //Validate submitted price
+        if($request->get('total-price') != $route->price * $request->get('ticket-amount') * ($request->has('vip-checkbox') ? 0.8 : 1.0)) {
+            //set error msg and return to order screen
+            return redirect()->back()->withErrors(['error' => 'The submitted price is incorrect. Please try again.']);
+        }
+
         Order::create([
             'user_id' => auth()->user()->id,
-            'route_id' => $validatedData['route-id'],
+            'route_id' => $route->id,
             'tokens_used' => $request->has('vip-checkbox') ? 100 : 0,
             'amount_of_tickets' => $validatedData['ticket-amount'],
             'final_price' => $validatedData['total-price'],
