@@ -10,9 +10,9 @@ use Illuminate\Http\Request;
 class FestivalController extends Controller
 {
     /**
-     * @author Damiën van den IJssel
+     * @author Damiën van den IJssel & Brighton van Rouendal
      * Display a listing of the resource.
-     * @return \Illuminate\Contracts\View\View
+     * @return View
      */
     public function index() : View
     {
@@ -31,9 +31,12 @@ class FestivalController extends Controller
     }
 
     /**
+     * @param Festival $festival
+     * @return View
+     * @author Damiën van den IJssel
      * Display the specified resource.
      */
-    public function show(Festival $festival)
+    public function show(Festival $festival) : View
     {
         //
         return view('festivals.show', compact('festival'));
