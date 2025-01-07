@@ -36,7 +36,7 @@ Route::resource('festivals', FestivalController::class)
 // No login required for festivals.order
 Route::get('/festivals/{festival}/order/{route}', function (\App\Models\Festival $festival, \App\Models\Route $route) {
     return view('festivals.order', compact('festival', 'route'));
-})->name('festivals.order');
+})->name('festivals.order')->middleware('auth');
 
 // Route for storing tickets
 Route::post('/festivals/{festival}/order/{route}', [OrderController::class, 'store'])->name('order.store');
