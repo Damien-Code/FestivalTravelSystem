@@ -31,9 +31,9 @@ class FestivalController extends Controller
     }
 
     /**
+     * @author Damiën van den IJssel
      * @param Festival $festival
      * @return View
-     * @author Damiën van den IJssel
      * Display the specified resource.
      */
     public function show(Festival $festival) : View
