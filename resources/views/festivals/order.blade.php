@@ -6,12 +6,10 @@
                     @csrf
                     <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{auth()->user()->name ?? "no name"}}" disabled>
                     <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{auth()->user()->email ?? "no email"}}" disabled>
-                    <!--PULLED FROM DB MODEL-->
-                    <!--TODO: DATA MUST BE PASSED FROM PREVIOUS PAGE OR URI-->
                     <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{$festival->festivalInfo->title ?? "no festival title"}}" disabled>
-                    <input class="rounded-lg bg-neutral-300 text-gray-400" name="route-id" value="{{$route->id}}" hidden>
                     <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{$route->location->country . " " . $route->location->city . " " . $route->location->address ?? "no festival location"}}" disabled>
                     <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{$route->departure_time ?? "no festival departure time"}}" disabled>
+                    <input class="rounded-lg bg-neutral-300 text-gray-400" name="route-id" value="{{$route->id}}" hidden>
                     <div class="flex justify-between border rounded-lg p-2">
                         <label class="text-white">Gebruik VIP punten</label>
                         <input name="vip-checkbox" id="vip-checkbox" class="h-5 w-5 rounded bg-neutral-300 text-gray-400" type="checkbox" onclick="UpdatePrice()">
@@ -22,8 +20,6 @@
                             <input name="total-price" id="total-price" class="rounded-lg pl-4" type="text" value="{{$route->price}}" readonly>
                         </span>
                     </div>
-                    <!--Hidden input hardcoded, only used for initial logic testing-->
-                    <!--TODO: VALUE MUST BE PULLED FROM PREVIOUS PAGE DATA-->
                     <input id="ticket-price" type="hidden" value="{{$route->price}}">
                     <x-primary-button class="justify-center">Bestel Ticket</x-primary-button>
                 </form>

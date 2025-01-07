@@ -39,25 +39,15 @@ class OrderController extends Controller
             //'user_id' => 'required',
             //can final_price be calculated and validated here?
             //price validation here?
-            //'vip-checkbox' => 'required', // 100 if checked, 0 if not?
             'route-id' => 'required',
             'ticket-amount' => 'required',
             'total-price' => 'required',
         ]);
 
-        //TODO:change to single line if statement in create
-        $tokensUsed = 0;
-
-        //checkbox doesn't get passed when unchecked
-        if($request->get('vip-checkbox') != null){
-            $tokensUsed = 100;
-        }
-
-        //
         Order::create([
             'user_id' => auth()->user()->id,
             'route_id' => $validatedData['route-id'],
-            'tokens_used' => $tokensUsed,
+            'tokens_used' => $request->has('vip-checkbox') ? 100 : 0,
             'amount_of_tickets' => $validatedData['ticket-amount'],
             'final_price' => $validatedData['total-price'],
         ]);
