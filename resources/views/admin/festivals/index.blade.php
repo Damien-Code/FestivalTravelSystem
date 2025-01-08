@@ -18,6 +18,9 @@
             </div>
         </div>
     </div>
+    {{--    Delete flash message --}}
+    @include('layouts.delete')
+
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6">
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             <div class="max-w-xl pb-6">
@@ -84,6 +87,7 @@
                                     </form>
                                 </td>
                             </tr>
+
                         @empty
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 whitespace-nowrap">
                                 <td class="px-6 py-4">No results found.</td>

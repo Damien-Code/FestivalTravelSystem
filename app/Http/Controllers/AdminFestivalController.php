@@ -161,6 +161,6 @@ class AdminFestivalController extends Controller
     public function destroy(Festival $festival): RedirectResponse
     {
         $festival->delete();
-        return redirect()->route('admin.festivals.index');
+        return redirect()->route('admin.festivals.index')->with('delete', 'Festival deleted successfully!');
     }
 }
