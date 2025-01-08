@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -48,7 +49,8 @@ Route::get('/admin', function () {
 })->middleware(['auth', 'verified'])->name('admin.index');
 
 Route::get('/admin/show_users', function () {
-    return view('admin.show_users');
+    $users = User::all();
+    return view('admin.show_users', compact('users'));
 })->middleware(['auth', 'verified'])->name('admin.show_users');
 
 Route::get('/admin/show_festivals', function () {
