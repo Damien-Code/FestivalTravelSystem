@@ -53,6 +53,6 @@
         }
 
         /* Set price value */
-        ticketTotalPrice.value = (ticketPrice * ticketAmount) * discount.toFixed(2)
+        ticketTotalPrice.value = (ticketPrice * ticketAmount * discount).toFixed(2);
     }
 </script>
