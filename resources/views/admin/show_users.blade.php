@@ -4,6 +4,7 @@
             <div class="max-w-xl">
                 <h2>Gebruikers</h2>
 
+                @if(isset($users))
 
                 <div class="relative overflow-x-auto">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -21,23 +22,33 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($users as $user)
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <th scope="row"
                                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    Username
+                                    {{$user->name}}
                                 </th>
                                 <td class="px-6 py-4">
-                                    Email
+                                    {{$user->email}} 
                                 </td>
                                 <td class="px-6 py-4">
                                     <form method="post">
+                                        @if($user->role_id == 1)
+                                        <input type="checkbox" checked>
+                                        @else
                                         <input type="checkbox">
+                                        @endif
                                     </form>
                                 </td>
                             </tr>
+                            @endforeach()
                         </tbody>
                     </table>
                 </div>
+                @else(
+                    <h3>ERROR: No users are found</h3>
+                )
+                @endif
             </div>
         </div>
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
