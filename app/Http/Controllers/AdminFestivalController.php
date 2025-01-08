@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Festival;
 use App\Models\FestivalInfo;
+use App\Models\Location;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
@@ -99,6 +100,7 @@ class AdminFestivalController extends Controller
             'festival' => 'required',
             'date' => 'required|date',
         ]);
+
         Festival::create([
             'info_festival_id' => $validatedData['festival'],
             'location_id' => 1, // TODO: make admin be able to assign location
