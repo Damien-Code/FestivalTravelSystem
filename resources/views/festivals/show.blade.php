@@ -17,9 +17,9 @@
                     <div class="mt-6 sm:mt-8 lg:mt-0">
                         <div class="flex justify-between">
                             <h1
-                                class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white"
+                                class="text-xl font-semibold text-gray-900 sm:text-xl dark:text-white"
                             >
-                                {{$festival->festivalInfo->title}}
+                                {{$festival->location->city}} , {{$festival->location->country}}
                             </h1>
                             <a href="{{route('festivals.index')}}">
                                 <x-primary-button>Back</x-primary-button>
@@ -27,9 +27,9 @@
                         </div>
                         <div class="mt-4 sm:items-center sm:gap-4 sm:flex">
                             <p
-                                class="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white"
+                                class="text-3xl font-extrabold text-gray-900 sm:text-4xl dark:text-white"
                             >
-                                {{$festival->location->city}} , {{$festival->location->country}}
+                                {{$festival->festivalInfo->title}}
                             </p>
 
                             <div class="flex items-center gap-2 mt-2 sm:mt-0">
