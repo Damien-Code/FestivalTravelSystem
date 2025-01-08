@@ -4,6 +4,7 @@
             <div class="md:flex justify-between sm:flex-none">
                 <p class="text-white text-3xl font-bold pb-6 md:pb-0">Festivals</p>
                 <div>
+                    {{-- Buttons to create or pair festivals --}}
                     <a href="{{route('admin.festivals.create')}}">
                         <x-primary-button>
                             Create new festival
@@ -18,15 +19,16 @@
             </div>
         </div>
     </div>
+    {{-- Delete flash message --}}
+    @include('layouts.delete')
+
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6">
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+            {{-- Search bar --}}
             <div class="max-w-xl pb-6">
-                <form action="{{route('admin.festivals.index')}}" method="GET">
-                    <input value="{{request('search', '')}}" name="search" placeholder="..." type="text"
-                           class="text-black rounded-lg w-3/5 md:w-3/4">
-                    <x-primary-button>Search</x-primary-button>
-                </form>
+                <x-search-bar :action="route('admin.festivals.index')"></x-search-bar>
             </div>
+            {{-- Table for every festival --}}
             <div class="flex justify-center">
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -53,6 +55,7 @@
                         </tr>
                         </thead>
                         <tbody>
+                        {{-- Table row for all the festivals --}}
                         @forelse($festivals as $festival)
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <th scope="row"
@@ -63,6 +66,7 @@
                                     {{$festival->festivalInfo->description}}
                                 </td>
                                 <td class="px-6 py-4">
+                                    {{-- Date had to be formatted with carbon --}}
                                     {{\Carbon\Carbon::parse($festival->date)->format('Y-m-d')}}
                                 </td>
                                 <td class="px-6 py-4">
@@ -76,6 +80,7 @@
                                     </a>
                                 </td>
                                 <td class="px-6 py-4">
+                                    {{-- Form to delete festival --}}
                                     <form method="post"
                                           action="{{route('admin.festivals.destroy', $festival->id)}}">
                                         @method('DELETE')
@@ -84,6 +89,7 @@
                                     </form>
                                 </td>
                             </tr>
+                            {{-- If no results are found --}}
                         @empty
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 whitespace-nowrap">
                                 <td class="px-6 py-4">No results found.</td>
@@ -91,6 +97,7 @@
                         @endforelse
                         </tbody>
                     </table>
+                    {{-- Pagination link --}}
                     <div class="w-full flex justify-center p-8">
                         {{$festivals->withQueryString()->links()}}
                     </div>
@@ -98,5 +105,4 @@
             </div>
         </div>
     </div>
-
 </x-app-layout>

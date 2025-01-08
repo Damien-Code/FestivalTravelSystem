@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Festival;
 use App\Models\FestivalInfo;
+use App\Models\Location;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
@@ -72,7 +73,7 @@ class AdminFestivalController extends Controller
             'description' => $validatedData['description'],
             'image' => $data ?? null // add image or null
         ]);
-        return redirect()->route('admin.festivals.index');
+        return redirect()->route('admin.festivals.create')->with('success', 'Festival created successfully!');
     }
 
     /**
@@ -99,12 +100,13 @@ class AdminFestivalController extends Controller
             'festival' => 'required',
             'date' => 'required|date',
         ]);
+
         Festival::create([
             'info_festival_id' => $validatedData['festival'],
             'location_id' => 1, // TODO: make admin be able to assign location
             'date' => $validatedData['date'],
         ]);
-        return redirect()->route('admin.festivals.index');
+        return redirect()->route('admin.festivals.pair')->with('success', 'Festival paired successfully!');
     }
 
     /**
@@ -161,6 +163,6 @@ class AdminFestivalController extends Controller
     public function destroy(Festival $festival): RedirectResponse
     {
         $festival->delete();
-        return redirect()->route('admin.festivals.index');
+        return redirect()->route('admin.festivals.index')->with('delete', 'Festival deleted successfully!');
     }
 }
