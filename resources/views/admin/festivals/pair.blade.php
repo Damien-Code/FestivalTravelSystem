@@ -1,8 +1,11 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6 text-white">
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-            <div class="max-w-xl">
-                <p>Festivals</p>
+            <div class="flex justify-between">
+                <p class="text-2xl">Festivals</p>
+                <a href="{{route('admin.festivals.index')}}">
+                    <x-primary-button>Back</x-primary-button>
+                </a>
             </div>
         </div>
         {{-- flash success message --}}
@@ -25,15 +28,6 @@
                     <input type="date" name="date" min="{{date('Y-m-d')}}" value="{{date('Y-m-d')}}" class="rounded-lg">
                     <x-primary-button>Save</x-primary-button>
                 </form>
-            </div>
-        </div>
-
-        {{-- Back button to return to index --}}
-        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-            <div class="max-w-xl">
-                <a href="{{route('admin.festivals.index')}}">
-                    <x-primary-button>Back</x-primary-button>
-                </a>
             </div>
         </div>
     </div>
