@@ -72,7 +72,7 @@ class AdminFestivalController extends Controller
             'description' => $validatedData['description'],
             'image' => $data ?? null // add image or null
         ]);
-        return redirect()->route('admin.festivals.create')->with('success', 'Festival created successfully.');
+        return redirect()->route('admin.festivals.create')->with('success', 'Festival created successfully!');
     }
 
     /**
@@ -104,7 +104,7 @@ class AdminFestivalController extends Controller
             'location_id' => 1, // TODO: make admin be able to assign location
             'date' => $validatedData['date'],
         ]);
-        return redirect()->route('admin.festivals.index');
+        return redirect()->route('admin.festivals.pair')->with('success', 'Festival paired successfully!');
     }
 
     /**

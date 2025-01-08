@@ -5,6 +5,7 @@
                 <p>Festivals</p>
             </div>
         </div>
+        @include('layouts.success')
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg flex justify-between min-w-full">
             <div class="max-w-xl h-72">
                 <form action="{{route('admin.festivals.planFestival')}}" method="post"
