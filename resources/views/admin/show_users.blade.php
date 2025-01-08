@@ -33,11 +33,7 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     <form method="post">
-                                        @if($user->role_id == 1)
-                                        <input type="checkbox" checked>
-                                        @else
-                                        <input type="checkbox">
-                                        @endif
+                                        <input type="checkbox" name="is_admin" value="1" {{ ($user->role_id == 1 ? 'checked' : '' ) }}>
                                     </form>
                                 </td>
                             </tr>
