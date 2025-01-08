@@ -35,8 +35,8 @@ class OrderController extends Controller
     {
         //Validate form data
         $validatedData = $request->validate([
-            'ticket-amount' => 'required',
-            'total-price' => 'required',
+            'ticket-amount' => 'required|numeric|min:1|max:35',
+            'total-price' => 'required|numeric',
         ]);
 
         //Validate submitted price

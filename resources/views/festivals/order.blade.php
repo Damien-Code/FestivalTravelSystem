@@ -35,7 +35,6 @@
 </x-app-layout>
 
 <script>
-
     /* Keeps the value of the field from fallen outside the set min & max */
     function CheckTicketInput(field){
         //Set field value to max if it exceeds the max value
