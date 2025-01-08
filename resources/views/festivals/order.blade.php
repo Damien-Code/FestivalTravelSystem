@@ -15,7 +15,7 @@
                         <input name="vip-checkbox" id="vip-checkbox" class="h-5 w-5 rounded bg-neutral-300 text-gray-400" type="checkbox" onclick="UpdatePrice()">
                     </div>
                     <div class="flex flex-row justify-between gap-2">
-                        <input name="ticket-amount" id="ticket-amount" type="number" class="rounded-lg w-1/2" value="1" MIN="1" MAX="35" onclick="UpdatePrice()">
+                        <input name="ticket-amount" id="ticket-amount" type="number" class="rounded-lg w-1/2" value="1" MIN="1" MAX="35" onblur="UpdatePrice()" onclick="UpdatePrice()">
                         <span class="valuta">
                             <input name="total-price" id="total-price" class="rounded-lg pl-4" type="text" value="{{$route->price}}" readonly>
                         </span>
