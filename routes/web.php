@@ -45,7 +45,8 @@ Route::get('/contact', function () {
 
 // Login required for admin
 Route::get('/admin', function () {
-    return view('admin.index');
+    $usersCount = User::all()->count();
+    return view('admin.index', compact('usersCount'));
 })->middleware(['auth', 'verified'])->name('admin.index');
 
 Route::get('/admin/show_users', function () {
