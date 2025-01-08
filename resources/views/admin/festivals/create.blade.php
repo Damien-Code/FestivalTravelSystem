@@ -5,7 +5,7 @@
                 <p>Festivals</p>
             </div>
         </div>
-        {{--        Flash message--}}
+        {{-- Flash message --}}
         @include('layouts.success')
 
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg flex justify-between min-w-full">
@@ -13,6 +13,7 @@
                 @if($errors->any())
                     {!! implode('', $errors->all('<div>:message</div>')) !!}
                 @endif
+                {{-- Form to create new festival --}}
                 <form action="{{route('admin.festivals.store')}}" method="post" enctype="multipart/form-data"
                       class="text-black flex flex-col justify-evenly min-h-full">
                     @csrf
@@ -25,6 +26,7 @@
             </div>
         </div>
 
+        {{-- Back button to return to index --}}
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             <div class="max-w-xl">
                 <a href="{{route('admin.festivals.index')}}">

@@ -1,3 +1,4 @@
+{{--Delete message after something has been deleted --}}
 @if(session()->has('delete'))
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6">
         <div id="alert-1" class="flex items-center p-4 mb-4 rounded-lg bg-red-600 text-white"

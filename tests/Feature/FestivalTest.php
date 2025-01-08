@@ -20,6 +20,14 @@ class FestivalTest extends TestCase
         $response->assertStatus(200);
     }
 
+
+    /**
+     * @return void
+     * @author Damiën van den IJssel
+     * create user so it is able to store data
+     * post to db
+     * check if db has these data
+     */
     public function test_festival_can_be_stored_to_database(): void
     {
         $user = User::factory()->create();

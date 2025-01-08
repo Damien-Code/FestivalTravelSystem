@@ -1,3 +1,4 @@
+{{-- Success message after something has ended succesfully --}}
 @if(session()->has('success'))
     <div id="alert-1" class="flex items-center p-4 mb-4 rounded-lg bg-green-300 text-black" role="alert">
         {{session('success')}}

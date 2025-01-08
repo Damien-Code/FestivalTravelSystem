@@ -4,6 +4,7 @@
             {{ __('Festivals') }}
         </h2>
     </x-slot>
+    {{-- Search bar --}}
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6 text-white">
         <form class="max-w-md mx-auto" action="{{route('festivals.index')}}" method="GET">
             <label for="default-search"
@@ -19,17 +20,19 @@
 
                 <input value="{{request('search', '')}}" name="search" type="text" id="default-search"
                        class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                       placeholder="Search festivals..." required/>
+                       placeholder="Search festivals..."/>
                 <x-primary-button class="absolute end-2.5 bottom-2.5">Search</x-primary-button>
             </div>
         </form>
+        {{-- All the festivals --}}
         @forelse($festivals as $festival)
             <section class="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
                 <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0" id="{{$festival->id}}">
                     <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
                         <div class="shrink-0 max-w-md lg:max-w-lg mx-auto">
                             @if(isset($festival->festivalInfo->image))
-                                <img class="w-full rounded-lg" src="{{$festival->festivalInfo->image}}" alt="image" class="w-24">
+                                <img class="w-full rounded-lg" src="{{$festival->festivalInfo->image}}" alt="image"
+                                     class="w-24">
                             @endif
                         </div>
 
@@ -76,6 +79,7 @@
                     </div>
                 </div>
             </section>
+{{-- If search has no results --}}
         @empty
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg col-span-3">
                 <div class="max-w-xl m-auto text-center">
@@ -83,7 +87,7 @@
                 </div>
             </div>
         @endforelse
-        {{--        Pagination for festivals--}}
+        {{-- Pagination for festivals --}}
         <div class="w-full flex justify-center p-8">
             {{$festivals->withQueryString()->links()}}
         </div>
