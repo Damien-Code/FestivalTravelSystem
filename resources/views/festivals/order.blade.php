@@ -15,7 +15,7 @@
                         <input name="vip-checkbox" id="vip-checkbox" class="h-5 w-5 rounded bg-neutral-300 text-gray-400" type="checkbox" onclick="UpdatePrice()">
                     </div>
                     <div class="flex flex-row justify-between gap-2">
-                        <input name="ticket-amount" id="ticket-amount" type="number" class="rounded-lg w-1/2" value="1" MIN="1" MAX="35" onblur="UpdatePrice()" onclick="UpdatePrice()">
+                        <input name="ticket-amount" id="ticket-amount" type="number" class="rounded-lg w-1/2" value="1" min="1" max="35" oninput="CheckTicketInput(this)" >
                         <span class="valuta">
                             <input name="total-price" id="total-price" class="rounded-lg pl-4" type="text" value="{{$route->price}}" readonly>
                         </span>
@@ -35,6 +35,20 @@
 </x-app-layout>
 
 <script>
+
+    /* Keeps the value of the field from fallen outside the set min & max */
+    function CheckTicketInput(field){
+        //Set field value to max if it exceeds the max value
+        if(parseInt(field.value) > parseInt(field.max)){
+            field.value = field.max;
+        }
+        //Set field value to min if it falls below the min value
+        else if(parseInt(field.value) < parseInt(field.min)){
+            field.value = field.min;
+        }
+        UpdatePrice();
+    }
+
     /* Calculates price, applies discount if applicable and rounds the price on 2 decimals */
     function UpdatePrice(){
         /* Obtain current inputs from the form */
