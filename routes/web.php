@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminFestivalController;
 use App\Http\Controllers\AdminRouteController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FestivalController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
@@ -58,10 +59,10 @@ Route::get('/admin', function () {
 })->middleware(['auth', 'verified'])->name('admin.index');
 
 // Login required for admin
-Route::get('/admin/show_users', function () {
-    $users = User::all();
-    return view('admin.show_users', compact('users'));
-})->middleware(['auth', 'verified'])->name('admin.show_users');
+// Route::get('/admin/show_users', function () {
+//     $users = User::all();
+//     return view('admin.show_users', compact('users'));
+// })->middleware(['auth', 'verified'])->name('admin.show_users');
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -74,8 +75,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             Route::resource('/routes', AdminRouteController::class)
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+         
+            Route::resource('users', AdminController::class)
+                ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+                
+            });
         });
-    });
 });
 
 // Login required for admin

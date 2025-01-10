@@ -3,15 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
-class Admin extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        // dd('test'); 
+        $search = request()->get('search') ?? '';
+        $users = User::where('users.name','like', "%{$search}%")->orWhere('users.email','like', "%{$search}%")
+        ->orderBy('users.id')->paginate(20);
+        return view('admin.users.index', compact('users'));
     }
 
     /**
