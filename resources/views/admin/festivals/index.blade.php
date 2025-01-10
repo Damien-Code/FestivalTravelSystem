@@ -22,7 +22,7 @@
             {{-- Search bar --}}
             <div class="flex flex-col lg:flex-row justify-between">
                 <div class="w-full md:w-3/5 pb-6">
-                    <x-search-bar :action="route('admin.festivals.index')"></x-search-bar>
+                    <x-search-bar :action="route('admin.festivals.index')" placeholder="Search festivals..."></x-search-bar>
                 </div>
                 <div class="pb-6">
                     {{--                 Buttons to create or pair festivals--}}

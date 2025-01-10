@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Festival;
 use App\Models\FestivalInfo;
 use App\Models\Location;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
@@ -58,7 +59,7 @@ class AdminFestivalController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string|max:45|min:3',
             'description' => 'required|string|min:10',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:4096',
         ]);
         // Encode the uploaded image to base64
         // Image is nullable, so added if statement
@@ -124,7 +125,8 @@ class AdminFestivalController extends Controller
      */
     public function edit(Festival $festival): View
     {
-        return view('admin.festivals.edit', compact('festival'));
+        $festivalsInfo = FestivalInfo::all();
+        return view('admin.festivals.edit', compact('festival', 'festivalsInfo'));
     }
 
     /**
@@ -152,7 +154,25 @@ class AdminFestivalController extends Controller
             'description' => $validatedData['description'],
             'image' => $data ?? null
         ]);
-        return redirect(route('admin.festivals.index'));
+        return redirect(route('admin.festivals.edit', $festival))->with('success', 'Festival updated successfully!');
+    }
+
+    public function updatePair(Request $request, Festival $festival): RedirectResponse
+    {
+        $validatedData = $request->validate([
+            'festival' => 'required',
+            'date' => 'required|date',
+        ]);
+//      Convert date to datetime because otherwise the plan won't update
+//      Convert to datetime was needed because datatype in database is datetime, while the calendar makes a date
+        Carbon::parse($validatedData['date'])->toDateTimeString();
+        $festival->update([
+            'info_festival_id' => $validatedData['festival'],
+            'location_id' => 1,
+            'date' => $validatedData['date'],
+        ]);
+        return redirect(route('admin.festivals.edit', $festival))->with('success', 'Pairing festival updated successfully!');
+
     }
 
     /**

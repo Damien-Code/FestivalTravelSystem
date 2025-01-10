@@ -71,6 +71,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
             Route::get('/festivals/pair', [AdminFestivalController::class, 'pair'])->name('festivals.pair');
             Route::post('/festivals/planFestival', [AdminFestivalController::class, 'planFestival'])->name('festivals.planFestival');
+            Route::put('/festivals/{festival}', [AdminFestivalController::class, 'updatePair'])->name('festivals.updatePair');
 
             Route::resource('/routes', AdminRouteController::class)
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
