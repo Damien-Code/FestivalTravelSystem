@@ -49,7 +49,7 @@ Route::get('/contact', function () {
 
 // Login required for admin
 Route::get('/admin', function () {
-    $usersCount = User::all()->count();
+    $usersCount = User::all()->whereNull('deleted_at')->count();
     $festival = Festival::all();
     $festivalInfo = FestivalInfo::all();
     $festivalCount = Festival::all()->count();
