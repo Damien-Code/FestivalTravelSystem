@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.valuta {
+    position: relative;
+}
+
+.valuta input {
+    /*padding-left: 10px;*/
+}
+
+.valuta:after {
+    position: absolute;
+    top: 22%;
+    content: "€";
+    left: 6px;
+}

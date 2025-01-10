@@ -11,18 +11,20 @@ class Festival extends Model
     use HasFactory;
 
     protected $fillable = [
+        'info_festival_id',
+        'location_id',
         'date',
     ];
-    public function route(){
+    public function routes(){
         return $this->hasMany(Route::class);
     }
 
     public function location(){
-        return $this->hasOne(Location::class);
+        return $this->belongsTo(Location::class);
     }
 
     public function festivalInfo(){
-        return $this->hasOne(Festival_info::class);
+        return $this->belongsTo(FestivalInfo::class, 'info_festival_id');
     }
 
     protected $table = 'festivals';

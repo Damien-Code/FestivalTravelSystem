@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Festival;
+use App\Models\Location;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,8 +19,9 @@ class RouteFactory extends Factory
     public function definition(): array
     {
         return [
-            'departure_time' => $this->faker->dateTime(),
-            'date' => $this->faker->date(),
+            'festival_id' => Festival::inRandomOrder()->first(),
+            'location_id' => Location::factory(),
+            'departure_time' => $this->faker->dateTimeBetween('-1 years', '+1 years'),
             'price' => $this->faker->numberBetween(2.5,12.5),
         ];
     }

@@ -20,21 +20,23 @@
             <div class="max-w-xl flex justify-between flex-col h-full">
                 <div>
                     <p class="text-2xl pb-10">Festivals</p>
-                    <p>Totaal aantal festivals: 49</p>
+                    <p>Totaal aantal festivals: {{$festivalCount}}</p>
                 </div>
-                <a href="{{route('admin.show_festivals')}}">
-                    <x-primary-button>Edit</x-primary-button>
-                </a>
+                <div class="flex justify-between">
+                    <a href="{{route('admin.festivals.index')}}">
+                        <x-primary-button>Bekijk festivals</x-primary-button>
+                    </a>
+                </div>
             </div>
         </div>
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg w-1/3">
             <div class="max-w-xl flex justify-between flex-col h-full">
                 <div>
                     <p class="text-3xl pb-10">Busreizen</p>
-                    <p>Totaal aantal busreizen ingezet: 324</p>
+                    <p>Totaal aantal routes: {{$routesCount}}</p>
                 </div>
-                <a href="{{route('admin.show_busses')}}">
-                    <x-primary-button>Edit</x-primary-button>
+                <a href="{{route('admin.routes.index')}}">
+                    <x-primary-button>Bekijk busreizen</x-primary-button>
                 </a>
             </div>
         </div>
