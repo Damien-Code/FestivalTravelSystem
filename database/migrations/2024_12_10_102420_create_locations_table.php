@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('country', 45);
             $table->string('city', 60);
-            $table->string('address', 45);
+            $table->string('street', 45);
             $table->timestamps();
         });
     }
