@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('festival_id')->constrained('festivals');
             $table->foreignId('location_id')->constrained('locations');
             $table->dateTime('departure_time');
-            $table->date('date');
             $table->double('price');
             $table->timestamps();
         });
