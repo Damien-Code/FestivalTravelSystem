@@ -19,7 +19,7 @@ class LocationFactory extends Factory
         return [
             'country' => $this->faker->countryCode(),
             'city' => $this->faker->city(),
-            'address' => $this->faker->postcode(),
+            'address' => $this->faker->streetName(),
         ];
     }
 }
