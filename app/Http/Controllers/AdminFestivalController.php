@@ -14,6 +14,7 @@ use Illuminate\View\View;
 use PHPUnit\TextUI\Application;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
+use function Laravel\Prompts\error;
 
 class AdminFestivalController extends Controller
 {
@@ -68,6 +69,7 @@ class AdminFestivalController extends Controller
             $data = "data:image/{$image->extension()};base64, ";
             $data .= base64_encode($image->openFile()->fread($image->getSize()));
         }
+
         // create the resource
         FestivalInfo::create([
             'title' => $validatedData['title'],
