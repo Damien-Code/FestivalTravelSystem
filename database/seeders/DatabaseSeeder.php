@@ -46,5 +46,8 @@ class DatabaseSeeder extends Seeder
         User::factory(100)
             ->has(Order::factory(rand(1, 3)))
             ->create();
+        User::factory(10)
+            ->has(Order::factory(rand(1, 3)))
+            ->create(['deleted_at' => now()]);
     }
 }

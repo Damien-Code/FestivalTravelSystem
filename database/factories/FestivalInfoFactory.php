@@ -19,7 +19,9 @@ class FestivalInfoFactory extends Factory
         return [
             'title' => $this->faker->words(2, true),
             'description' => $this->faker->paragraph(),
-            // image not yet added since we may need to check how to do those (blobs arent a faker thing)
+            // Image will be stored as URL for factories
+            // Images will be stored as BLOBs for admin
+            'image' => $this->faker->imageUrl(),
         ];
     }
 }

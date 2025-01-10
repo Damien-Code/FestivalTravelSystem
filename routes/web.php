@@ -1,8 +1,13 @@
 <?php
 
+use App\Http\Controllers\AdminFestivalController;
+use App\Http\Controllers\AdminRouteController;
 use App\Http\Controllers\FestivalController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Festival;
+use App\Models\FestivalInfo;
+use App\Models\Route as ModelsRoute;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/welcome', function () {
@@ -24,25 +29,14 @@ Route::get('/vip', function () {
     return view('vip.index');
 })->name('vip.index');
 
-// No login required for festivals
-//Route::get('/festivals', function () {
-//    return view('festivals.index');
-//})->name('festivals.index');
 
 Route::resource('festivals', FestivalController::class)
-    ->only(['index', 'show', 'store', 'update', 'destroy']);
-
-
-// No login required for festivals.show
-Route::get('/festivals/{festival}', function (\App\Models\Festival $festival) {
-    $festival->load(['routes']);
-    return view('festivals.show', compact('festival'));
-})->name('festivals.show');
+    ->only(['index', 'show']);
 
 // No login required for festivals.order
 Route::get('/festivals/{festival}/order/{route}', function (\App\Models\Festival $festival, \App\Models\Route $route) {
     return view('festivals.order', compact('festival', 'route'));
-})->name('festivals.order');
+})->name('festivals.order')->middleware('auth');
 
 // Route for storing tickets
 Route::post('/festivals/{festival}/order/{route}', [OrderController::class, 'store'])->name('order.store');
@@ -54,25 +48,37 @@ Route::get('/contact', function () {
 
 // Login required for admin
 Route::get('/admin', function () {
-    return view('admin.index');
+    $festival = Festival::all();
+    $festivalInfo = FestivalInfo::all();
+    $festivalCount = Festival::all()->count();
+    $routesCount = ModelsRoute::all()->count();
+    return view('admin.index', compact('festivalCount', 'festival', 'festivalInfo', 'routesCount'));
 })->middleware(['auth', 'verified'])->name('admin.index');
 
+// Login required for admin
 Route::get('/admin/show_users', function () {
     return view('admin.show_users');
 })->middleware(['auth', 'verified'])->name('admin.show_users');
 
-Route::get('/admin/show_festivals', function () {
-    return view('admin.show_festivals');
-})->middleware(['auth', 'verified'])->name('admin.show_festivals');
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::name('admin.')->group(function () {
+        Route::prefix('admin')->group(function () {
+            Route::resource('festivals', AdminFestivalController::class)
+                ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+            Route::get('/festivals/pair', [AdminFestivalController::class, 'pair'])->name('festivals.pair');
+            Route::post('/festivals/planFestival', [AdminFestivalController::class, 'planFestival'])->name('festivals.planFestival');
+
+            Route::resource('/routes', AdminRouteController::class)
+                ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+        });
+    });
+});
+
+// Login required for admin
 Route::get('/admin/show_busses', function () {
     return view('admin.show_busses');
 })->middleware(['auth', 'verified'])->name('admin.show_busses');
-
-// Routes for image
-Route::post('/admin/show_festivals', [FestivalController::class, 'store'])->name('festivals.store');
-
-//Route::get('/festivals',[FestivalController::class, 'decodeImage']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

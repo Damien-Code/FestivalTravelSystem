@@ -11,6 +11,8 @@ class Festival extends Model
     use HasFactory;
 
     protected $fillable = [
+        'info_festival_id',
+        'location_id',
         'date',
     ];
     public function routes(){
@@ -18,7 +20,7 @@ class Festival extends Model
     }
 
     public function location(){
-        return $this->hasOne(Location::class);
+        return $this->belongsTo(Location::class);
     }
 
     public function festivalInfo(){

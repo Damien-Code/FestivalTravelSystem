@@ -21,9 +21,7 @@ class RouteFactory extends Factory
         return [
             'festival_id' => Festival::inRandomOrder()->first(),
             'location_id' => Location::factory(),
-            'departure_time' => $this->faker->dateTime(),
-//            'date' => $this->faker->date(),
-            'date' => $this->faker->dateTimeBetween('now', '+1 years')->format('Y-m-d'),
+            'departure_time' => $this->faker->dateTimeBetween('-1 years', '+1 years'),
             'price' => $this->faker->numberBetween(2.5,12.5),
         ];
     }

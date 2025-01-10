@@ -10,9 +10,9 @@ use Illuminate\Http\Request;
 class FestivalController extends Controller
 {
     /**
-     * @author Damiën van den IJssel
+     * @author Damiën van den IJssel & Brighton van Rouendal
      * Display a listing of the resource.
-     * @return \Illuminate\Contracts\View\View
+     * @return View
      */
     public function index() : View
     {
@@ -25,78 +25,20 @@ class FestivalController extends Controller
          */
         $festivals = Festival::withWhereHas('festivalInfo', function ($query) use ($search) {
             $query->where('festival_info.title', 'like', "%{$search}%");
-        })->orderBy('festivals.date')->paginate(15);
+            // Order the festivals on date
+        })->with('location')->orderBy('festivals.date')->paginate(10);
         return view('festivals.index', compact('festivals'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'title' => 'required|string|max:45|min:3',
-            'description' => 'required|string|min:10',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
-        $image = $request->file('image');
-        $data = "data:image/{$image->extension()};base64, ";
-        $data .= base64_encode($image->openFile()->fread($image->getSize()));
-
-        FestivalInfo::create([
-            'title' => $validatedData['title'],
-            'description' => $validatedData['description'],
-            'image' => $data,
-        ]);
-        return redirect()->route('admin.show_festivals');
-    }
-
-    // Decode the blob from db
-//    public function decodeImage()
-//    {
-//        $festivals = Festival_info::all();
-//        $file_contents = base64_decode(request('image'));
-//        dd(request('image'));
-//        return view('festivals.index', compact('file_contents'));
-//    }
-
-    /**
+     * @author Damiën van den IJssel
+     * @param Festival $festival
+     * @return View
      * Display the specified resource.
      */
-    public function show(Festival $festival)
+    public function show(Festival $festival) : View
     {
         //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Festival $festival)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Festival $festival)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Festival $festival)
-    {
-        //
+        return view('festivals.show', compact('festival'));
     }
 }
