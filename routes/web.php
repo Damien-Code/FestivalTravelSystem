@@ -9,6 +9,7 @@ use App\Models\Festival;
 use App\Models\FestivalInfo;
 use App\Models\Route as ModelsRoute;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -48,16 +49,18 @@ Route::get('/contact', function () {
 
 // Login required for admin
 Route::get('/admin', function () {
+    $usersCount = User::all()->count();
     $festival = Festival::all();
     $festivalInfo = FestivalInfo::all();
     $festivalCount = Festival::all()->count();
     $routesCount = ModelsRoute::all()->count();
-    return view('admin.index', compact('festivalCount', 'festival', 'festivalInfo', 'routesCount'));
+    return view('admin.index', compact('festivalCount', 'festival', 'festivalInfo', 'routesCount', 'usersCount'));
 })->middleware(['auth', 'verified'])->name('admin.index');
 
 // Login required for admin
 Route::get('/admin/show_users', function () {
-    return view('admin.show_users');
+    $users = User::all();
+    return view('admin.show_users', compact('users'));
 })->middleware(['auth', 'verified'])->name('admin.show_users');
 
 
