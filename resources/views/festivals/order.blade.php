@@ -11,11 +11,15 @@
                     <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{$route->location->country . " " . $route->location->city . " " . $route->location->address ?? "no festival location"}}" disabled>
                     <input class="rounded-lg bg-neutral-300 text-gray-400" value="{{$route->departure_time ?? "no festival departure time"}}" disabled>
                     <div class="flex justify-between border rounded-lg p-2">
-                        <label class="text-white">Gebruik VIP punten</label>
-                        <input name="vip-checkbox" id="vip-checkbox" class="h-5 w-5 rounded bg-neutral-300 text-gray-400" type="checkbox" onclick="UpdatePrice()">
+                        @if(auth()->user()->getAttributeValue("tokens") > 100)
+                            <label class="text-white">Gebruik VIP punten</label>
+                            <input name="vip-checkbox" id="vip-checkbox" class="h-5 w-5 rounded bg-neutral-300 text-gray-400" type="checkbox" onclick="UpdatePrice()">
+                        @else
+                            <label class="text-white">U heeft helaas niet genoeg punten om in aanmerking te komen voor korting</label>
+                        @endif
                     </div>
                     <div class="flex flex-row justify-between gap-2">
-                        <input name="ticket-amount" id="ticket-amount" type="number" class="rounded-lg w-1/2" value="1" min="1" max="35" oninput="CheckTicketInput(this)" >
+                        <input name="ticket-amount" id="ticket-amount" type="number" class="rounded-lg w-1/2" value="1" min="1" max="35" oninput="CheckTicketInput(this)">
                         <span class="valuta">
                             <input name="total-price" id="total-price" class="rounded-lg pl-4" type="text" value="{{$route->price}}" readonly>
                         </span>
@@ -35,7 +39,10 @@
 </x-app-layout>
 
 <script>
-    /* Keeps the value of the field from fallen outside the set min & max */
+    /**
+     * Keeps the value of the field from fallen outside the set min & max
+     * @author Ismael Winterman
+     */
     function CheckTicketInput(field){
         //Set field value to max if it exceeds the max value
         if(parseInt(field.value) > parseInt(field.max)){
@@ -45,27 +52,31 @@
         else if(parseInt(field.value) < parseInt(field.min)){
             field.value = field.min;
         }
+
         UpdatePrice();
     }
 
-    /* Calculates price, applies discount if applicable and rounds the price on 2 decimals */
+    /**
+     * Calculates price, applies discount if applicable and rounds the price on 2 decimal
+     * @author Ismael Winterman
+     */
     function UpdatePrice(){
-        /* Obtain current inputs from the form */
+        //Obtain current inputs from the form
         let ticketPrice = document.getElementById("ticket-price").value;
         let ticketAmount = document.getElementById("ticket-amount").value;
-        let isVIPCheckbox = document.getElementById("vip-checkbox").checked;
+        let VIPCheckbox = document.getElementById("vip-checkbox");
 
         const ticketTotalPrice = document.getElementById("total-price");
 
-        /* Default is full price so default value of 1 (100%) */
+        //Default is full price so default value of 1 (100%)
         let discount = 1;
 
-        /* Apply 20% discount if true */
-        if(isVIPCheckbox){
+        // //Apply 20% discount if true
+        if(VIPCheckbox !== null && VIPCheckbox.checked){
             discount = 0.8;
         }
 
-        /* Set price value */
+        //Set price value
         ticketTotalPrice.value = (ticketPrice * ticketAmount * discount).toFixed(2);
     }
 </script>
