@@ -69,8 +69,7 @@ class AdminRouteController extends Controller
         $route = Route::create([
             'festival_id' => $validated['festival'],
             'location_id' => 1,
-            'departure_time' => $validated['date'],
-            'date' => now()->format('Y-m-d'),
+            'departure_time' => $validated['date'] . ' ' . $validated['time'],
             'price' => $validated['price'],
         ]);
 
