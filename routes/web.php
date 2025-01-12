@@ -77,8 +77,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
          
             Route::resource('users', AdminController::class)
-                ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
-                
+                ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);   
             });
         });
 });

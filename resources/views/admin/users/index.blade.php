@@ -60,13 +60,19 @@
                                                 @endswitch
                                             </td>
                                             <td class="px-6 py-4">
-                                                <form class="inline-block float-end pb-2 " action="">
+                                                <form name="role_form" class="inline-block float-end pb-2 " action="{{route('admin.users.update', $user->id)}}" method="POST">
+                                                @method('PATCH') 
+                                                @csrf
+                                                    <input type="hidden" value="test_value">
                                                     <select
                                                         class="items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 inline-block"
-                                                        type="dropdown">
-                                                        <option value="1">Admin</option>
-                                                        <option value="2">User</option>
-                                                        <option value="3">Busdriver</option>
+                                                        type="dropdown"
+                                                        onChange="document.forms['role_form'].submit();"
+                                                        name="role_id">
+                                                        <!-- TODO: Ensure that selected works properly (it currently doesnt fully work) -->
+                                                        <option value="1" @if($user->id == 1) selected @endif>Admin</option>
+                                                        <option value="2" @if($user->id == 2) selected @endif>User</option>
+                                                        <option value="3" @if($user->id == 3) selected @endif>Busdriver</option> 
                                                     </select>
                                                 </form>
                                             </td>
@@ -85,7 +91,7 @@
                             </table>
                             {{-- Pagination link --}}
                             <div class="w-full flex justify-center p-8">
-                                {{-- {{$users->withQueryString()->links()}} --}}
+                                {{$users->withQueryString()->links()}}
                             </div>
                         </div>
                     </div>
