@@ -15,9 +15,10 @@ class AdminController extends Controller
     {
         // dd('test'); 
         $search = request()->get('search') ?? '';
-        $users = User::whereNull('deleted_at')
-        ->where('users.name','like', "%{$search}%")
+        $users = User::where('users.name','like', "%{$search}%")
+        ->withoutTrashed() //had to add this twice cause of the way Eloquent creates queries
         ->orWhere('users.email','like', "%{$search}%")
+        ->withoutTrashed()
         ->orderBy('users.id')->paginate(20);
         return view('admin.users.index', compact('users'));
     }
