@@ -15,7 +15,9 @@ class AdminController extends Controller
     {
         // dd('test'); 
         $search = request()->get('search') ?? '';
-        $users = User::where('users.name','like', "%{$search}%")->orWhere('users.email','like', "%{$search}%")
+        $users = User::whereNull('deleted_at')
+        ->where('users.name','like', "%{$search}%")
+        ->orWhere('users.email','like', "%{$search}%")
         ->orderBy('users.id')->paginate(20);
         return view('admin.users.index', compact('users'));
     }
@@ -65,12 +67,13 @@ class AdminController extends Controller
              ]);
         return redirect(route('admin.users.index'));
     }
-
+    
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect(route('admin.users.index'));
     }
 }
