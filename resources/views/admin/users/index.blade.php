@@ -69,10 +69,9 @@
                                                         type="dropdown"
                                                         onChange="document.forms['role_form'].submit();"
                                                         name="role_id">
-                                                        <!-- TODO: Ensure that selected works properly (it currently doesnt fully work) -->
-                                                        <option value="1" @if($user->id == 1) selected @endif>Admin</option>
-                                                        <option value="2" @if($user->id == 2) selected @endif>User</option>
-                                                        <option value="3" @if($user->id == 3) selected @endif>Busdriver</option> 
+                                                        <option value="1" @if($user->role_id == 1) selected @endif>Admin</option>
+                                                        <option value="2" @if($user->role_id == 2) selected @endif>User</option>
+                                                        <option value="3" @if($user->role_id == 3) selected @endif>Busdriver</option> 
                                                     </select>
                                                 </form>
                                             </td>
