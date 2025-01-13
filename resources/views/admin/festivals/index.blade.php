@@ -5,14 +5,9 @@
                 <p class="text-white text-3xl font-bold pb-6 md:pb-0">Festivals</p>
                 <div>
                     {{-- Buttons to create or pair festivals --}}
-                    <a href="{{route('admin.festivals.create')}}">
+                    <a href="{{route('admin.index')}}">
                         <x-primary-button>
-                            Create new festival
-                        </x-primary-button>
-                    </a>
-                    <a href="{{route('admin.festivals.pair')}}">
-                        <x-primary-button>
-                            Pair a festival
+                            Back
                         </x-primary-button>
                     </a>
                 </div>
@@ -25,9 +20,25 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6">
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             {{-- Search bar --}}
-            <div class="max-w-xl pb-6">
-                <x-search-bar :action="route('admin.festivals.index')"></x-search-bar>
+            <div class="flex flex-col lg:flex-row justify-between">
+                <div class="w-full md:w-3/5 pb-6">
+                    <x-search-bar :action="route('admin.festivals.index')" placeholder="Search festivals..."></x-search-bar>
+                </div>
+                <div class="pb-6">
+                    {{--                 Buttons to create or pair festivals--}}
+                    <a href="{{route('admin.festivals.create')}}">
+                        <x-primary-button>
+                            Create new festival
+                        </x-primary-button>
+                    </a>
+                    <a href="{{route('admin.festivals.pair')}}">
+                        <x-primary-button>
+                            Pair a festival
+                        </x-primary-button>
+                    </a>
+                </div>
             </div>
+
             {{-- Table for every festival --}}
             <div class="flex justify-center">
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
