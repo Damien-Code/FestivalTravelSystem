@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Festival;
 use App\Models\FestivalInfo;
 use App\Models\Location;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
@@ -13,6 +14,8 @@ use Illuminate\View\View;
 use PHPUnit\TextUI\Application;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
+use function Laravel\Prompts\error;
+use function PHPUnit\Framework\throwException;
 
 class AdminFestivalController extends Controller
 {
@@ -58,8 +61,9 @@ class AdminFestivalController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string|max:45|min:3',
             'description' => 'required|string|min:10',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:4096',
         ]);
+
         // Encode the uploaded image to base64
         // Image is nullable, so added if statement
         if ($request->hasFile('image')) {
@@ -67,6 +71,7 @@ class AdminFestivalController extends Controller
             $data = "data:image/{$image->extension()};base64, ";
             $data .= base64_encode($image->openFile()->fread($image->getSize()));
         }
+
         // create the resource
         FestivalInfo::create([
             'title' => $validatedData['title'],
@@ -98,11 +103,13 @@ class AdminFestivalController extends Controller
     {
         $validatedData = $request->validate([
             'festival' => 'required',
+//            'location' => 'required',
             'date' => 'required|date',
         ]);
 
         Festival::create([
             'info_festival_id' => $validatedData['festival'],
+//            'location_id' => $validatedData['location'],
             'location_id' => 1, // TODO: make admin be able to assign location
             'date' => $validatedData['date'],
         ]);
@@ -124,7 +131,8 @@ class AdminFestivalController extends Controller
      */
     public function edit(Festival $festival): View
     {
-        return view('admin.festivals.edit', compact('festival'));
+        $festivalsInfo = FestivalInfo::all();
+        return view('admin.festivals.edit', compact('festival', 'festivalsInfo'));
     }
 
     /**
@@ -152,7 +160,29 @@ class AdminFestivalController extends Controller
             'description' => $validatedData['description'],
             'image' => $data ?? null
         ]);
-        return redirect(route('admin.festivals.index'));
+        return redirect(route('admin.festivals.edit', $festival))
+            ->with('success', 'Festival updated successfully!');
+    }
+
+    public function updatePair(Request $request, Festival $festival): RedirectResponse
+    {
+        $validatedData = $request->validate([
+            'festival' => 'required',
+//            'location' => 'required',
+            'date' => 'required|date',
+        ]);
+//      Convert date to datetime because otherwise the planning won't update
+//      Convert to datetime was needed because datatype in database is datetime, while the calendar makes a date
+        Carbon::parse($validatedData['date'])->toDateTimeString();
+        $festival->update([
+            'info_festival_id' => $validatedData['festival'],
+//            'location_id' => $validatedData['location'],
+            'location_id' => 1,
+            'date' => $validatedData['date'],
+        ]);
+        return redirect(route('admin.festivals.edit', $festival))
+            ->with('success', 'Pairing festival updated successfully!');
+
     }
 
     /**
@@ -163,6 +193,7 @@ class AdminFestivalController extends Controller
     public function destroy(Festival $festival): RedirectResponse
     {
         $festival->delete();
-        return redirect()->route('admin.festivals.index')->with('delete', 'Festival deleted successfully!');
+        return redirect()->route('admin.festivals.index')
+            ->with('delete', 'Festival deleted successfully!');
     }
 }

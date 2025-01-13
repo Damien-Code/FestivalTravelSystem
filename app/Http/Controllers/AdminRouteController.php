@@ -62,12 +62,14 @@ class AdminRouteController extends Controller
         $user = User::where('role_id', '=', 3)->withWhereHas('busInUse', function ($query) use ($busInUse) {
             $query->whereNotIn('id', $busInUse->pluck('id'));
         })->first();
+        if ($user == null) {
+            return redirect()->back()->withErrors('driver', 'No Driver Available For This Day');
+        }
 
         $route = Route::create([
             'festival_id' => $validated['festival'],
             'location_id' => 1,
-            'departure_time' => $validated['date'],
-            'date' => now()->format('Y-m-d'),
+            'departure_time' => $validated['date'] . ' ' . $validated['time'],
             'price' => $validated['price'],
         ]);
 
