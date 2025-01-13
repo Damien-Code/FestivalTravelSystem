@@ -30,6 +30,19 @@ class AdminLocationController extends Controller
     public function store(Request $request)
     {
         //
+        $validated = $request->validate([
+            'country' => 'required|string|min:2|max:2',
+            'city' => 'required|string|max:50',
+            'street' => 'required|string|max:50',
+        ]);
+
+        $location = Location::where('country', $validated['country'])->where('city', $validated['city'])->where('street', $validated['street'])->first();
+        if ($location->exists()) {
+            return back()->with('error', 'Location already exists!');
+        }
+
+        Location::create($validated);
+        return redirect()->route('admin.locations.index')->with('success', 'Location created successfully');
     }
 
     /**
