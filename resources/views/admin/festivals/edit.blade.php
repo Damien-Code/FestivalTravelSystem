@@ -50,7 +50,7 @@
                                 <input hidden value="{{$festival->date}}" name="date">
                                 <input hidden value="{{$festival->id}}" name="festival">
                             </div>
-                            <x-primary-button class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6">Add festival
+                            <x-primary-button class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6">Update festival
                             </x-primary-button>
                         </form>
                     </div>
@@ -91,11 +91,12 @@
                             </div>
                             <x-primary-button
                                 class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center">
-                                Add
+                                Update
                             </x-primary-button>
                         </form>
                     </div>
                 </section>
             </div>
         </div>
+    </div>
 </x-app-layout>
