@@ -37,15 +37,10 @@ class OrderController extends Controller
         //Identify user making the purchase
         $user = auth()->user();
 
-        echo '<pre>';
-        var_dump($request->post());
-        echo '</pre>';
-        die();
-
         //Validate form data
         $validatedData = $request->validate([
             'ticket-amount' => 'required|numeric|min:1|max:35',
-            'total-price' => 'required|numeric',
+            'total-price-h' => 'required|numeric',
         ]);
 
         //Validate if the user has enough tokens if checkbox is selected
@@ -55,7 +50,7 @@ class OrderController extends Controller
         }
 
         //Validate submitted price rounded on 2 decimals
-        if($request->get('total-price') != round($route->price * $request->get('ticket-amount') * ($request->has('vip-checkbox') ? 0.8 : 1.0), 2)) {
+        if($request->get('total-price-h') != round($route->price * $request->get('ticket-amount') * ($request->has('vip-checkbox') ? 0.8 : 1.0), 2)) {
             //Set error msg and return to order screen
             return redirect()->back()->withErrors(['Invalid price' => 'The submitted price is incorrect. Please try again.']);
         }
@@ -66,7 +61,7 @@ class OrderController extends Controller
             'route_id' => $route->id,
             'tokens_used' => $request->has('vip-checkbox') ? 100 : 0,
             'amount_of_tickets' => $validatedData['ticket-amount'],
-            'final_price' => $validatedData['total-price'],
+            'final_price' => $validatedData['total-price-h'],
         ]);
 
         //Remove points if VIP option was selected
@@ -75,9 +70,10 @@ class OrderController extends Controller
         }
 
         //Award tokens based on final price
-        $user->update(['tokens' => $user->tokens + $validatedData['total-price']]);
+        $user->update(['tokens' => $user->tokens + $validatedData['total-price-h']]);
 
-        return redirect()->route('festivals.index');
+        //return redirect()->route('festivals.index');
+        return redirect()->route('festivals.show', $festival)->with('success', 'Your order has been placed!');
     }
 
     /**

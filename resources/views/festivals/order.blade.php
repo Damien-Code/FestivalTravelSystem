@@ -31,7 +31,7 @@
                             <div>
                                 @if(auth()->user()->tokens > 100)
                                     <label for="vip-checkbox" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> VIP Discount </label>
-                                    <input type="checkbox" id="vip-checkbox" onclick="UpdatePrice()" class="block h-10 w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-600 dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" />
+                                    <input type="checkbox" id="vip-checkbox" name="vip-checkbox" onclick="UpdatePrice()" class="block h-10 w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-600 dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" />
                                 @else
                                     <label for="insufficient-tokens" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> VIP Discount </label>
                                     <input type="text" id="insufficient-tokens" value="You do not have enough tokens to apply a discount." disabled class="block h-10 w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" />
@@ -39,8 +39,9 @@
                             </div>
                             <div>
                                 <label for="ticket-amount" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Tickets </label>
-                                <input type="number" id="ticket-amount" value="0" min="1" max="35" oninput="CheckTicketInput(this)" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" />
+                                <input type="number" id="ticket-amount" name="ticket-amount" value="0" min="1" max="35" oninput="CheckTicketInput(this)" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" />
                                 <input type="hidden" id="ticket-price" value="{{$route->price}}">
+                                <input type="hidden" id="total-price-h" name="total-price-h" value="{{$route->price}}">
                             </div>
                         </div>
                     </div>
@@ -111,5 +112,6 @@
         document.getElementById("subtotal").innerHTML = subtotal;
         document.getElementById("total-savings").innerHTML = (subtotal - finalPrice).toFixed(2);
         document.getElementById("total-price").innerHTML = finalPrice;
+        document.getElementById("total-price-h").value = finalPrice;
     }
 </script>
