@@ -37,6 +37,8 @@ class OrderController extends Controller
         //Identify user making the purchase
         $user = auth()->user();
 
+
+
         //Validate form data
         $validatedData = $request->validate([
             'ticket-amount' => 'required|numeric|min:1|max:35',
@@ -44,7 +46,7 @@ class OrderController extends Controller
         ]);
 
         //Validate if the user has enough tokens if checkbox is selected
-        if($request->has('vip-checkbox') && $user->tokens < 100){
+        if($request->has('vip-checkbox') && $user->tokens < 100) {
             //Set error msg and return to order screen
             return redirect()->back()->withErrors(['Invalid tokens' => 'You do not have enough tokens to use the discount feature.']);
         }
