@@ -37,7 +37,10 @@ class OrderController extends Controller
         //Identify user making the purchase
         $user = auth()->user();
 
-
+        echo '<pre>';
+        var_dump($request->post());
+        echo '</pre>';
+        die();
 
         //Validate form data
         $validatedData = $request->validate([
