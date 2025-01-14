@@ -39,7 +39,7 @@
                                 <input id="country" type="hidden" name="country" value="{{old('country', $location->country)}}">
                                 <i class="dropdown icon"></i>
                                 <div class="default text">Select Country</div>
-                                <select class="menu text-black" onchange="document.getElementById('country').value = this.value">
+                                <select id="country-codes" class="menu text-black" onchange="document.getElementById('country').value = this.value">
                                     <option class="item" value="ax"><i class="ax flag"></i>Aland Islands</option>
                                     <option class="item" value="af"><i class="af flag"></i>Afghanistan</option>
                                     <option class="item" value="al"><i class="al flag"></i>Albania</option>
@@ -304,7 +304,11 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
-            console.log(document.getElementById('country').value)
+            const selectElement = document.getElementById('country-codes');
+            const optionValues = [...selectElement.options];
+            const selected = document.getElementById('country').value.toLowerCase();
+            if (selected !== '')
+                optionValues.find((e) => e.value === selected).selected = true;
         })
     </script>
 </x-app-layout>
