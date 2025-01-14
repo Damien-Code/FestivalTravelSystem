@@ -13,6 +13,8 @@ class AdminLocationController extends Controller
     public function index()
     {
         //
+        $locations = Location::all()->sortBy('country');
+        return view('admin.locations.index', compact('locations'));
     }
 
     /**
@@ -21,7 +23,7 @@ class AdminLocationController extends Controller
     public function create()
     {
         //
-        return view('admin.locations.form');
+        return view('admin.locations.form', ['location' => new Location]);
     }
 
     /**
@@ -35,13 +37,17 @@ class AdminLocationController extends Controller
             'city' => 'required|string|max:50',
             'street' => 'required|string|max:50',
         ]);
-
+//        $location = Location::all()->where('country', $validated['country'])->where('city', $validated['city'])->where('street', $validated['street'])->first();
         $location = Location::where('country', $validated['country'])->where('city', $validated['city'])->where('street', $validated['street'])->first();
-        if ($location->exists()) {
-            return back()->with('error', 'Location already exists!');
+        if ($location !== null) {
+            return redirect()->back()->withErrors(['error' => 'Location already exists!']);
         }
 
-        Location::create($validated);
+        Location::create([
+            'country' => strtoupper($validated['country']),
+            'city' => $validated['city'],
+            'street' => $validated['street'],
+        ]);
         return redirect()->route('admin.locations.index')->with('success', 'Location created successfully');
     }
 
@@ -59,6 +65,7 @@ class AdminLocationController extends Controller
     public function edit(Location $location)
     {
         //
+        return view('admin.locations.form', compact('location'));
     }
 
     /**
@@ -67,6 +74,21 @@ class AdminLocationController extends Controller
     public function update(Request $request, Location $location)
     {
         //
+        $validated = $request->validate([
+            'country' => 'required|string|min:2|max:2',
+            'city' => 'required|string|max:50',
+            'street' => 'required|string|max:50',
+        ]);
+        $location_exists = Location::where('country', $validated['country'])->where('city', $validated['city'])->where('street', $validated['street'])->first();
+        if ($location_exists !== null) {
+            return back()->withErrors(['error' => 'Location already exists!']);
+        }
+        $location->update([
+            'country' => strtoupper($validated['country']),
+            'city' => $validated['city'],
+            'street' => $validated['street'],
+        ]);
+        return redirect()->route('admin.locations.index')->with('success', 'Location updated successfully');
     }
 
     /**

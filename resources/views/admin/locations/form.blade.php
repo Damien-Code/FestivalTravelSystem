@@ -2,11 +2,22 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6 text-white">
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg flex justify-between">
             <div class="max-w-xl text-2xl">
-                <p>Create Location</p>
+                @if($location->exists)
+                    <p>Update Location</p>
+                @else
+                    <p>Create Location</p>
+                @endif
             </div>
+            <div>
+            @if($location->exists)
+                <a href="{{route('admin.locations.create')}}">
+                    <x-primary-button>Create new location</x-primary-button>
+                </a>
+            @endif
             <a href="{{route('admin.locations.index')}}">
                 <x-primary-button>Back</x-primary-button>
             </a>
+            </div>
         </div>
         {{-- Flash message --}}
         @include('layouts.success')
@@ -15,12 +26,17 @@
         <section class="bg-white dark:bg-gray-900">
             <div class="py-8 px-4 mx-auto max-w-3xl">
                 <h2 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white">Add a new location</h2>
-                <form action="{{route('admin.locations.store')}}" method="post" enctype="multipart/form-data">
+                @if($location->exists)
+                    <form action="{{ route('admin.locations.update', $location->id) }}" method="post">
+                    @method('PUT')
+                @else
+                    <form action="{{ route('admin.locations.store') }}" method="post">
+                @endif
                     @csrf
                     <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                         <div class="sm:col-span-2">
                             <div class="ui fluid search selection dropdown">
-                                <input id="country" type="hidden" name="country">
+                                <input id="country" type="hidden" name="country" value="{{old('country', $location->country)}}">
                                 <i class="dropdown icon"></i>
                                 <div class="default text">Select Country</div>
                                 <select class="menu text-black" onchange="document.getElementById('country').value = this.value">
@@ -270,23 +286,25 @@
                             </div>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image</label>
-                            <input type="file" name="image"
+                            <label for="city" class="default text">City</label>
+                            <input type="text" name="city" placeholder="City name" value="{{old('city', $location->city)}}"
                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            <p>Files supported: JPEG, PNG and JPG. Max-size: 2048</p>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="description"
-                                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                            <textarea name="description" rows="8"
-                                      class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                      placeholder="Your description here" required></textarea>
+                            <label for="street" class="default text">City</label>
+                            <input type="text" name="street" placeholder="Street name" value="{{old('street', $location->street)}}"
+                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                         </div>
                     </div>
-                    <x-primary-button class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6">Add festival
+                    <x-primary-button class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6">Add location
                     </x-primary-button>
                 </form>
             </div>
         </section>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            console.log(document.getElementById('country').value)
+        })
+    </script>
 </x-app-layout>

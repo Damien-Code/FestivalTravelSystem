@@ -13,7 +13,7 @@ class Location extends Model
     protected $fillable = [
         'country',
         'city',
-        'address',
+        'street',
     ];
     public function routes(){
         return $this->hasMany(Route::class);
