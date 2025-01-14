@@ -18,30 +18,33 @@
                             </div>
                             <div>
                                 <label for="festival_name" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Festival name </label>
-                                <input type="email" id="festival_name" value="{{$festival->festivalInfo->title ?? "no festival name"}}" disabled class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" />
+                                <input type="text" id="festival_name" value="{{$festival->festivalInfo->title ?? "no festival name"}}" disabled class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" />
                             </div>
                             <div>
                                 <label for="festival_route" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Festival route </label>
-                                <input type="email" id="festival_route" value="{{$route->location->country . " " . $route->location->city . " " . $route->location->address ?? "no festival location"}}" disabled class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" />
+                                <input type="text" id="festival_route" value="{{$route->location->country . " " . $route->location->city . " " . $route->location->address ?? "no festival location"}}" disabled class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" />
                             </div>
                             <div>
                                 <label for="departure_time" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Departure time </label>
-                                <input type="email" id="departure_time" value="{{$route->departure_time ?? "no departure time"}}" disabled class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" />
+                                <input type="text" id="departure_time" value="{{$route->departure_time ?? "no departure time"}}" disabled class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" />
                             </div>
-                            <div>
-                                @if(auth()->user()->tokens > 100)
-                                    <label for="vip-checkbox" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> VIP Discount </label>
-                                    <input type="checkbox" id="vip-checkbox" name="vip-checkbox" onclick="UpdatePrice()" class="block h-10 w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-600 dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" />
-                                @else
-                                    <label for="insufficient-tokens" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> VIP Discount </label>
-                                    <input type="text" id="insufficient-tokens" value="You do not have enough tokens to apply a discount." disabled class="block h-10 w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" />
-                                @endif
-                            </div>
-                            <div>
-                                <label for="ticket-amount" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Tickets </label>
-                                <input type="number" id="ticket-amount" name="ticket-amount" value="0" min="1" max="35" oninput="CheckTicketInput(this)" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" />
-                                <input type="hidden" id="ticket-price" value="{{$route->price}}">
-                                <input type="hidden" id="total-price-h" name="total-price-h" value="{{$route->price}}">
+                            <div class="flex flex-row justify-between gap-2">
+                                <div class="w-3/4">
+                                    <label for="ticket-amount" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Tickets </label>
+                                    <input type="number" id="ticket-amount" name="ticket-amount" value="0" min="1" max="35" oninput="CheckTicketInput(this)" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" />
+                                    <input type="hidden" id="ticket-price" value="{{$route->price}}">
+                                    <input type="hidden" id="total-price-h" name="total-price-h" value="{{$route->price}}"></div>
+                                <div class="w-1/4">
+                                    @if(auth()->user()->tokens > 100)
+                                        <label for="vip-checkbox" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> VIP Discount </label>
+                                        <div class="h-10 flex items-center justify-center border border-gray-600 rounded dark:bg-gray-700">
+                                            <input type="checkbox" id="vip-checkbox" name="vip-checkbox" onclick="UpdatePrice()" class="block rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-400 dark:bg-gray-700 dark:text-gray-600 dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" />
+                                        </div>
+                                    @else
+                                        <label for="insufficient-tokens" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> VIP Discount </label>
+                                        <input type="text" id="insufficient-tokens" value="Ineligible :(" disabled class="block h-10 w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" />
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>
