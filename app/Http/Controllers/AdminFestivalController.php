@@ -6,11 +6,13 @@ use App\Models\Festival;
 use App\Models\FestivalInfo;
 use App\Models\Location;
 use Carbon\Carbon;
+use Illuminate\Http\Exceptions\PostTooLargeException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use PHPUnit\Runner\ErrorException;
 use PHPUnit\TextUI\Application;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -20,11 +22,11 @@ use function PHPUnit\Framework\throwException;
 class AdminFestivalController extends Controller
 {
     /**
-     * @author Damiën van den IJssel & Brighton van Rouendal
      * @return View
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      * Display a listing of the resource.
+     * @author Damiën van den IJssel & Brighton van Rouendal
      */
     public function index(): View
     {
@@ -40,9 +42,9 @@ class AdminFestivalController extends Controller
     }
 
     /**
+     * @return View
      * @author Damiën van den IJssel
      * Show the form for creating a new resource.
-     * @return View
      */
     public function create(): View
     {
@@ -51,9 +53,9 @@ class AdminFestivalController extends Controller
     }
 
     /**
-     * @author Damiën van den IJssel
      * @return RedirectResponse
      * Store a newly created resource in storage.
+     * @author Damiën van den IJssel
      */
     public function store(Request $request): RedirectResponse
     {
@@ -61,8 +63,16 @@ class AdminFestivalController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string|max:45|min:3',
             'description' => 'required|string|min:10',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:4096',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
         ]);
+        $maxfilesize = 8388606;
+        if ($maxfilesize > $validatedData['image']) {
+            return back()->withErrors(['error' => 'File size is too big!']);
+        }
+
+//        if ($e instanceof PostTooLargeException){
+//            return Redirect::back()->withErrors([$e]);
+//        }
 
         // Encode the uploaded image to base64
         // Image is nullable, so added if statement
@@ -82,9 +92,9 @@ class AdminFestivalController extends Controller
     }
 
     /**
-     * @author Damiën van den IJssel
      * @return View
      * Show the form for pairing festival
+     * @author Damiën van den IJssel
      */
     public function pair(): View
     {
@@ -93,9 +103,9 @@ class AdminFestivalController extends Controller
     }
 
     /**
-     * @author Damiën van den IJssel
      * @param Request $request
      * @return RedirectResponse
+     * @author Damiën van den IJssel
      */
     // Store an added festival and date to db
     // Get the added festival from the store method and add a location and date to it
@@ -125,9 +135,9 @@ class AdminFestivalController extends Controller
     }
 
     /**
-     * @author Damiën van den IJssel
      * @return View
      * Show the form for editing the specified resource.
+     * @author Damiën van den IJssel
      */
     public function edit(Festival $festival): View
     {
@@ -136,9 +146,9 @@ class AdminFestivalController extends Controller
     }
 
     /**
-     * @author Damiën van den IJssel
      * @return RedirectResponse
      * Update the specified resource in storage.
+     * @author Damiën van den IJssel
      */
     public function update(Request $request, Festival $festival): RedirectResponse
     {
@@ -186,9 +196,9 @@ class AdminFestivalController extends Controller
     }
 
     /**
-     * @author Damiën van den IJssel
      * @return RedirectResponse
      * Remove the specified resource from storage.
+     * @author Damiën van den IJssel
      */
     public function destroy(Festival $festival): RedirectResponse
     {
