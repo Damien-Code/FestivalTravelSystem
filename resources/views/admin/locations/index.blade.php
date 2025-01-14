@@ -64,6 +64,15 @@
                                         </x-primary-button>
                                     </a>
                                 </td>
+                                <td class="px-6 py-4">
+                                    {{-- Form to delete festival --}}
+                                    <form method="post"
+                                          action="{{route('admin.locations.destroy', $location->id)}}">
+                                        @method('DELETE')
+                                        @csrf
+                                        <x-danger-button>Delete</x-danger-button>
+                                    </form>
+                                </td>
                             </tr>
                         @empty
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 whitespace-nowrap">
