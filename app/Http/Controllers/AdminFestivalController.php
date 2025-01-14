@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Festival;
 use App\Models\FestivalInfo;
-use App\Models\Location;
+use App\Models\Route;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
@@ -31,8 +31,7 @@ class AdminFestivalController extends Controller
         $festivals = Festival::withWhereHas('festivalInfo', function ($query) use ($search) {
             $query->where('festival_info.title', 'like', "%{$search}%");
             // Order the festivals on date
-        })->orderBy('festivals.date')->paginate(20);
-
+        })->with('routes')->orderBy('festivals.date')->paginate(20);
         return view('admin.festivals.index', compact('festivals'));
     }
 
