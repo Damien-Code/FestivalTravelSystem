@@ -7,7 +7,9 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Festival;
 use App\Models\FestivalInfo;
+use App\Models\Order;
 use App\Models\Route as ModelsRoute;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 
@@ -22,7 +24,8 @@ Route::get('/', function () {
 
 // Login required for dashboard
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $orders = auth()->user()->orders;
+    return view('dashboard', compact('orders'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // No login required for vip

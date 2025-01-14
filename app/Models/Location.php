@@ -23,5 +23,9 @@ class Location extends Model
         return $this->hasMany(Festival::class);
     }
 
+    public function address() {
+        return "{$this->country}, {$this->city} {$this->street}";
+    }
+
     protected $table = 'locations';
 }
