@@ -9,7 +9,9 @@ use Symfony\Component\HttpFoundation\Response;
 class EnsureUserIsAdmin
 {
     /**
+     * @author Damiën van den IJssel
      * Handle an incoming request.
+     * Make sure if user is not an admin, then abort with 403
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */

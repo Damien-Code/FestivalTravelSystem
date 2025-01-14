@@ -24,7 +24,7 @@ class FestivalInfoFactory extends Factory
             'description' => $this->faker->paragraph(),
             // Image will be stored as URL for factories
             // Images will be stored as BLOBs for admin
-            'image' => $faker->imageUrl(width: 640, height: 480),
+            'image' => $faker->imageURL(),
         ];
     }
 }

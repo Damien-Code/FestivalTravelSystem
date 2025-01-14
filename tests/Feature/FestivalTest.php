@@ -24,6 +24,13 @@ class FestivalTest extends TestCase
         $response->assertStatus(200);
     }
 
+
+    /**
+     * @author Damiën van den IJssel
+     * @return void
+     * Create user that has admin role
+     * Get the uri that can only be accessed by admin
+     */
     public function test_admin_festivals_page_can_be_rendered(): void
     {
         $user = User::factory()->create(['role_id' => 1]);
@@ -31,9 +38,16 @@ class FestivalTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /**
+     * @author Damiën van den IJssel
+     * @return void
+     * Create user that has not the admin role
+     * Get the uri that can only be accessed by admin
+     */
     public function test_admin_festivals_page_cannot_be_rendered_if_not_admin(): void
     {
-        $response = $this->get('/admin/festivals');
+        $user = User::factory()->create(['role_id' => 2]);
+        $response = $this->actingAs($user)->get('/admin/festivals');
         $response->assertStatus(403);
     }
 
