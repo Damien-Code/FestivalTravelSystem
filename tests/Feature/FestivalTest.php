@@ -24,6 +24,19 @@ class FestivalTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function test_admin_festivals_page_can_be_rendered(): void
+    {
+        $user = User::factory()->create(['role_id' => 1]);
+        $response = $this->actingAs($user)->get('/admin/festivals');
+        $response->assertStatus(200);
+    }
+
+    public function test_admin_festivals_page_cannot_be_rendered_if_not_admin(): void
+    {
+        $response = $this->get('/admin/festivals');
+        $response->assertStatus(403);
+    }
+
 
     /**
      * @return void
