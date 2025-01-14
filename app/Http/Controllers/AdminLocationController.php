@@ -99,11 +99,11 @@ class AdminLocationController extends Controller
         //
         $f = $location->festivals()->count();
         $r = $location->routes()->count();
-        if ($f === 0 && $r === 0) {
+//        if ($f === 0 && $r === 0) {
             $location->delete();
-            return redirect()->route('admin.locations.index')->with('success', 'Location deleted successfully');
-        } else {
-            return redirect()->route('admin.locations.index')->withErrors(['error' => 'Location cannot be deleted!']);
-        }
+            return redirect()->route('admin.locations.index')->with('delete', 'Location deleted successfully');
+//        } else {
+//            return redirect()->route('admin.locations.index')->withErrors(['error' => 'Location cannot be deleted!', 'invalid' => "linked festival amount: {$f}, routes amount: {$r}"]);
+//        }
     }
 }
