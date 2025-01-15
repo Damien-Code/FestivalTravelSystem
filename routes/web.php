@@ -56,16 +56,16 @@ Route::get('/admin', function () {
     $festivalCount = Festival::all()->count();
     $routesCount = ModelsRoute::all()->count();
     return view('admin.index', compact('festivalCount', 'festival', 'festivalInfo', 'routesCount', 'usersCount'));
-})->middleware(['auth', 'verified'])->name('admin.index');
+})->middleware(['admin', 'auth', 'verified'])->name('admin.index');
 
 // Login required for admin
 Route::get('/admin/show_users', function () {
     $users = User::all();
     return view('admin.show_users', compact('users'));
-})->middleware(['auth', 'verified'])->name('admin.show_users');
+})->middleware(['admin', 'auth', 'verified'])->name('admin.show_users');
 
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['admin', 'auth', 'verified'])->group(function () {
     Route::name('admin.')->group(function () {
         Route::prefix('admin')->group(function () {
             Route::resource('festivals', AdminFestivalController::class)

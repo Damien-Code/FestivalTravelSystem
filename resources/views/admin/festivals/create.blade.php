@@ -11,7 +11,7 @@
         {{-- Flash message --}}
         @include('layouts.success')
         @include('layouts.error')
-
+        <div id="fileSizeError"></div>
         <section class="bg-white dark:bg-gray-900">
             <div class="py-8 px-4 mx-auto max-w-3xl">
                 <h2 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white">Add a new festival</h2>
@@ -28,8 +28,10 @@
                         <div class="sm:col-span-2">
                             <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image</label>
                             <input type="file" name="image"
-                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            <p>Files supported: JPEG, PNG and JPG. Max-size: 2048</p>
+                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+{{--                                   onchange="getFileSize(this)"--}}
+                            >
+                            <p>Files supported: JPEG, PNG and JPG. Max-size: 5mb</p>
                         </div>
                         <div class="sm:col-span-2">
                             <label for="description"
@@ -45,4 +47,14 @@
             </div>
         </section>
     </div>
+    {{--    <script>--}}
+    {{--        function getFileSize(el) {--}}
+    {{--            const size = el.files[0].size;--}}
+    {{--            let totalSize = Math.ceil(size/1024);--}}
+    {{--            console.log(el.files[0].size)--}}
+    {{--            if(totalSize > 5120){--}}
+    {{--                alert('file too big')--}}
+    {{--            }--}}
+    {{--        }--}}
+    {{--    </script>--}}
 </x-app-layout>
