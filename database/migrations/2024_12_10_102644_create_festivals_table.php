@@ -25,6 +25,7 @@ return new class extends Migration
             $table->foreignId('location_id')->constrained('locations');
             $table->dateTime('date');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
