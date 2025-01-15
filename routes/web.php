@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminFestivalController;
+use App\Http\Controllers\AdminLocationController;
 use App\Http\Controllers\AdminRouteController;
 use App\Http\Controllers\FestivalController;
 use App\Http\Controllers\OrderController;
@@ -74,6 +75,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::put('/festivals/{festival}', [AdminFestivalController::class, 'updatePair'])->name('festivals.updatePair');
 
             Route::resource('/routes', AdminRouteController::class)
+                ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+
+            Route::resource('/locations', AdminLocationController::class)
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
         });
     });
