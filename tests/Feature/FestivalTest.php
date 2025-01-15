@@ -24,7 +24,6 @@ class FestivalTest extends TestCase
         $response->assertStatus(200);
     }
 
-
     /**
      * @author Damiën van den IJssel
      * @return void
@@ -51,7 +50,6 @@ class FestivalTest extends TestCase
         $response->assertStatus(403);
     }
 
-
     /**
      * @return void
      * @author Damiën van den IJssel
@@ -68,7 +66,7 @@ class FestivalTest extends TestCase
             // create fake image upload
             'image' => UploadedFile::fake()->image('festival1.png'),
         ];
-        $response = $this->actingAs($user)
+        $this->actingAs($user)
             ->post(route('admin.festivals.store'), [
                 'title' => $data['title'],
                 'description' => $data['description'],
@@ -100,6 +98,7 @@ class FestivalTest extends TestCase
                 'title' => 'Festival 1',
                 'description' => 'Festival 1 description',
             ]);
+
         $date = fake()->dateTimeBetween('now', '+1 years')->format('Y-m-d');
 
         $this->actingAs($user)
