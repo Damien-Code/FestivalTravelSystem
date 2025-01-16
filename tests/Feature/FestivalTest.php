@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Festival;
 use App\Models\Location;
 use App\Models\User;
 use Faker\Core\DateTime;
@@ -111,5 +112,35 @@ class FestivalTest extends TestCase
             'info_festival_id' => 2,
             'date' => $date,
         ]);
+    }
+
+    public function test_festival_can_be_soft_deleted()
+    {
+        Location::factory()->create();
+        $user = User::factory()->create(['role_id' => 1]);
+        $this->actingAs($user)
+            ->post(route('admin.festivals.store'), [
+                'title' => 'Festival 3',
+                'description' => 'Festival 3 description',
+            ]);
+
+        $date = fake()->dateTimeBetween('now', '+1 years')->format('Y-m-d H:i:s');
+
+        $festival = $this->actingAs($user)
+            ->post(route('admin.festivals.planFestival'), [
+                'festival' => 3,
+//                'location_id' => 1, // Wordt niet gebruikt in de controller
+                'date' => $date,
+            ]);
+
+        $this->actingAs($user)
+            ->delete(route('admin.festivals.destroy', 3));
+        $this->assertSoftDeleted('festivals', [
+            'info_festival_id' => 3,
+            'date' => $date,
+        ]);
+
+
+
     }
 }
