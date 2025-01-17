@@ -5,23 +5,28 @@ namespace App\Http\Controllers;
 use App\Models\Festival;
 use App\Models\FestivalInfo;
 use App\Models\Location;
+use Carbon\Carbon;
+use Illuminate\Http\Exceptions\PostTooLargeException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use PHPUnit\Runner\ErrorException;
 use PHPUnit\TextUI\Application;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
+use function Laravel\Prompts\error;
+use function PHPUnit\Framework\throwException;
 
 class AdminFestivalController extends Controller
 {
     /**
-     * @author Damiën van den IJssel & Brighton van Rouendal
      * @return View
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      * Display a listing of the resource.
+     * @author Damiën van den IJssel & Brighton van Rouendal
      */
     public function index(): View
     {
@@ -37,9 +42,9 @@ class AdminFestivalController extends Controller
     }
 
     /**
+     * @return View
      * @author Damiën van den IJssel
      * Show the form for creating a new resource.
-     * @return View
      */
     public function create(): View
     {
@@ -48,9 +53,9 @@ class AdminFestivalController extends Controller
     }
 
     /**
-     * @author Damiën van den IJssel
      * @return RedirectResponse
      * Store a newly created resource in storage.
+     * @author Damiën van den IJssel
      */
     public function store(Request $request): RedirectResponse
     {
@@ -58,7 +63,7 @@ class AdminFestivalController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string|max:45|min:3',
             'description' => 'required|string|min:10',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
         ]);
         // Encode the uploaded image to base64
         // Image is nullable, so added if statement
@@ -67,6 +72,7 @@ class AdminFestivalController extends Controller
             $data = "data:image/{$image->extension()};base64, ";
             $data .= base64_encode($image->openFile()->fread($image->getSize()));
         }
+
         // create the resource
         FestivalInfo::create([
             'title' => $validatedData['title'],
@@ -77,9 +83,9 @@ class AdminFestivalController extends Controller
     }
 
     /**
-     * @author Damiën van den IJssel
      * @return View
      * Show the form for pairing festival
+     * @author Damiën van den IJssel
      */
     public function pair(): View
     {
@@ -88,9 +94,9 @@ class AdminFestivalController extends Controller
     }
 
     /**
-     * @author Damiën van den IJssel
      * @param Request $request
      * @return RedirectResponse
+     * @author Damiën van den IJssel
      */
     // Store an added festival and date to db
     // Get the added festival from the store method and add a location and date to it
@@ -98,11 +104,13 @@ class AdminFestivalController extends Controller
     {
         $validatedData = $request->validate([
             'festival' => 'required',
+//            'location' => 'required',
             'date' => 'required|date',
         ]);
 
         Festival::create([
             'info_festival_id' => $validatedData['festival'],
+//            'location_id' => $validatedData['location'],
             'location_id' => 1, // TODO: make admin be able to assign location
             'date' => $validatedData['date'],
         ]);
@@ -118,19 +126,20 @@ class AdminFestivalController extends Controller
     }
 
     /**
-     * @author Damiën van den IJssel
      * @return View
      * Show the form for editing the specified resource.
+     * @author Damiën van den IJssel
      */
     public function edit(Festival $festival): View
     {
-        return view('admin.festivals.edit', compact('festival'));
+        $festivalsInfo = FestivalInfo::all();
+        return view('admin.festivals.edit', compact('festival', 'festivalsInfo'));
     }
 
     /**
-     * @author Damiën van den IJssel
      * @return RedirectResponse
      * Update the specified resource in storage.
+     * @author Damiën van den IJssel
      */
     public function update(Request $request, Festival $festival): RedirectResponse
     {
@@ -152,17 +161,40 @@ class AdminFestivalController extends Controller
             'description' => $validatedData['description'],
             'image' => $data ?? null
         ]);
-        return redirect(route('admin.festivals.index'));
+        return redirect(route('admin.festivals.edit', $festival))
+            ->with('success', 'Festival updated successfully!');
+    }
+
+    public function updatePair(Request $request, Festival $festival): RedirectResponse
+    {
+        $validatedData = $request->validate([
+            'festival' => 'required',
+//            'location' => 'required',
+            'date' => 'required|date',
+        ]);
+//      Convert date to datetime because otherwise the planning won't update
+//      Convert to datetime was needed because datatype in database is datetime, while the calendar makes a date
+        Carbon::parse($validatedData['date'])->toDateTimeString();
+        $festival->update([
+            'info_festival_id' => $validatedData['festival'],
+//            'location_id' => $validatedData['location'],
+            'location_id' => 1,
+            'date' => $validatedData['date'],
+        ]);
+        return redirect(route('admin.festivals.edit', $festival))
+            ->with('success', 'Pairing festival updated successfully!');
+
     }
 
     /**
-     * @author Damiën van den IJssel
      * @return RedirectResponse
      * Remove the specified resource from storage.
+     * @author Damiën van den IJssel
      */
     public function destroy(Festival $festival): RedirectResponse
     {
         $festival->delete();
-        return redirect()->route('admin.festivals.index')->with('delete', 'Festival deleted successfully!');
+        return redirect()->route('admin.festivals.index')
+            ->with('delete', 'Festival deleted successfully!');
     }
 }
