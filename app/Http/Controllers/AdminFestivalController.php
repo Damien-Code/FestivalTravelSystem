@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Festival;
 use App\Models\FestivalInfo;
+use App\Models\Route;
 use App\Models\Location;
 use Carbon\Carbon;
 use Illuminate\Http\Exceptions\PostTooLargeException;
@@ -36,8 +37,7 @@ class AdminFestivalController extends Controller
         $festivals = Festival::withWhereHas('festivalInfo', function ($query) use ($search) {
             $query->where('festival_info.title', 'like', "%{$search}%");
             // Order the festivals on date
-        })->orderBy('festivals.date')->paginate(20);
-
+        })->with('routes')->orderBy('festivals.date')->paginate(20);
         return view('admin.festivals.index', compact('festivals'));
     }
 

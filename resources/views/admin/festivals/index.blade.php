@@ -58,6 +58,9 @@
                                 Location
                             </th>
                             <th scope="col" class="px-6 py-3">
+                                Sign up count
+                            </th>
+                            <th scope="col" class="px-6 py-3">
                                 Action
                             </th>
                             <th scope="col" class="px-6 py-3">
@@ -82,6 +85,17 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     Amsterdam
+                                </td>
+                                <td class="px-6 py-4">
+                                    @php
+                                    $total = 0;
+                                    if ($festival->routes->count()) {
+                                        foreach ($festival->routes as $route) {
+                                            $total += $route->signups();
+                                        }
+                                    }
+                                    @endphp
+                                    {{ $total }}
                                 </td>
                                 <td class="px-6 py-4">
                                     <a href="{{route('admin.festivals.edit', $festival->id)}}">
