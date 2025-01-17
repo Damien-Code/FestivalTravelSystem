@@ -35,10 +35,14 @@
                                 <div class="sm:col-span-2">
                                     <label for="image"
                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image</label>
-                                    <input type="file" name="image" id="image" value="{{$festival->festivalInfo->image}}"
-                                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    onchange="getFileSize(this)">
-                                    <p id="fileName">Files supported: JPEG, PNG and JPG. Max-size: 2048</p>
+                                    <input type="file" name="image" id="image"
+                                           value="{{$festival->festivalInfo->image}}"
+                                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                    <p id="fileName">Files supported: JPEG, PNG and JPG. Max-size: 5MB</p>
+                                    <div class="flex mt-6 items-center">
+                                        <input type="checkbox" name="remove_image">
+                                        <p class="pl-6">Update without image</p>
+                                    </div>
                                 </div>
                                 <div class="sm:col-span-2">
                                     <label for="description"
@@ -58,8 +62,8 @@
                 </section>
                 {{-- Form to update festival --}}
                 <section class="w-1/2">
-                    <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
-                        <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Pair an existing festival
+                    <div class="py-8 px-4 mx-auto max-w-2xl">
+                        <h2 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white">Pair an existing festival
                             to a
                             date and location</h2>
                         <form action="{{route('admin.festivals.updatePair', $festival->id)}}" method="post">
@@ -104,7 +108,7 @@
     </div>
     <script>
         const file = document.getElementById('image')
-        const text= document.getElementById('fileName')
+        const text = document.getElementById('fileName')
         file.addEventListener('change', (event) => {
             const target = event.target
             if (target.files && target.files[0]) {

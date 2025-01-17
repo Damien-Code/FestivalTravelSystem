@@ -150,10 +150,18 @@ class AdminFestivalController extends Controller
         ]);
         // Encode the uploaded image to base64
         // Image is nullable, so added if statement
+
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $data = "data:image/{$image->extension()};base64, ";
             $data .= base64_encode($image->openFile()->fread($image->getSize()));
+        } else {
+            // if checkbox is checked then remove old image or keep the old image if checkbox is not checked if image was uploaded.
+            if ($request->has('remove_image')) {
+                $data = null;
+            } else {
+                $data = $festival->festivalInfo->image;
+            }
         }
         // Update the resource
         $festival->festivalInfo()->update([
