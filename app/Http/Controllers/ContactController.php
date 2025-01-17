@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class ContactController extends Controller
 {
     /**
+     * @author Brighton van Rouendal
      * Display a listing of the resource.
      */
     public function index()
@@ -16,6 +17,7 @@ class ContactController extends Controller
     }
 
     /**
+     * @author Brighton van Rouendal
      * Store a newly created resource in storage.
      */
     public function store(Request $request)

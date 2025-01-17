@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class AdminContactController extends Controller
 {
     /**
+     * @author Brighton van Rouendal
      * Display a listing of the resource.
      */
     public function index()
@@ -17,6 +18,7 @@ class AdminContactController extends Controller
     }
 
     /**
+     * @author Brighton van Rouendal
      * Display the specified resource.
      */
     public function show(Contact $contact)
@@ -25,6 +27,7 @@ class AdminContactController extends Controller
     }
 
     /**
+     * @author Brighton van Rouendal
      * Remove the specified resource from storage.
      */
     public function destroy(Contact $contact)
