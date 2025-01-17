@@ -23,7 +23,7 @@ class ContactController extends Controller
         $validatedRequest = $request->validate([
             'name' => 'required|string|max:50',
             'email' => 'required|email',
-            'message' => 'required|string'
+            'message' => 'required|string|min:12'
         ]);
 
         $contact = Contact::create($validatedRequest);
