@@ -72,6 +72,7 @@
                     text.innerText = 'File is not supported, please select JPEG, PNG or JPG and not bigger than 5MB'
                 } else {
                     file.classList.remove('dark:border-gray-600')
+                    file.classList.remove('border-rose-500')
                     file.classList.add('border-green-500')
                     text.innerText = 'Image is supported to upload'
                 }
