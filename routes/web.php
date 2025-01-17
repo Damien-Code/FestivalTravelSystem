@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminFestivalController;
 use App\Http\Controllers\AdminLocationController;
 use App\Http\Controllers\AdminRouteController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FestivalController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
@@ -50,20 +51,13 @@ Route::get('/contact', function () {
 
 // Login required for admin
 Route::get('/admin', function () {
-    $usersCount = User::all()->count();
+    $usersCount = User::all()->whereNull('deleted_at')->count();
     $festival = Festival::all();
     $festivalInfo = FestivalInfo::all();
     $festivalCount = Festival::all()->count();
     $routesCount = ModelsRoute::all()->count();
     return view('admin.index', compact('festivalCount', 'festival', 'festivalInfo', 'routesCount', 'usersCount'));
 })->middleware(['admin', 'auth', 'verified'])->name('admin.index');
-
-// Login required for admin
-Route::get('/admin/show_users', function () {
-    $users = User::all();
-    return view('admin.show_users', compact('users'));
-})->middleware(['admin', 'auth', 'verified'])->name('admin.show_users');
-
 
 Route::middleware(['admin', 'auth', 'verified'])->group(function () {
     Route::name('admin.')->group(function () {
@@ -77,10 +71,16 @@ Route::middleware(['admin', 'auth', 'verified'])->group(function () {
             Route::resource('/routes', AdminRouteController::class)
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 
+         
+            Route::resource('users', AdminController::class)
+                ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);   
+            });
+
+
             Route::resource('/locations', AdminLocationController::class)
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+
         });
-    });
 });
 
 // Login required for admin

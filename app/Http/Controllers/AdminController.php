@@ -3,15 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 
-class Admin extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        // dd('test'); 
+        $search = request()->get('search') ?? '';
+        $users = User::where('users.name','like', "%{$search}%")->orWhere('users.email','like', "%{$search}%")
+        ->orderBy('users.id')->paginate(20);
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -43,15 +49,21 @@ class Admin extends Controller
      */
     public function edit(string $id)
     {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user): RedirectResponse
     {
-        //
+        $validatedData = $request->validate([
+            'role_id' => 'required',
+        ]);
+        // Update the resource
+        $user->update([
+            'role_id' => $validatedData['role_id'],
+             ]);
+        return redirect(route('admin.users.index'));
     }
 
     /**
