@@ -25,6 +25,9 @@
                                 Message
                             </th>
                             <th scope="col" class="px-6 py-3">
+                                Created At
+                            </th>
+                            <th scope="col" class="px-6 py-3">
                                 <span class="sr-only">Show</span>
                             </th>
                             <th scope="col" class="px-6 py-3">
@@ -43,6 +46,9 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     <p class="line-clamp-2">{{ $contact->message }}</p>
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ $contact->created_at->format('Y-m-d') }}
                                 </td>
                                 <td class="px-6 py-4 text-right">
                                     <a href="{{ route('admin.contact.show', $contact) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">show</a>
