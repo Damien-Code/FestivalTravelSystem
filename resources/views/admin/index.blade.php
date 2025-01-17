@@ -38,6 +38,9 @@
                 <a href="{{route('admin.routes.index')}}">
                     <x-primary-button>Bekijk busreizen</x-primary-button>
                 </a>
+                <a href="{{route('admin.busses.index')}}">
+                    <x-primary-button>Bekijk bussen</x-primary-button>
+                </a>
             </div>
         </div>
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg w-1/3">

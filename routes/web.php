@@ -7,6 +7,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FestivalController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminBusInfoController;
+use App\Models\BusInfo;
 use App\Models\Festival;
 use App\Models\FestivalInfo;
 use App\Models\Route as ModelsRoute;
@@ -55,8 +57,9 @@ Route::get('/admin', function () {
     $festival = Festival::all();
     $festivalInfo = FestivalInfo::all();
     $festivalCount = Festival::all()->count();
+    $busCount = BusInfo::all()->count();
     $routesCount = ModelsRoute::all()->count();
-    return view('admin.index', compact('festivalCount', 'festival', 'festivalInfo', 'routesCount', 'usersCount'));
+    return view('admin.index', compact('festivalCount', 'festival', 'festivalInfo', 'routesCount', 'usersCount', 'busCount'));
 })->middleware(['admin', 'auth', 'verified'])->name('admin.index');
 
 Route::middleware(['admin', 'auth', 'verified'])->group(function () {
@@ -78,6 +81,8 @@ Route::middleware(['admin', 'auth', 'verified'])->group(function () {
 
 
             Route::resource('/locations', AdminLocationController::class)
+                ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+            Route::resource('/busses', AdminBusInfoController::class)
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 
         });
