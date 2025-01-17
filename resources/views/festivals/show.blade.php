@@ -7,10 +7,12 @@
     <div class="mx-auto sm:px-6 lg:px-8 space-y-6 pt-6 text-white">
         <section class="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
             <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0" id="{{$festival->id}}">
+                @include('layouts.success')
                 <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
                     <div class="shrink-0 max-w-md lg:max-w-lg mx-auto">
                         @if(isset($festival->festivalInfo->image))
-                            <img class="w-full rounded-lg" src="{{$festival->festivalInfo->image}}" alt="image" class="w-24">
+                            <img class="w-full rounded-lg" src="{{$festival->festivalInfo->image}}" alt="image"
+                                 class="w-24">
                         @endif
                     </div>
 
@@ -44,7 +46,7 @@
                         <hr class="my-6 md:my-8border-gray-200 dark:border-gray-800"/>
 
                         <p class="mb-6 text-gray-500 dark:text-gray-400">
-                            Adress: {{$festival->location->address}}
+                            Adress: {{$festival->location->street}}
                         </p>
 
                         <p class="text-gray-500 dark:text-gray-400 pb-6">
@@ -97,7 +99,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td>No Routes</td>
+                                        <td class="px-6 py-4" colspan="3">New routes will be added soon!</td>
                                     </tr>
                                 @endforelse
                                 </tbody>

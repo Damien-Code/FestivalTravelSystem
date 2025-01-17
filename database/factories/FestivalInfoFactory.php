@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\FestivalInfo;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,12 +17,14 @@ class FestivalInfoFactory extends Factory
      */
     public function definition(): array
     {
+        $faker = \Faker\Factory::create();
+        $faker->addProvider(new \Smknstd\FakerPicsumImages\FakerPicsumImagesProvider($faker));
         return [
             'title' => $this->faker->words(2, true),
             'description' => $this->faker->paragraph(),
             // Image will be stored as URL for factories
             // Images will be stored as BLOBs for admin
-            'image' => $this->faker->imageUrl(),
+            'image' => $faker->imageURL(),
         ];
     }
 }

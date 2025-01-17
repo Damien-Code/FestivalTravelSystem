@@ -30,31 +30,50 @@ class OrderController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * @author Ismael Winterman
      */
     public function store(Request $request, Festival $festival, Route $route)
     {
+        //Identify user making the purchase
+        $user = auth()->user();
+
         //Validate form data
         $validatedData = $request->validate([
-            'ticket-amount' => 'required',
-            'total-price' => 'required',
+            'ticket-amount' => 'required|numeric|min:1|max:35',
+            'total-price-h' => 'required|numeric',
         ]);
 
-        //Validate submitted price
-        if($request->get('total-price') != $route->price * $request->get('ticket-amount') * ($request->has('vip-checkbox') ? 0.8 : 1.0)) {
+        //Validate if the user has enough tokens if checkbox is selected
+        if($request->has('vip-checkbox') && $user->tokens < 100) {
             //Set error msg and return to order screen
-            return redirect()->back()->withErrors(['error' => 'The submitted price is incorrect. Please try again.']);
+            return redirect()->back()->withErrors(['Invalid tokens' => 'You do not have enough tokens to use the discount feature.']);
         }
 
-        //TODO: subtract/add points to the user
+        //Validate submitted price rounded on 2 decimals
+        if($request->get('total-price-h') != round($route->price * $request->get('ticket-amount') * ($request->has('vip-checkbox') ? 0.8 : 1.0), 2)) {
+            //Set error msg and return to order screen
+            return redirect()->back()->withErrors(['Invalid price' => 'The submitted price is incorrect. Please try again.']);
+        }
 
+        //Save the order
         Order::create([
-            'user_id' => auth()->user()->id,
+            'user_id' => $user->id,
             'route_id' => $route->id,
             'tokens_used' => $request->has('vip-checkbox') ? 100 : 0,
             'amount_of_tickets' => $validatedData['ticket-amount'],
-            'final_price' => $validatedData['total-price'],
+            'final_price' => $validatedData['total-price-h'],
         ]);
-        return redirect()->route('festivals.index');
+
+        //Remove points if VIP option was selected
+        if($request->has('vip-checkbox')) {
+            $user->update(['tokens' => $user->tokens - 100]);
+        }
+
+        //Award tokens based on final price
+        $user->update(['tokens' => $user->tokens + $validatedData['total-price-h']]);
+
+        //return redirect()->route('festivals.index');
+        return redirect()->route('festivals.show', $festival)->with('success', 'Your order has been placed!');
     }
 
     /**
