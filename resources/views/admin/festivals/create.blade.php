@@ -31,7 +31,7 @@
                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     {{--                                   onchange="getFileSize(this)"--}}
                             >
-                            <p>Files supported: JPEG, PNG and JPG. Max-size: 5mb</p>
+                            <p id="fileName">Files supported: JPEG, PNG and JPG. Max-size: 5mb</p>
                         </div>
                         <div class="sm:col-span-2">
                             <label for="description"
@@ -59,6 +59,7 @@
     {{--    </script>--}}
     <script>
         const file = document.getElementById('image')
+        const text= document.getElementById('fileName')
         file.addEventListener('change', (event) => {
             const target = event.target
             if (target.files && target.files[0]) {
@@ -68,9 +69,11 @@
                     file.classList.remove('dark:border-gray-600')
                     file.classList.remove('border-green-500')
                     file.classList.add('border-rose-500')
+                    text.innerText = 'File is not supported, please select JPEG, PNG or JPG and not bigger than 5MB'
                 } else {
                     file.classList.remove('dark:border-gray-600')
                     file.classList.add('border-green-500')
+                    text.innerText = 'Image is supported to upload'
                 }
             }
         })
