@@ -4,11 +4,11 @@
             {{ __('Admin') }}
         </h2>
     </x-slot>
-    <div class="sm:px-6 lg:px-8 pt-6 text-white flex justify-between h-96 gap-6 max-w-full">
-        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg w-1/3">
+    <div class="sm:px-6 lg:px-8 pt-6 text-white grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 h-80 gap-6 max-w-full">
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             <div class="max-w-xl flex justify-between flex-col h-full">
                 <div>
-                    <p class="text-2xl pb-10">Gebruikers</p>
+                    <p class="text-3xl pb-10">Gebruikers</p>
                     <p>Totaal aantal gebruikers: {{$usersCount}}</p>
                 </div>
                 <a href="{{route('admin.show_users')}}">
@@ -16,10 +16,10 @@
                 </a>
             </div>
         </div>
-        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg w-1/3">
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             <div class="max-w-xl flex justify-between flex-col h-full">
                 <div>
-                    <p class="text-2xl pb-10">Festivals</p>
+                    <p class="text-3xl pb-10">Festivals</p>
                     <p>Totaal aantal festivals: {{$festivalCount}}</p>
                 </div>
                 <div class="flex justify-between">
@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg w-1/3">
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             <div class="max-w-xl flex justify-between flex-col h-full">
                 <div>
                     <p class="text-3xl pb-10">Busreizen</p>
@@ -40,7 +40,7 @@
                 </a>
             </div>
         </div>
-        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg w-1/3">
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             <div class="max-w-xl flex justify-between flex-col h-full">
                 <div>
                     <p class="text-3xl pb-10">Locations</p>
