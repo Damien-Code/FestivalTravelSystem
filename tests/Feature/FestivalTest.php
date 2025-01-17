@@ -114,6 +114,17 @@ class FestivalTest extends TestCase
         ]);
     }
 
+
+    /**
+     * @author Damiën van den IJssel & Brighton van Rouendal
+     * Create location
+     * Create user
+     * Store festival and pair it with date
+     * Brighton found out that festival had to be ordered on ID
+     * Delete the last id in DB
+     * Assert that festival had been soft deleted
+     * @return void
+     */
     public function test_festival_can_be_soft_deleted()
     {
         Location::factory()->create();
@@ -133,11 +144,11 @@ class FestivalTest extends TestCase
                 'date' => $date,
             ]);
 
+        $festival_id = Festival::orderBy('id', 'desc')->first()->id;
         $this->actingAs($user)
-            ->delete(route('admin.festivals.destroy', 3));
+            ->delete(route('admin.festivals.destroy', $festival_id));
         $this->assertSoftDeleted('festivals', [
-            'info_festival_id' => 3,
-            'date' => $date,
+            'id' => $festival_id,
         ]);
 
 
