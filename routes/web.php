@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminFestivalController;
 use App\Http\Controllers\AdminLocationController;
 use App\Http\Controllers\AdminRouteController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FestivalController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
@@ -48,9 +49,8 @@ Route::get('/festivals/{festival}/order/{route}', function (\App\Models\Festival
 Route::post('/festivals/{festival}/order/{route}', [OrderController::class, 'store'])->name('order.store');
 
 // No login required for contact
-Route::get('/contact', function () {
-    return view('contact.index');
-})->name('contact.index');
+Route::resource('contact', ContactController::class)
+    ->only('index', 'store');
 
 // Login required for admin
 Route::get('/admin', function () {
@@ -74,9 +74,9 @@ Route::middleware(['admin', 'auth', 'verified'])->group(function () {
             Route::resource('/routes', AdminRouteController::class)
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 
-         
+
             Route::resource('users', AdminController::class)
-                ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);   
+                ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
             });
 
 

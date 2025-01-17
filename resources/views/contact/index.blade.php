@@ -5,15 +5,18 @@
         </h2>
     </x-slot>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6 ">
+        @include('layouts.error')
+        @include('layouts.success')
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             <div class="max-w-xl">
-                <form class="flex flex-col w-56">
+                <form class="flex flex-col w-56" method="post" action="{{ route('contact.store') }}">
+                    @csrf
                     <label class="text-white">Naam</label>
-                    <input class="rounded-lg">
+                    <input required type="text" name="name" class="rounded-lg">
                     <label class="text-white">Email</label>
-                    <input class="rounded-lg">
+                    <input required type="email" name="email" class="rounded-lg">
                     <label class="text-white">Bericht</label>
-                    <input class="rounded-lg mb-8">
+                    <textarea required rows="8" name="message" class="rounded-lg mb-8"></textarea>
                     <x-primary-button>Send</x-primary-button>
                 </form>
             </div>
