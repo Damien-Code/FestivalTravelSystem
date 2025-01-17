@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('routes', function (Blueprint $table) {
+        Schema::create('contacts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('festival_id')->constrained('festivals');
-            $table->foreignId('location_id')->constrained('locations');
-            $table->dateTime('departure_time');
-            $table->double('price');
+            $table->string('name');
+            $table->string('email');
+            $table->text('message');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('routes');
+        Schema::dropIfExists('contacts');
     }
 };
