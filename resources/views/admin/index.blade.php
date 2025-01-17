@@ -8,11 +8,11 @@
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             <div class="max-w-xl flex justify-between flex-col h-full">
                 <div>
-                    <p class="text-3xl pb-10">Gebruikers</p>
-                    <p>Totaal aantal gebruikers: {{$usersCount}}</p>
+                    <p class="text-3xl pb-10">Users</p>
+                    <p>Total amount of users: {{$usersCount}}</p>
                 </div>
                 <a href="{{route('admin.users.index')}}">
-                    <x-primary-button>Edit</x-primary-button>
+                    <x-primary-button>View users</x-primary-button>
                 </a>
             </div>
         </div>
@@ -20,11 +20,11 @@
             <div class="max-w-xl flex justify-between flex-col h-full">
                 <div>
                     <p class="text-3xl pb-10">Festivals</p>
-                    <p>Totaal aantal festivals: {{$festivalCount}}</p>
+                    <p>Total amount of festivals: {{$festivalCount}}</p>
                 </div>
                 <div class="flex justify-between">
                     <a href="{{route('admin.festivals.index')}}">
-                        <x-primary-button>Bekijk festivals</x-primary-button>
+                        <x-primary-button>View festivals</x-primary-button>
                     </a>
                 </div>
             </div>
@@ -32,11 +32,11 @@
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             <div class="max-w-xl flex justify-between flex-col h-full">
                 <div>
-                    <p class="text-3xl pb-10">Busreizen</p>
-                    <p>Totaal aantal routes: {{$routesCount}}</p>
+                    <p class="text-3xl pb-10">Bus trips</p>
+                    <p>Total amount of bus routes: {{$routesCount}}</p>
                 </div>
                 <a href="{{route('admin.routes.index')}}">
-                    <x-primary-button>Bekijk busreizen</x-primary-button>
+                    <x-primary-button>View bus routes</x-primary-button>
                 </a>
             </div>
         </div>
@@ -46,7 +46,7 @@
                     <p class="text-3xl pb-10">Locations</p>
                 </div>
                 <a href="{{route('admin.locations.index')}}">
-                    <x-primary-button>Bekijk locations</x-primary-button>
+                    <x-primary-button>View locations</x-primary-button>
                 </a>
             </div>
         </div>
