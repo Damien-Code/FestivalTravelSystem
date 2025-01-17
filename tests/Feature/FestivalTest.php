@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Festival;
 use App\Models\Location;
 use App\Models\User;
 use Faker\Core\DateTime;
@@ -111,5 +112,46 @@ class FestivalTest extends TestCase
             'info_festival_id' => 2,
             'date' => $date,
         ]);
+    }
+
+
+    /**
+     * @author Damiën van den IJssel & Brighton van Rouendal
+     * Create location
+     * Create user
+     * Store festival and pair it with date
+     * Brighton found out that festival had to be ordered on ID
+     * Delete the last id in DB
+     * Assert that festival had been soft deleted
+     * @return void
+     */
+    public function test_festival_can_be_soft_deleted()
+    {
+        Location::factory()->create();
+        $user = User::factory()->create(['role_id' => 1]);
+        $this->actingAs($user)
+            ->post(route('admin.festivals.store'), [
+                'title' => 'Festival 3',
+                'description' => 'Festival 3 description',
+            ]);
+
+        $date = fake()->dateTimeBetween('now', '+1 years')->format('Y-m-d H:i:s');
+
+        $festival = $this->actingAs($user)
+            ->post(route('admin.festivals.planFestival'), [
+                'festival' => 3,
+//                'location_id' => 1, // Wordt niet gebruikt in de controller
+                'date' => $date,
+            ]);
+
+        $festival_id = Festival::orderBy('id', 'desc')->first()->id;
+        $this->actingAs($user)
+            ->delete(route('admin.festivals.destroy', $festival_id));
+        $this->assertSoftDeleted('festivals', [
+            'id' => $festival_id,
+        ]);
+
+
+
     }
 }
