@@ -12,7 +12,7 @@ class AdminContactController extends Controller
      */
     public function index()
     {
-        $contacts = Contact::withoutTrashed()->paginate(20);
+        $contacts = Contact::withoutTrashed()->paginate(15);
         return view('admin.contact.index', compact('contacts'));
     }
 

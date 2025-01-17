@@ -68,6 +68,10 @@
                         @endforelse
                         </tbody>
                     </table>
+                    {{-- Pagination link --}}
+                    <div class="w-full flex justify-center p-4">
+                        {{$contacts->withQueryString()->links()}}
+                    </div>
                 </div>
             </div>
         </div>
