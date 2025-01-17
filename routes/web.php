@@ -83,7 +83,7 @@ Route::middleware(['admin', 'auth', 'verified'])->group(function () {
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 
             Route::resource('contact', AdminContactController::class)
-                ->only(['index']);
+                ->only(['index', 'show', 'destroy']);
         });
     });
 });
