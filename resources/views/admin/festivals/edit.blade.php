@@ -36,7 +36,8 @@
                                     <label for="image"
                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image</label>
                                     <input type="file" name="image" value="{{$festival->festivalInfo->image}}"
-                                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    onchange="getFileSize(this)">
                                     <p>Files supported: JPEG, PNG and JPG. Max-size: 2048</p>
                                 </div>
                                 <div class="sm:col-span-2">
@@ -71,7 +72,8 @@
                                     <select name="festival"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                         @foreach($festivalsInfo as $info)
-                                            <option @selected($info->title == $festival->festivalInfo->title) value="{{$info->id}}">{{$info->title}}</option>
+                                            <option
+                                                @selected($info->title == $festival->festivalInfo->title) value="{{$info->id}}">{{$info->title}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -85,7 +87,8 @@
                                 <div>
                                     <label for="date"
                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date</label>
-                                    <input type="date" name="date" min="{{date('Y-m-d')}}" value="{{ \Carbon\Carbon::parse($festival->date)->format('Y-m-d') }}"
+                                    <input type="date" name="date" min="{{date('Y-m-d')}}"
+                                           value="{{ \Carbon\Carbon::parse($festival->date)->format('Y-m-d') }}"
                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                 </div>
                             </div>
@@ -99,4 +102,14 @@
             </div>
         </div>
     </div>
+    <script>
+        function getFileSize(el) {
+            const size = el.files[0].size;
+            let totalSize = Math.ceil(size / 1024);
+            console.log(el.files[0].size)
+            if (totalSize > 5120) {
+                document.createElement('')
+            }
+        }
+    </script>
 </x-app-layout>

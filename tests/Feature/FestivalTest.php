@@ -24,6 +24,12 @@ class FestivalTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /**
+     * @author Damiën van den IJssel
+     * @return void
+     * Create user that has admin role
+     * Get the uri that can only be accessed by admin
+     */
     public function test_admin_festivals_page_can_be_rendered(): void
     {
         $user = User::factory()->create(['role_id' => 1]);
@@ -31,12 +37,18 @@ class FestivalTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /**
+     * @author Damiën van den IJssel
+     * @return void
+     * Create user that has not the admin role
+     * Get the uri that can only be accessed by admin
+     */
     public function test_admin_festivals_page_cannot_be_rendered_if_not_admin(): void
     {
-        $response = $this->get('/admin/festivals');
+        $user = User::factory()->create(['role_id' => 2]);
+        $response = $this->actingAs($user)->get('/admin/festivals');
         $response->assertStatus(403);
     }
-
 
     /**
      * @return void
@@ -54,7 +66,7 @@ class FestivalTest extends TestCase
             // create fake image upload
             'image' => UploadedFile::fake()->image('festival1.png'),
         ];
-        $response = $this->actingAs($user)
+        $this->actingAs($user)
             ->post(route('admin.festivals.store'), [
                 'title' => $data['title'],
                 'description' => $data['description'],
@@ -86,6 +98,7 @@ class FestivalTest extends TestCase
                 'title' => 'Festival 1',
                 'description' => 'Festival 1 description',
             ]);
+
         $date = fake()->dateTimeBetween('now', '+1 years')->format('Y-m-d');
 
         $this->actingAs($user)

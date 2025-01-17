@@ -31,6 +31,22 @@ class DatabaseSeeder extends Seeder
             'email' => 'brighton@vanrouendal.nl',
             'role_id' => '1'
         ]);
+        User::factory()->create([
+            'name' => 'Damiën',
+            'email' => 'dovandenijssel@live.nl',
+            'role_id' => '1'
+        ]);
+        User::factory()->create([
+            'name' => 'Mischa',
+            'email' => 'test@test.test',
+            'role_id' => '1'
+        ]);
+        User::factory()->create([
+            'name' => 'Ismael',
+            'email' => 'ismael@test.test',
+            'role_id' => '1'
+        ]);
+
         User::factory(20)->create(['role_id' => 3]);
         Location::factory(100)->create();
         FestivalInfo::factory(100)->create();

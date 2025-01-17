@@ -18,6 +18,7 @@ return new class extends Migration
             $table->dateTime('departure_time');
             $table->double('price');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

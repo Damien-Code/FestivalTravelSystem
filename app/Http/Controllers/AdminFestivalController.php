@@ -65,15 +65,6 @@ class AdminFestivalController extends Controller
             'description' => 'required|string|min:10',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
         ]);
-        $maxfilesize = 8388606;
-        if ($maxfilesize > $validatedData['image']) {
-            return back()->withErrors(['error' => 'File size is too big!']);
-        }
-
-//        if ($e instanceof PostTooLargeException){
-//            return Redirect::back()->withErrors([$e]);
-//        }
-
         // Encode the uploaded image to base64
         // Image is nullable, so added if statement
         if ($request->hasFile('image')) {
