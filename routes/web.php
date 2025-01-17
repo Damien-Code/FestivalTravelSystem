@@ -9,6 +9,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FestivalController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Contact;
 use App\Models\Festival;
 use App\Models\FestivalInfo;
 use App\Models\Order;
@@ -60,7 +61,8 @@ Route::get('/admin', function () {
     $festivalInfo = FestivalInfo::all();
     $festivalCount = Festival::all()->count();
     $routesCount = ModelsRoute::all()->count();
-    return view('admin.index', compact('festivalCount', 'festival', 'festivalInfo', 'routesCount', 'usersCount'));
+    $contactsCount = Contact::withoutTrashed()->count();
+    return view('admin.index', compact('festivalCount', 'festival', 'festivalInfo', 'routesCount', 'usersCount', 'contactsCount'));
 })->middleware(['admin', 'auth', 'verified'])->name('admin.index');
 
 Route::middleware(['admin', 'auth', 'verified'])->group(function () {
