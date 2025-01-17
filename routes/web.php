@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminContactController;
 use App\Http\Controllers\AdminFestivalController;
 use App\Http\Controllers\AdminLocationController;
 use App\Http\Controllers\AdminRouteController;
@@ -77,13 +78,14 @@ Route::middleware(['admin', 'auth', 'verified'])->group(function () {
 
             Route::resource('users', AdminController::class)
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
-            });
-
 
             Route::resource('/locations', AdminLocationController::class)
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 
+            Route::resource('contact', AdminContactController::class)
+                ->only(['index']);
         });
+    });
 });
 
 // Login required for admin
