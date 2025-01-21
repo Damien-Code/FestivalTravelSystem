@@ -3,7 +3,7 @@
 use App\Http\Controllers\AdminFestivalController;
 use App\Http\Controllers\AdminLocationController;
 use App\Http\Controllers\AdminRouteController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\FestivalController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
@@ -75,15 +75,15 @@ Route::middleware(['admin', 'auth', 'verified'])->group(function () {
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 
          
-            Route::resource('users', AdminController::class)
+            Route::resource('users', AdminUserController::class)
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);   
-            });
-
 
             Route::resource('/locations', AdminLocationController::class)
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
-            Route::resource('/busses', AdminBusInfoController::class)
+
+            Route::resource('busses', AdminBusInfoController::class)
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+            }); //put the  `});` here, else it would change admin/busses to just /busses 
 
         });
 });

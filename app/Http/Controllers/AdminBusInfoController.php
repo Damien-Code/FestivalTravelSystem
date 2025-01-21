@@ -23,7 +23,7 @@ class AdminBusInfoController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.busses.create');
     }
 
     /**
@@ -31,7 +31,18 @@ class AdminBusInfoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'license_plate' => 'required|string|min:6|max:6',
+        ]);
+        $bus = BusInfo::where('license_plate', $validated['license_plate'])->first();
+        if ($bus !== null) {
+            return redirect()->back()->withErrors(['error' => 'Bus already exists!']);
+        }
+
+        BusInfo::create([
+            'license_plate' => strtoupper($validated['license_plate']),
+        ]);
+        return redirect()->route('admin.busses.index')->with('success', 'Bus created successfully');
     }
 
     /**
@@ -64,6 +75,7 @@ class AdminBusInfoController extends Controller
     public function destroy(BusInfo $bus)
     {
         $bus->delete();
+        dd("test", $bus->delete());
         return redirect(route('admin.busses.index'));
     }
 }
