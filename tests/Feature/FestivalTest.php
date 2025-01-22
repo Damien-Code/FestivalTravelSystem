@@ -105,7 +105,7 @@ class FestivalTest extends TestCase
         $this->actingAs($user)
             ->post(route('admin.festivals.planFestival'), [
                 'festival' => 2,
-//                'location_id' => 1, // Wordt niet gebruikt in de controller
+               'location' => 1, // Wordt niet gebruikt in de controller
                 'date' => $date,
             ]);
         $this->assertDatabaseHas('festivals', [
