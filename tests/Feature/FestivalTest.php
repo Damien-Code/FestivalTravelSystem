@@ -134,16 +134,16 @@ class FestivalTest extends TestCase
                 'title' => 'Festival 3',
                 'description' => 'Festival 3 description',
             ]);
-
+            // dd(FestivalInfo::all());
         $date = fake()->dateTimeBetween('now', '+1 years')->format('Y-m-d H:i:s');
 
-        $festival = $this->actingAs($user)
+        $this->actingAs($user)
             ->post(route('admin.festivals.planFestival'), [
                 'festival' => 3,
-//                'location_id' => 1, // Wordt niet gebruikt in de controller
+                'location' => 2,
                 'date' => $date,
             ]);
-
+            
         $festival_id = Festival::orderBy('id', 'desc')->first()->id;
         $this->actingAs($user)
             ->delete(route('admin.festivals.destroy', $festival_id));
