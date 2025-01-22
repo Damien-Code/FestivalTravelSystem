@@ -14,7 +14,7 @@ class User extends Authenticatable
     use HasFactory, Notifiable, SoftDeletes;
 
     public function role(){
-        return $this->hasOne(Role::class);
+        return $this->belongsTo(Role::class);
     }
 
     public function orders()
