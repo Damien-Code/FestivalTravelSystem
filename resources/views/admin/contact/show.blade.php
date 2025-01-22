@@ -16,12 +16,15 @@
     <section class="bg-white dark:bg-gray-900">
         <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
             <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Contact Page</h2>
-            <div class="mb-4 text-right">
-                <form action="{{ route('admin.contact.destroy', $contact) }}" method="post">
-                    @csrf
-                    @method('DELETE')
-                    <x-danger-button>Delete</x-danger-button>
-                </form>
+            <div class="flex flex-row gap-2 justify-end">
+                <a href="mailto:{{ $contact->email }}"><x-secondary-button>Email</x-secondary-button></a>
+                <div class="mb-4 text-right">
+                    <form action="{{ route('admin.contact.destroy', $contact) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <x-danger-button>Delete</x-danger-button>
+                    </form>
+                </div>
             </div>
             <section class="space-y-8">
                 <div>
