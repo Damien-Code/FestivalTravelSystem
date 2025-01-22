@@ -13,7 +13,8 @@ class AdminLocationController extends Controller
     public function index()
     {
         //
-        $locations = Location::all()->sortBy('country');
+        $search = request()->get('search') ?? '';
+        $locations = Location::where('country', 'LIKE', "%{$search}%")->orderBy('country')->paginate(10);
         return view('admin.locations.index', compact('locations'));
     }
 
@@ -97,11 +98,11 @@ class AdminLocationController extends Controller
     public function destroy(Location $location)
     {
         //
-        $f = $location->festivals()->count();
-        $r = $location->routes()->count();
+//        $f = $location->festivals()->count();
+//        $r = $location->routes()->count();
 //        if ($f === 0 && $r === 0) {
-            $location->delete();
-            return redirect()->route('admin.locations.index')->with('delete', 'Location deleted successfully');
+        $location->delete();
+        return redirect()->route('admin.locations.index')->with('delete', 'Location deleted successfully');
 //        } else {
 //            return redirect()->route('admin.locations.index')->withErrors(['error' => 'Location cannot be deleted!', 'invalid' => "linked festival amount: {$f}, routes amount: {$r}"]);
 //        }
