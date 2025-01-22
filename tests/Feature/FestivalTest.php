@@ -92,7 +92,7 @@ class FestivalTest extends TestCase
      */
     public function test_stored_festival_can_be_paired()
     {
-        Location::factory()->create();
+        $location = Location::factory()->create();
         $user = User::factory()->create(['role_id' => 1]);
         $this->actingAs($user)
             ->post(route('admin.festivals.store'), [
@@ -101,15 +101,15 @@ class FestivalTest extends TestCase
             ]);
 
         $date = fake()->dateTimeBetween('now', '+1 years')->format('Y-m-d');
-
+        $festivalInfo = FestivalInfo::latest()->first();
         $this->actingAs($user)
             ->post(route('admin.festivals.planFestival'), [
-                'festival' => 2,
-               'location' => 1, // Wordt niet gebruikt in de controller
+                'festival' => $festivalInfo->id,
+                'location' => $location->id,
                 'date' => $date,
             ]);
         $this->assertDatabaseHas('festivals', [
-            'info_festival_id' => 2,
+            'info_festival_id' => $festivalInfo->id,
             'date' => $date,
         ]);
     }
@@ -127,23 +127,23 @@ class FestivalTest extends TestCase
      */
     public function test_festival_can_be_soft_deleted()
     {
-        Location::factory()->create();
+        $location = Location::factory()->create();
         $user = User::factory()->create(['role_id' => 1]);
         $this->actingAs($user)
             ->post(route('admin.festivals.store'), [
                 'title' => 'Festival 3',
                 'description' => 'Festival 3 description',
             ]);
-            // dd(FestivalInfo::all());
+
         $date = fake()->dateTimeBetween('now', '+1 years')->format('Y-m-d H:i:s');
 
         $this->actingAs($user)
             ->post(route('admin.festivals.planFestival'), [
-                'festival' => 3,
-                'location' => 2,
+                'festival' => FestivalInfo::latest()->first()->id,
+                'location' => $location->id,
                 'date' => $date,
             ]);
-            
+
         $festival_id = Festival::orderBy('id', 'desc')->first()->id;
         $this->actingAs($user)
             ->delete(route('admin.festivals.destroy', $festival_id));
