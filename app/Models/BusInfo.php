@@ -12,8 +12,8 @@ class BusInfo extends Model
     use HasFactory;
     use SoftDeletes;
 
-    public function bus_in_use(){
-        return $this->hasMany(BusInUse::class);
+    public function busInUses(){
+        return $this->hasMany(BusInUse::class, 'bus_id');
     }
 
     protected $fillable = [

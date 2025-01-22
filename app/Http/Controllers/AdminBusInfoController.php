@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BusInfo;
+use App\Models\BusInUse;
 use Illuminate\Http\Request;
 
 class AdminBusInfoController extends Controller
@@ -74,8 +75,8 @@ class AdminBusInfoController extends Controller
      */
     public function destroy(BusInfo $bus)
     {
+        // dd($bus->delete());
         $bus->delete();
-        dd("test", $bus->delete());
         return redirect(route('admin.busses.index'));
     }
 }

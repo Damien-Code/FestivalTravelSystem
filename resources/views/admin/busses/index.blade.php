@@ -42,10 +42,10 @@
                                             {{ $bus->license_plate }}
                                     </th>
                                         <td class="px-6 py-4">
-                                            @if( $bus->id ) {{-- TODO: check if bus is currently in bus_in_uses --}}
+                                            @if( $bus->busInUses->count() > 0)
                                             YES
                                             @else
-                                            NO
+                                            NO 
                                             @endif
                                         </td>
                                         <td class="px-6 py-4">
