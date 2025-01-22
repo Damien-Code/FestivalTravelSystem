@@ -22,7 +22,7 @@
                 {{--List of all the orders--}}
                 <div class="mt-6 flow-root sm:mt-8">
                     <div class="divide-y divide-gray-200 dark:divide-gray-700">
-                        @foreach($orders as $order)
+                        @forelse($orders as $order)
                             <div class="flex flex-wrap items-center gap-y-4 py-6">
                             <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
                                 <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Order ID:</dt>
@@ -36,11 +36,15 @@
                                 <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Festival:</dt>
                                 <dd class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">{{ $order->route->festival->festivalInfo->title }}</dd>
                             </dl>
-                            <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
+                            <dl class="w-1/2 pl-0 sm:w-1/4 lg:w-auto lg:flex-1 lg:pl-2">
                                 <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Start location:</dt>
                                 <dd class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">{{ $order->route->location->address() }}</dd>
                             </dl>
-                            <dl class="w-1/2 pl-0 sm:w-1/4 lg:w-auto lg:flex-1 lg:pl-4">
+                            <dl class="w-1/2 pl-0 sm:w-1/4 lg:w-auto lg:flex-1 lg:pl-3">
+                                <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Ticket quantity:</dt>
+                                <dd class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">{{ $order->amount_of_tickets }}</dd>
+                            </dl>
+                            <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
                                 <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Price:</dt>
                                 <dd class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">€{{ $order->final_price }}</dd>
                             </dl>
@@ -65,7 +69,13 @@
                                 @endif
                             </dl>
                         </div>
-                        @endforeach
+                        @empty
+                            <div class="bg-white dark:bg-gray-800 max-w-fit overflow-hidden shadow-sm sm:rounded-lg">
+                                <div class="p-2 text-gray-900 dark:text-gray-100">
+                                    <p>You have not placed any orders yet.</p>
+                                </div>
+                            </div>
+                        @endforelse
                     </div>
                 </div>
             </div>
