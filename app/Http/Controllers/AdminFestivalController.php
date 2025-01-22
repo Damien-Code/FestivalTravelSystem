@@ -90,7 +90,8 @@ class AdminFestivalController extends Controller
     public function pair(): View
     {
         $festivalsInfo = FestivalInfo::all();
-        return view('admin.festivals.pair', compact('festivalsInfo'));
+        $locations = Location::all();
+        return view('admin.festivals.pair', compact('festivalsInfo', 'locations'));
     }
 
     /**
@@ -104,14 +105,13 @@ class AdminFestivalController extends Controller
     {
         $validatedData = $request->validate([
             'festival' => 'required',
-//            'location' => 'required',
+            'location' => 'required|integer',
             'date' => 'required|date',
         ]);
 
         Festival::create([
             'info_festival_id' => $validatedData['festival'],
-//            'location_id' => $validatedData['location'],
-            'location_id' => 1, // TODO: make admin be able to assign location
+            'location_id' => $validatedData['location'],
             'date' => $validatedData['date'],
         ]);
         return redirect()->route('admin.festivals.pair')->with('success', 'Festival paired successfully!');
@@ -132,8 +132,9 @@ class AdminFestivalController extends Controller
      */
     public function edit(Festival $festival): View
     {
+        $locations = Location::all();
         $festivalsInfo = FestivalInfo::all();
-        return view('admin.festivals.edit', compact('festival', 'festivalsInfo'));
+        return view('admin.festivals.edit', compact('festival', 'festivalsInfo', 'locations'));
     }
 
     /**
@@ -177,7 +178,7 @@ class AdminFestivalController extends Controller
     {
         $validatedData = $request->validate([
             'festival' => 'required',
-//            'location' => 'required',
+            'location' => 'required|integer',
             'date' => 'required|date',
         ]);
 //      Convert date to datetime because otherwise the planning won't update
@@ -185,8 +186,7 @@ class AdminFestivalController extends Controller
         Carbon::parse($validatedData['date'])->toDateTimeString();
         $festival->update([
             'info_festival_id' => $validatedData['festival'],
-//            'location_id' => $validatedData['location'],
-            'location_id' => 1,
+            'location_id' => $validatedData['location'],
             'date' => $validatedData['date'],
         ]);
         return redirect(route('admin.festivals.edit', $festival))
