@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BusInfo;
 use App\Models\BusInUse;
 use App\Models\Festival;
+use App\Models\Location;
 use App\Models\Route;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class AdminRouteController extends Controller
             $query->withWhereHas('festivalInfo', function ($query2) use ($search) {
                 $query2->where('festival_info.title', 'like', "%{$search}%");
             });
-        })->orderBy('routes.departure_time')->paginate(15);
+        })->where('departure_time', '>=', now())->orderBy('routes.departure_time')->paginate(15);
         return view('admin.routes.index', compact('routes'));
     }
 
@@ -33,8 +34,9 @@ class AdminRouteController extends Controller
     {
         //
         $festivals = Festival::with('festivalInfo')->where('date', '>=', now())->orderBy('date')->get();
-
-        return view('admin.routes.create', compact('festivals'));
+        $locations = Location::withoutTrashed()->get();
+        $route = new Route;
+        return view('admin.routes.create', compact('festivals', 'locations', 'route'));
     }
 
     /**
@@ -45,7 +47,7 @@ class AdminRouteController extends Controller
         //
         $validated = $request->validate([
             'festival' => 'required',
-            'location' => 'required',
+            'location' => 'required|integer',
             'date' => 'required|date',
             'time' => 'required',
             'price' => 'required',
@@ -68,7 +70,7 @@ class AdminRouteController extends Controller
 
         $route = Route::create([
             'festival_id' => $validated['festival'],
-            'location_id' => 1,
+            'location_id' => $validated['location'],
             'departure_time' => $validated['date'] . ' ' . $validated['time'],
             'price' => $validated['price'],
         ]);
@@ -79,7 +81,7 @@ class AdminRouteController extends Controller
             'bus_id' => $bus->id,
         ]);
 
-        return redirect()->route('admin.routes.index');
+        return redirect()->route('admin.routes.index')->with('success', 'Route Created Successfully');
     }
 
     /**
@@ -96,6 +98,9 @@ class AdminRouteController extends Controller
     public function edit(Route $route)
     {
         //
+        $festivals = Festival::with('festivalInfo')->where('date', '>=', now())->orderBy('date')->get();
+        $locations = Location::withoutTrashed()->get();
+        return view('admin.routes.create', compact('festivals', 'locations', 'route'));
     }
 
     /**
@@ -103,7 +108,22 @@ class AdminRouteController extends Controller
      */
     public function update(Request $request, Route $route)
     {
-        //
+        $validated = $request->validate([
+            'festival' => 'required',
+            'location' => 'required|integer',
+            'date' => 'required|date',
+            'time' => 'required',
+            'price' => 'required',
+        ]);
+
+        $route->update([
+            'festival_id' => $validated['festival'],
+            'location_id' => $validated['location'],
+            'departure_time' => $validated['date'] . ' ' . $validated['time'],
+            'price' => $validated['price'],
+        ]);
+
+        return redirect()->route('admin.routes.index')->with('success', 'Route Updated Successfully');
     }
 
     /**
@@ -112,5 +132,7 @@ class AdminRouteController extends Controller
     public function destroy(Route $route)
     {
         //
+        $route->delete();
+        return redirect()->route('admin.routes.index')->with('success', 'Route Deleted Successfully');
     }
 }
