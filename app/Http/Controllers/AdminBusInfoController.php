@@ -73,10 +73,10 @@ class AdminBusInfoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(BusInfo $bus)
+    public function destroy($bus)
     {
-        // dd($bus->delete());
-        $bus->delete();
-        return redirect(route('admin.busses.index'));
+        $busData = BusInfo::where('id',$bus)->get()[0];
+        $busData->delete();
+        return redirect()->route('admin.busses.index')->with('delete', 'Bus deleted successfully');
     }
 }
