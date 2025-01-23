@@ -13,14 +13,14 @@
             </div>
             <div class="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
                 {{-- Discount element--}}
-                <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow lg:col-start-2 dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
+                <div class="flex flex-col col-start-2 p-6 mx-auto max-w-sm text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow lg:w-96 xl:p-8 dark:border-gray-600 dark:bg-gray-800 dark:text-white">
                     <h3 class="mb-4 text-2xl font-semibold">Discount</h3>
                     <p class="font-light text-gray-500 sm:text-lg dark:text-gray-400">Active</p>
                     <div class="flex flex-col justify-center my-8">
                         <span class="mr-2 text-5xl font-extrabold">20%</span>
                     </div>
                     {{-- Discount information --}}
-                    <ul role="list" class="mb-8 space-y-4 text-left">
+                    <ul role="list" class="mb-8 space-y-4 mx-auto">
                         <li class="flex items-center space-x-3">
                             {{-- Bullet point --}}
                             <svg class="flex-shrink-0 w-5 h-5 text-black dark:text-gray-600" fill="currentColor" viewBox="0 0 20 20"  xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10"></circle></svg>
