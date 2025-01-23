@@ -13,7 +13,7 @@
             </div>
         </div>
     </div>
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
         {{-- Flash message --}}
         @include('layouts.success')
         @include('layouts.error')
