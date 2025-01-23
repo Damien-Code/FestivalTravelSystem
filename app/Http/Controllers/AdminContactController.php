@@ -9,7 +9,7 @@ class AdminContactController extends Controller
 {
     /**
      * @author Brighton van Rouendal
-     * Display a listing of the resource.
+     * Show a list of all contacts that aren't soft deleted
      */
     public function index()
     {
@@ -19,7 +19,7 @@ class AdminContactController extends Controller
 
     /**
      * @author Brighton van Rouendal
-     * Display the specified resource.
+     * Show the contact message in the contact form
      */
     public function show(Contact $contact)
     {
@@ -28,7 +28,7 @@ class AdminContactController extends Controller
 
     /**
      * @author Brighton van Rouendal
-     * Remove the specified resource from storage.
+     * Soft delete a contact message
      */
     public function destroy(Contact $contact)
     {

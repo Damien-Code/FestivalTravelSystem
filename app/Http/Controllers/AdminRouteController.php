@@ -13,7 +13,8 @@ use Illuminate\Http\Request;
 class AdminRouteController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @author Brighton van Rouendal
+     * Show all routes and get the linked tables data also with a search function for festival titles
      */
     public function index()
     {
@@ -28,7 +29,8 @@ class AdminRouteController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * @author Brighton van Rouendal
+     * Show create form with all festivals, and locations that aren't deleted
      */
     public function create()
     {
@@ -40,7 +42,8 @@ class AdminRouteController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @author Brighton van Rouendal
+     * Create a new route and create a new bus in use
      */
     public function store(Request $request)
     {
@@ -52,15 +55,18 @@ class AdminRouteController extends Controller
             'time' => 'required',
             'price' => 'required',
         ]);
+        // Get all bus in use on a specified date
         $busInUse = BusInUse::withWhereHas('routes', function ($query) use ($validated) {
             $query->whereBetween('departure_time', [$validated['date'].' 00:00:00', $validated['date'].' 23:59:59',]);
         })->get();
 
+        // Search for a bus that is avaialble on the date
         $bus = BusInfo::whereNotIn('id', $busInUse->pluck('id'))->first();
         if ($bus == null) {
             return redirect()->back()->withErrors('bus', 'No Bus Available On This Date');
         }
 
+        // Search for a driver that is available on the date
         $user = User::where('role_id', '=', 3)->withWhereHas('busInUse', function ($query) use ($busInUse) {
             $query->whereNotIn('id', $busInUse->pluck('id'));
         })->first();
@@ -75,6 +81,7 @@ class AdminRouteController extends Controller
             'price' => $validated['price'],
         ]);
 
+        // Create new bus in use for a route when route is created
         BusInUse::create([
             'route_id' => $route->id,
             'user_id' => $user->id,
@@ -85,15 +92,8 @@ class AdminRouteController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Route $route)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
+     * @author Brighton van Rouendal
+     * Show update form with all festivals, and locations that aren't deleted
      */
     public function edit(Route $route)
     {
@@ -104,7 +104,9 @@ class AdminRouteController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @author Brighton van Rouendal
+     * Update Route wholsale
+     * concat date and time to make departure_time
      */
     public function update(Request $request, Route $route)
     {
@@ -127,7 +129,8 @@ class AdminRouteController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @author Brighton van Rouendal
+     * Soft delete route and send back with success message
      */
     public function destroy(Route $route)
     {

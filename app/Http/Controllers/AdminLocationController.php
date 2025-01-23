@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 class AdminLocationController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @author Brighton van Rouendal
+     * Show all locations with a search function on country codes
      */
     public function index()
     {
@@ -19,7 +20,8 @@ class AdminLocationController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * @author Brighton van Rouendal
+     * Show create form for location
      */
     public function create()
     {
@@ -28,7 +30,8 @@ class AdminLocationController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @author Brighton van Rouendal
+     * Create a new location or throw error when an existing location matches exactly
      */
     public function store(Request $request)
     {
@@ -38,7 +41,7 @@ class AdminLocationController extends Controller
             'city' => 'required|string|max:50',
             'street' => 'required|string|max:50',
         ]);
-//        $location = Location::all()->where('country', $validated['country'])->where('city', $validated['city'])->where('street', $validated['street'])->first();
+
         $location = Location::where('country', $validated['country'])->where('city', $validated['city'])->where('street', $validated['street'])->first();
         if ($location !== null) {
             return redirect()->back()->withErrors(['error' => 'Location already exists!']);
@@ -53,15 +56,8 @@ class AdminLocationController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Location $location)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
+     * @author Brighton van Rouendal
+     * Show update form for locations
      */
     public function edit(Location $location)
     {
@@ -70,7 +66,8 @@ class AdminLocationController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @author Brighton van Rouendal
+     * Update the location or throw error when an existing location matches exactly
      */
     public function update(Request $request, Location $location)
     {
@@ -93,18 +90,12 @@ class AdminLocationController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @author Brighton van Rouendal
+     * Soft delete Location and return with 'delete' message
      */
     public function destroy(Location $location)
     {
-        //
-//        $f = $location->festivals()->count();
-//        $r = $location->routes()->count();
-//        if ($f === 0 && $r === 0) {
         $location->delete();
         return redirect()->route('admin.locations.index')->with('delete', 'Location deleted successfully');
-//        } else {
-//            return redirect()->route('admin.locations.index')->withErrors(['error' => 'Location cannot be deleted!', 'invalid' => "linked festival amount: {$f}, routes amount: {$r}"]);
-//        }
     }
 }
