@@ -1,5 +1,17 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6 text-white">
+    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+            <div class="md:flex justify-between sm:flex-none">
+                <p class="text-white text-3xl font-bold pb-6 md:pb-0">Busses</p>
+                <div>
+                    <a href="{{route('admin.index')}}">
+                        <x-primary-button>
+                            Back
+                        </x-primary-button>
+                    </a>
+                </div>
+            </div>
+        </div>
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             @include('layouts.delete')
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6">
@@ -43,7 +55,7 @@
                                     </th>
                                         <td class="px-6 py-4">
                                             @if( $bus->busInUses->count() > 0)
-                                            YES 
+                                            YES
                                             @else
                                             NO 
                                             @endif
@@ -73,14 +85,7 @@
 
 
 
-        </div>
-        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-            <div class="max-w-xl">
-                <a href="{{ route('admin.index') }}">
-                    <x-primary-button>Back</x-primary-button>
-                </a>
-            </div>
-        </div>
+        </div>   
     </div>
 
 </x-app-layout>
