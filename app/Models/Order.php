@@ -22,7 +22,7 @@ class Order extends Model
     }
 
     public function route(){
-        return $this->hasOne(Route::class);
+        return $this->belongsTo(Route::class);
     }
 
     protected $table = 'orders';

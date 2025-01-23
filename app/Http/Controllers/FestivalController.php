@@ -6,15 +6,19 @@ use App\Models\Festival;
 use App\Models\FestivalInfo;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class FestivalController extends Controller
 {
     /**
+     * @return View
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      * @author Damiën van den IJssel & Brighton van Rouendal
      * Display a listing of the resource.
-     * @return View
      */
-    public function index() : View
+    public function index(): View
     {
         // Check if there is a search
         // If there is, check the search value with db
@@ -31,14 +35,13 @@ class FestivalController extends Controller
     }
 
     /**
-     * @author Damiën van den IJssel
      * @param Festival $festival
      * @return View
      * Display the specified resource.
+     * @author Damiën van den IJssel
      */
-    public function show(Festival $festival) : View
+    public function show(Festival $festival): View
     {
-        //
         return view('festivals.show', compact('festival'));
     }
 }

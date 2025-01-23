@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Festival;
 use App\Models\Location;
 use App\Models\User;
 use Faker\Core\DateTime;
@@ -25,10 +26,10 @@ class FestivalTest extends TestCase
     }
 
     /**
-     * @author Damiën van den IJssel
      * @return void
      * Create user that has admin role
      * Get the uri that can only be accessed by admin
+     * @author Damiën van den IJssel
      */
     public function test_admin_festivals_page_can_be_rendered(): void
     {
@@ -38,10 +39,10 @@ class FestivalTest extends TestCase
     }
 
     /**
-     * @author Damiën van den IJssel
      * @return void
      * Create user that has not the admin role
      * Get the uri that can only be accessed by admin
+     * @author Damiën van den IJssel
      */
     public function test_admin_festivals_page_cannot_be_rendered_if_not_admin(): void
     {
@@ -91,7 +92,7 @@ class FestivalTest extends TestCase
      */
     public function test_stored_festival_can_be_paired()
     {
-        Location::factory()->create();
+        $location = Location::factory()->create();
         $user = User::factory()->create(['role_id' => 1]);
         $this->actingAs($user)
             ->post(route('admin.festivals.store'), [
@@ -100,16 +101,55 @@ class FestivalTest extends TestCase
             ]);
 
         $date = fake()->dateTimeBetween('now', '+1 years')->format('Y-m-d');
-
+        $festivalInfo = FestivalInfo::latest()->first();
         $this->actingAs($user)
             ->post(route('admin.festivals.planFestival'), [
-                'festival' => 2,
-//                'location_id' => 1, // Wordt niet gebruikt in de controller
+                'festival' => $festivalInfo->id,
+                'location' => $location->id,
                 'date' => $date,
             ]);
         $this->assertDatabaseHas('festivals', [
-            'info_festival_id' => 2,
+            'info_festival_id' => $festivalInfo->id,
             'date' => $date,
+        ]);
+    }
+
+
+    /**
+     * @return void
+     * @author Damiën van den IJssel & Brighton van Rouendal
+     * Create location
+     * Create user
+     * Store festival and pair it with date
+     * Brighton found out that festival had to be ordered on ID
+     * Delete the last id in DB
+     * Assert that festival had been soft deleted
+     */
+
+    public function test_festival_can_be_soft_deleted()
+    {
+        $location = Location::factory()->create();
+        $user = User::factory()->create(['role_id' => 1]);
+        $this->actingAs($user)
+            ->post(route('admin.festivals.store'), [
+                'title' => 'Festival 3',
+                'description' => 'Festival 3 description',
+            ]);
+
+        $date = fake()->dateTimeBetween('now', '+1 years')->format('Y-m-d H:i:s');
+
+        $this->actingAs($user)
+            ->post(route('admin.festivals.planFestival'), [
+                'festival' => FestivalInfo::latest()->first()->id,
+                'location' => $location->id,
+                'date' => $date,
+            ]);
+
+        $festival_id = Festival::orderBy('id', 'desc')->first()->id;
+        $this->actingAs($user)
+            ->delete(route('admin.festivals.destroy', $festival_id));
+        $this->assertSoftDeleted('festivals', [
+            'id' => $festival_id,
         ]);
     }
 }
