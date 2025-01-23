@@ -54,10 +54,10 @@
             <div class="max-w-xl flex justify-between flex-col h-full">
                 <div>
                     <p class="text-3xl pb-10">Contact Messages</p>
-                    <p>Totaal aantal routes: {{$contactsCount}}</p>
+                    <p>Total amount of messages: {{$contactsCount}}</p>
                 </div>
                 <a href="{{route('admin.contact.index')}}">
-                    <x-primary-button>Bekijk messages</x-primary-button>
+                    <x-primary-button>View messages</x-primary-button>
                 </a>
             </div>
         </div>

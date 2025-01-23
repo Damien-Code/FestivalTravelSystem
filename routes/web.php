@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 
+// Unused route for this application, but page is used in some layouts
 Route::get('/welcome', function () {
     return view('welcome');
 });
@@ -37,7 +38,6 @@ Route::get('/dashboard', function () {
 Route::get('/vip', function () {
     return view('vip.index');
 })->name('vip.index');
-
 
 Route::resource('festivals', FestivalController::class)
     ->only(['index', 'show']);
@@ -65,6 +65,7 @@ Route::get('/admin', function () {
     return view('admin.index', compact('festivalCount', 'festival', 'festivalInfo', 'routesCount', 'usersCount', 'contactsCount'));
 })->middleware(['admin', 'auth', 'verified'])->name('admin.index');
 
+// Grouped routes for all the routes that belong to admin
 Route::middleware(['admin', 'auth', 'verified'])->group(function () {
     Route::name('admin.')->group(function () {
         Route::prefix('admin')->group(function () {
@@ -76,7 +77,6 @@ Route::middleware(['admin', 'auth', 'verified'])->group(function () {
 
             Route::resource('/routes', AdminRouteController::class)
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
-
 
             Route::resource('users', AdminController::class)
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
@@ -90,11 +90,7 @@ Route::middleware(['admin', 'auth', 'verified'])->group(function () {
     });
 });
 
-// Login required for admin
-Route::get('/admin/show_busses', function () {
-    return view('admin.show_busses');
-})->middleware(['auth', 'verified'])->name('admin.show_busses');
-
+// Routes for profile
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
