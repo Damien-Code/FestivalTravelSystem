@@ -26,10 +26,10 @@ class FestivalTest extends TestCase
     }
 
     /**
-     * @author Damiën van den IJssel
      * @return void
      * Create user that has admin role
      * Get the uri that can only be accessed by admin
+     * @author Damiën van den IJssel
      */
     public function test_admin_festivals_page_can_be_rendered(): void
     {
@@ -39,10 +39,10 @@ class FestivalTest extends TestCase
     }
 
     /**
-     * @author Damiën van den IJssel
      * @return void
      * Create user that has not the admin role
      * Get the uri that can only be accessed by admin
+     * @author Damiën van den IJssel
      */
     public function test_admin_festivals_page_cannot_be_rendered_if_not_admin(): void
     {
@@ -116,6 +116,7 @@ class FestivalTest extends TestCase
 
 
     /**
+     * @return void
      * @author Damiën van den IJssel & Brighton van Rouendal
      * Create location
      * Create user
@@ -123,8 +124,8 @@ class FestivalTest extends TestCase
      * Brighton found out that festival had to be ordered on ID
      * Delete the last id in DB
      * Assert that festival had been soft deleted
-     * @return void
      */
+
     public function test_festival_can_be_soft_deleted()
     {
         $location = Location::factory()->create();
@@ -150,8 +151,5 @@ class FestivalTest extends TestCase
         $this->assertSoftDeleted('festivals', [
             'id' => $festival_id,
         ]);
-
-
-
     }
 }
