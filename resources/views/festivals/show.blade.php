@@ -83,7 +83,7 @@
                                             {{ $route->location->city }}
                                         </th>
                                         <td class="px-6 py-4">
-                                            {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$route->departure_time)->format('h:i')}}
+                                            {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$route->departure_time)->format('H:i')}}
                                         </td>
                                         <td class="px-6 py-4">
                                             {{ $route->signups() }}
