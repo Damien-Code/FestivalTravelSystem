@@ -40,6 +40,7 @@ class AdminRouteController extends Controller
     }
 
     /**
+     * @author Brighton van Rouendal
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -52,21 +53,22 @@ class AdminRouteController extends Controller
             'time' => 'required',
             'price' => 'required',
         ]);
+
+        //Find all buses that are in use on the routes departure date
         $busInUse = BusInUse::withWhereHas('routes', function ($query) use ($validated) {
             $query->whereBetween('departure_time', [$validated['date'].' 00:00:00', $validated['date'].' 23:59:59',]);
         })->get();
 
-        $bus = BusInfo::whereNotIn('id', $busInUse->pluck('id'))->first();
-        if ($bus == null) {
+        //Check if there is an available bus on the departure date
+        $bus = BusInfo::whereNotIn('id', $busInUse->pluck('bus_id'))->first();
+        if ($bus == null)
             return redirect()->back()->withErrors('bus', 'No Bus Available On This Date');
-        }
 
-        $user = User::where('role_id', '=', 3)->withWhereHas('busInUse', function ($query) use ($busInUse) {
-            $query->whereNotIn('id', $busInUse->pluck('id'));
-        })->first();
-        if ($user == null) {
+        //Check if there is an available bus driver on the departure date
+        $user = User::where('role_id', 3)->whereNotIn('id', $busInUse->pluck('user_id'))->first();
+        if ($user == null)
             return redirect()->back()->withErrors('driver', 'No Driver Available For This Day');
-        }
+
 
         $route = Route::create([
             'festival_id' => $validated['festival'],
