@@ -1,20 +1,27 @@
 <?php
 
+use App\Http\Controllers\AdminContactController;
 use App\Http\Controllers\AdminFestivalController;
 use App\Http\Controllers\AdminLocationController;
 use App\Http\Controllers\AdminRouteController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\AdminBusInfoController;
+use App\Models\BusInfo;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FestivalController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\AdminBusInfoController;
-use App\Models\BusInfo;
+use App\Models\Contact;
 use App\Models\Festival;
 use App\Models\FestivalInfo;
+use App\Models\Order;
 use App\Models\Route as ModelsRoute;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 
+// Unused route for this application, but page is used in some layouts
 Route::get('/welcome', function () {
     return view('welcome');
 });
@@ -26,7 +33,8 @@ Route::get('/', function () {
 
 // Login required for dashboard
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $orders = auth()->user()->orders;
+    return view('dashboard', compact('orders'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // No login required for vip
@@ -34,11 +42,10 @@ Route::get('/vip', function () {
     return view('vip.index');
 })->name('vip.index');
 
-
 Route::resource('festivals', FestivalController::class)
     ->only(['index', 'show']);
 
-// No login required for festivals.order
+// Login required for festivals.order
 Route::get('/festivals/{festival}/order/{route}', function (\App\Models\Festival $festival, \App\Models\Route $route) {
     return view('festivals.order', compact('festival', 'route'));
 })->name('festivals.order')->middleware('auth');
@@ -47,9 +54,8 @@ Route::get('/festivals/{festival}/order/{route}', function (\App\Models\Festival
 Route::post('/festivals/{festival}/order/{route}', [OrderController::class, 'store'])->name('order.store');
 
 // No login required for contact
-Route::get('/contact', function () {
-    return view('contact.index');
-})->name('contact.index');
+Route::resource('contact', ContactController::class)
+    ->only('index', 'store');
 
 // Login required for admin
 Route::get('/admin', function () {
@@ -60,8 +66,11 @@ Route::get('/admin', function () {
     $busCount = BusInfo::all()->count();
     $routesCount = ModelsRoute::all()->count();
     return view('admin.index', compact('festivalCount', 'festival', 'festivalInfo', 'routesCount', 'usersCount', 'busCount'));
+    $contactsCount = Contact::withoutTrashed()->count();
+    return view('admin.index', compact('festivalCount', 'festival', 'festivalInfo', 'routesCount', 'usersCount', 'contactsCount'));
 })->middleware(['admin', 'auth', 'verified'])->name('admin.index');
 
+// Grouped routes for all the routes that belong to admin
 Route::middleware(['admin', 'auth', 'verified'])->group(function () {
     Route::name('admin.')->group(function () {
         Route::prefix('admin')->group(function () {
@@ -74,9 +83,8 @@ Route::middleware(['admin', 'auth', 'verified'])->group(function () {
             Route::resource('/routes', AdminRouteController::class)
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 
-         
-            Route::resource('users', AdminUserController::class)
-                ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);   
+            Route::resource('users', AdminController::class)
+                ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 
             Route::resource('/locations', AdminLocationController::class)
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
@@ -85,14 +93,12 @@ Route::middleware(['admin', 'auth', 'verified'])->group(function () {
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
             }); //put the  `});` here, else it would change admin/busses to just /busses 
 
+            Route::resource('contact', AdminContactController::class)
+                ->only(['index', 'show', 'destroy']);
         });
-});
+    });
 
-// Login required for admin
-Route::get('/admin/show_busses', function () {
-    return view('admin.show_busses');
-})->middleware(['auth', 'verified'])->name('admin.show_busses');
-
+// Routes for profile
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
