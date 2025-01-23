@@ -59,19 +59,19 @@
                                     class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                     <th scope="col" class="px-6 py-3">
-                                        Vertrek Locatie
+                                        Departure location
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        Vertrek tijd
+                                        Departure time
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        Aanmeldingen
+                                        Sign ups
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        Prijs
+                                        Price
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        Bestel
+                                        Order
                                     </th>
                                 </tr>
                                 </thead>

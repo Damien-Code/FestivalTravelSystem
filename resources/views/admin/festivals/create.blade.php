@@ -46,16 +46,6 @@
             </div>
         </section>
     </div>
-    {{--    <script>--}}
-    {{--        function getFileSize(el) {--}}
-    {{--            const size = el.files[0].size;--}}
-    {{--            let totalSize = Math.ceil(size/1024);--}}
-    {{--            console.log(el.files[0].size)--}}
-    {{--            if(totalSize > 5120){--}}
-    {{--                alert('file too big')--}}
-    {{--            }--}}
-    {{--        }--}}
-    {{--    </script>--}}
     <script>
         const file = document.getElementById('image')
         const text= document.getElementById('fileName')
