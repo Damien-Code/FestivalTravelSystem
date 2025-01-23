@@ -62,11 +62,13 @@ class OrderController extends Controller
 
         //Try to schedule a new bus if ordered ticket quantity exceeds the scheduled bus capacity
         $isCapacityRemaining = $this->CapacityCheck($route, $validatedData['ticket-amount']);
+
+        //If no capacity remains, send a message with relevant information to the administrators & display a message to the user.
         if (!$isCapacityRemaining) {
             Contact::create([
                 'name' => 'ADMIN',
                 'email' => 'busplanner@fts.com',
-                'message' => "There were no available buses or users available on this route. {$route->id}"
+                'message' => "There were no buses or drivers available to be scheduled in for festival #{$festival->id} on route #{$route->id}."
             ]);
             return redirect()->back()->withErrors(['Bus Route' => 'Your order exceeds the remaining capacity of our available buses. A message has been sent to the administrators. Please try again later.']);
         }
