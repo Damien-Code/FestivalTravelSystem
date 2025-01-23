@@ -65,8 +65,10 @@ class AdminController extends Controller
         // Update the resource
         $user->update([
             'role_id' => $validatedData['role_id'],
-             ]);
-        return redirect(route('admin.users.index'));
+        ]);
+        // dd($validatedData,$user);
+        return redirect(route('admin.users.index'))
+        ->with('success', 'User role updated successfully!');;
     }
     
     /**
