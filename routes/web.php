@@ -4,6 +4,9 @@ use App\Http\Controllers\AdminContactController;
 use App\Http\Controllers\AdminFestivalController;
 use App\Http\Controllers\AdminLocationController;
 use App\Http\Controllers\AdminRouteController;
+use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\AdminBusInfoController;
+use App\Models\BusInfo;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FestivalController;
@@ -60,9 +63,10 @@ Route::get('/admin', function () {
     $festival = Festival::all();
     $festivalInfo = FestivalInfo::all();
     $festivalCount = Festival::all()->count();
+    $busCount = BusInfo::all()->count();
     $routesCount = ModelsRoute::all()->count();
     $contactsCount = Contact::withoutTrashed()->count();
-    return view('admin.index', compact('festivalCount', 'festival', 'festivalInfo', 'routesCount', 'usersCount', 'contactsCount'));
+    return view('admin.index', compact('festivalCount', 'festival', 'festivalInfo', 'routesCount', 'usersCount','busCount','contactsCount'));
 })->middleware(['admin', 'auth', 'verified'])->name('admin.index');
 
 // Grouped routes for all the routes that belong to admin
@@ -84,12 +88,17 @@ Route::middleware(['admin', 'auth', 'verified'])->group(function () {
             Route::resource('/locations', AdminLocationController::class)
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 
-            Route::resource('contact', AdminContactController::class)
-                ->only(['index', 'show', 'destroy']);
+            Route::resource('busses', AdminBusInfoController::class)
+                ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+
+                Route::resource('contact', AdminContactController::class)
+                    ->only(['index', 'show', 'destroy']);
+            }); //put the  `});` here, else it would change admin/{file} to just /{file} 
+
         });
     });
-});
-
+    Route::resource('contact', ContactController::class)
+    ->only(['index', 'show', 'destroy']);
 // Routes for profile
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
