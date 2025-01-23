@@ -32,7 +32,7 @@
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             <div class="max-w-xl flex justify-between flex-col h-full">
                 <div>
-                    <p class="text-3xl pb-10">Bus trips</p>
+                    <p class="text-3xl pb-10">Routes</p>
                     <p>Total amount of bus routes: {{$routesCount}}</p>
                 </div>
                 <a href="{{route('admin.routes.index')}}">
@@ -50,7 +50,7 @@
                     <x-primary-button>View busses</x-primary-button>
                 </a>
             </div>
-        </div> 
+        </div>
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             <div class="max-w-xl flex justify-between flex-col h-full">
                 <div>
