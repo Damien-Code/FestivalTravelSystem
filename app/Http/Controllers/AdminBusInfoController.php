@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BusInfo;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 /**
  * @author Mischa Sasse
@@ -13,11 +14,11 @@ class AdminBusInfoController extends Controller
     /**
      * @author Mischa Sasse
      * @method Illuminate\Http\Request get()
-     * @return view + $busses
+     * @return View + $busses
      * This method gets all buses, puts them in $buses and sends them to the view.
-     * If the user searches in the searchbar, then the $busses will change to 
+     * If the user searches in the searchbar, then the $busses will change to
      * hold the values of the buses that match the search fully or partly.
-     * 
+     *
      */
     public function index()
     {
@@ -30,7 +31,7 @@ class AdminBusInfoController extends Controller
     /**
      * @author Mischa Sasse
      * @return view
-     * 
+     *
      * This method returns a view where an admin can create a bus
      */
     public function create()
@@ -46,11 +47,11 @@ class AdminBusInfoController extends Controller
      * @method Illuminate\Routing\Redirector route()
      * @method Illuminate\Routing\Redirector with()
      * @method Illuminate\Http\RedirectResponse withErrors()
-     * 
+     *
      * This method first checks the validity of the incoming post-data.
      * After this it checks if the post-data, the given license plate, already exists
      * If this is the case, it will return an error to the user,
-     * else it will create the bus with the given license plate and 
+     * else it will create the bus with the given license plate and
      * returns the user to the busses.index page with a success message.
      */
     public function store(Request $request)
@@ -96,11 +97,10 @@ class AdminBusInfoController extends Controller
     /**
      * @author Mischa Sasse
      * @param $bus
-     * @return view + message
      * @method Illuminate\Http\RedirectResponse with()
      * @method Illuminate\Routing\Redirector route()
-     * @return view + message
-     * 
+     * @return RedirectResponse + message
+     *
      * This method first gets the data of the bus from the database.
      * Then it soft-deletes the bus from the database
      * then it redirects the user back to the admin.busses.index page with a delete message.
