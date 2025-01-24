@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class AdminUserController extends Controller
 {
@@ -12,7 +13,7 @@ class AdminUserController extends Controller
      * @author Mischa Sasse
      * @method Illuminate\Http\Request get()
      * @method request()
-     * @return view + $busses
+     * @return View + $users
      * This method gets all users, puts them in $users and sends them to the view.
      * If the user searches in the searchbar, then the $users will change to 
      * hold the values of the users that match the username or email 
@@ -90,7 +91,7 @@ class AdminUserController extends Controller
      * @author Mischa Sasse
      * @param User $users
      * @method Illuminate\Database\Eloquent\Model delete()
-     * @return view
+     * @return RedirectResponse
      * This method gets the user from the post-data.
      * Then it soft-deletes the user.
      * After which it redirects the user back to admin.users.index

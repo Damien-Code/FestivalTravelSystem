@@ -30,7 +30,7 @@ class AdminBusInfoController extends Controller
 
     /**
      * @author Mischa Sasse
-     * @return view
+     * @return View
      *
      * This method returns a view where an admin can create a bus
      */
@@ -47,7 +47,7 @@ class AdminBusInfoController extends Controller
      * @method Illuminate\Routing\Redirector route()
      * @method Illuminate\Routing\Redirector with()
      * @method Illuminate\Http\RedirectResponse withErrors()
-     *
+     * @return RedirectResponse + message
      * This method first checks the validity of the incoming post-data.
      * After this it checks if the post-data, the given license plate, already exists
      * If this is the case, it will return an error to the user,
