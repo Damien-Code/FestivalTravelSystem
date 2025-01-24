@@ -54,12 +54,13 @@ class AdminFestivalController extends Controller
 
     /**
      * @return RedirectResponse
+     * @param Request $request
      * Store a newly created resource in storage.
      * @author Damiën van den IJssel
      */
     public function store(Request $request): RedirectResponse
     {
-        // Validate the request and resource
+        // Validate the request
         $validatedData = $request->validate([
             'title' => 'required|string|max:45|min:3',
             'description' => 'required|string|min:10',
@@ -98,17 +99,20 @@ class AdminFestivalController extends Controller
      * @param Request $request
      * @return RedirectResponse
      * @author Damiën van den IJssel
+     * Store an added festival, location and date to db
+     * Get the added festival from the store method and add a location and date to it
+     * With message that pair was successful
      */
-    // Store an added festival and date to db
-    // Get the added festival from the store method and add a location and date to it
     public function planFestival(Request $request): RedirectResponse
     {
+        // Validate the request
         $validatedData = $request->validate([
             'festival' => 'required',
             'location' => 'required|integer',
             'date' => 'required|date',
         ]);
 
+        // Create the resource
         Festival::create([
             'info_festival_id' => $validatedData['festival'],
             'location_id' => $validatedData['location'],
@@ -127,6 +131,7 @@ class AdminFestivalController extends Controller
 
     /**
      * @return View
+     * @param Festival $festival
      * Show the form for editing the specified resource.
      * @author Damiën van den IJssel
      */
@@ -139,19 +144,22 @@ class AdminFestivalController extends Controller
 
     /**
      * @return RedirectResponse
+     * @param Request $request
+     * @param Festival $festival
      * Update the specified resource in storage.
      * @author Damiën van den IJssel
      */
     public function update(Request $request, Festival $festival): RedirectResponse
     {
+        // Validate the request
         $validatedData = $request->validate([
             'title' => 'required|string|max:45|min:3',
             'description' => 'required|string|min:10',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
+
         // Encode the uploaded image to base64
         // Image is nullable, so added if statement
-
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $data = "data:image/{$image->extension()};base64, ";
@@ -174,8 +182,18 @@ class AdminFestivalController extends Controller
             ->with('success', 'Festival updated successfully!');
     }
 
+
+    /**
+     * @param Request $request
+     * @param Festival $festival
+     * @return RedirectResponse
+     * @author Damiën van den IJssel
+     * Update the pairing of a festival
+     * With message that update was successful
+     */
     public function updatePair(Request $request, Festival $festival): RedirectResponse
     {
+        // Validate the request
         $validatedData = $request->validate([
             'festival' => 'required',
             'location' => 'required|integer',
@@ -184,6 +202,7 @@ class AdminFestivalController extends Controller
 //      Convert date to datetime because otherwise the planning won't update
 //      Convert to datetime was needed because datatype in database is datetime, while the calendar makes a date
         Carbon::parse($validatedData['date'])->toDateTimeString();
+        // Update the resource
         $festival->update([
             'info_festival_id' => $validatedData['festival'],
             'location_id' => $validatedData['location'],
@@ -191,7 +210,6 @@ class AdminFestivalController extends Controller
         ]);
         return redirect(route('admin.festivals.edit', $festival))
             ->with('success', 'Pairing festival updated successfully!');
-
     }
 
     /**
