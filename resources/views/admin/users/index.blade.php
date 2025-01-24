@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6 text-white">
-    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             <div class="md:flex justify-between sm:flex-none">
                 <p class="text-white text-3xl font-bold pb-6 md:pb-0">Users</p>
                 <div>
@@ -12,10 +12,10 @@
                 </div>
             </div>
         </div>
-    <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-            @include('layouts.success')
-            @include('layouts.error')
-            <div class="max-w-7xl mx-auto">
+        @include('layouts.success')
+        @include('layouts.error')
+        <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+            <div class="max-w-7xl mx-auto mt-6">
                 <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                     {{-- Search bar --}}
                     <div class="max-w-full pb-6 items-center">
@@ -29,26 +29,26 @@
                             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                 <thead
                                     class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3">
-                                            Username
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Email
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Role
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Change role
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Action
-                                        </th>
-                                    </tr>
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">
+                                        Username
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Email
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Role
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Change role
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Action
+                                    </th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($users as $user)
+                                @foreach ($users as $user)
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                         <th scope="row"
                                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -61,7 +61,8 @@
                                             {{ ucfirst($user->role->role_name) }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            <form name="role_form" class="inline-block float-end pb-2 " action="{{route('admin.users.update', $user->id)}}" method="POST">
+                                            <form name="role_form" class="inline-block float-end pb-2 "
+                                                  action="{{route('admin.users.update', $user->id)}}" method="POST">
                                                 @method('PATCH')
                                                 @csrf
                                                 <input type="hidden" value="test_value">
@@ -70,9 +71,12 @@
                                                     type="dropdown"
                                                     onChange="this.closest('form').submit();"
                                                     name="role_id">
-                                                    <option value="1" @if($user->role_id == 1) selected @endif>Admin</option>
-                                                    <option value="2" @if($user->role_id == 2) selected @endif>User</option>
-                                                    <option value="3" @if($user->role_id == 3) selected @endif>Driver</option>
+                                                    <option value="1" @if($user->role_id == 1) selected @endif>Admin
+                                                    </option>
+                                                    <option value="2" @if($user->role_id == 2) selected @endif>User
+                                                    </option>
+                                                    <option value="3" @if($user->role_id == 3) selected @endif>Driver
+                                                    </option>
                                                 </select>
                                             </form>
                                         </td>
@@ -86,7 +90,7 @@
                                             </form>
                                         </td>
                                     </tr>
-                                    @endforeach
+                                @endforeach
                                 </tbody>
                             </table>
                             {{-- Pagination link --}}
@@ -97,8 +101,6 @@
                     </div>
                 </div>
             </div>
-
-
 
 
         </div>
