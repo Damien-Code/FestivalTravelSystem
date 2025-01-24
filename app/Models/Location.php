@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @author Brighton van Rouendal + Mischa Sasse
+ */
 class Location extends Model
 {
     /** @use HasFactory<\Database\Factories\LocationFactory> */
