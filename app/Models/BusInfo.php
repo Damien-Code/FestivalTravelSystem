@@ -18,6 +18,10 @@ class BusInfo extends Model
     public function busInUses(){
         return $this->hasMany(BusInUse::class, 'bus_id');
     }
+    
+    public function routesPlannedWithBus() {
+        return $this->belongsToMany(Route::class, BusInUse::class, 'bus_id', 'route_id')->where('departure_time', '>=', now())->count();
+        }
 
     protected $fillable = [
         'license_plate',

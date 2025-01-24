@@ -57,7 +57,7 @@
                                             {{ $bus->license_plate }}
                                         </th>
                                         <td class="px-6 py-4">
-                                            @if( $bus->busInUses->count() > 0)
+                                            @if ($bus->routesPlannedWithBus())
                                                 YES
                                             @else
                                                 NO
