@@ -49,6 +49,7 @@ Route::get('/festivals/{festival}/order/{route}', function (Festival $festival, 
 
 // Route for storing tickets
 Route::post('/festivals/{festival}/order/{route}', [OrderController::class, 'store'])->name('order.store');
+Route::delete('/order/{order}', [OrderController::class, 'destroy'])->name('order.destroy');
 
 // No login required for contact
 Route::resource('contact', ContactController::class)

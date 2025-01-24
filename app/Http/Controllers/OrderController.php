@@ -121,9 +121,13 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Order $order)
     {
         //
+        if (auth()->user()->id == $order->user_id) {
+            $order->delete();
+
+        }
     }
 
     /**
