@@ -1,9 +1,19 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Contact Messages') }}
-        </h2>
-    </x-slot>
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6">
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+            <div class="md:flex justify-between sm:flex-none">
+                <p class="text-white text-3xl font-bold pb-6 md:pb-0">Contact Messages</p>
+                <div>
+                    <a href="{{route('admin.index')}}">
+                        <x-primary-button>
+                            Back
+                        </x-primary-button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pt-6 ">
         @include('layouts.error')
         @include('layouts.success')

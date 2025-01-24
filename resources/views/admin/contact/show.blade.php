@@ -1,18 +1,19 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Contact Message') }}
-            </h2>
-            <div>
-                <a href="{{route('admin.contact.index')}}">
-                    <x-primary-button>
-                        Back
-                    </x-primary-button>
-                </a>
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6">
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+            <div class="md:flex justify-between sm:flex-none">
+                <p class="text-white text-3xl font-bold pb-6 md:pb-0">Contact Message</p>
+                <div>
+                    <a href="{{route('admin.contact.index')}}">
+                        <x-primary-button>
+                            Back
+                        </x-primary-button>
+                    </a>
+                </div>
             </div>
         </div>
-    </x-slot>
+    </div>
+
     <section class="bg-white dark:bg-gray-900">
         <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
             <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Contact Page</h2>

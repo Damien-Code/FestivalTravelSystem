@@ -20,7 +20,7 @@
             <div class="max-w-xl flex justify-between flex-col h-full">
                 <div>
                     <p class="text-3xl pb-10">Festivals</p>
-                    <p>Total amount of festivals: {{$festivalCount}}</p>
+                    <p>Total amount of festivals: {{$festivalsCount}}</p>
                 </div>
                 <div class="flex justify-between">
                     <a href="{{route('admin.festivals.index')}}">
@@ -43,11 +43,11 @@
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             <div class="max-w-xl flex justify-between flex-col h-full">
                 <div>
-                    <p class="text-3xl pb-10">Busses</p>
-                    <p>Total amount of busses: {{$busCount}}</p>
+                    <p class="text-3xl pb-10">Buses</p>
+                    <p>Total amount of buses: {{$busCount}}</p>
                 </div>
                 <a href="{{route('admin.busses.index')}}">
-                    <x-primary-button>View busses</x-primary-button>
+                    <x-primary-button>View buses</x-primary-button>
                 </a>
             </div>
         </div>
@@ -55,6 +55,7 @@
             <div class="max-w-xl flex justify-between flex-col h-full">
                 <div>
                     <p class="text-3xl pb-10">Locations</p>
+                    <p>Total amount of locations: {{$locationsCount}}</p>
                 </div>
                 <a href="{{route('admin.locations.index')}}">
                     <x-primary-button>View locations</x-primary-button>
