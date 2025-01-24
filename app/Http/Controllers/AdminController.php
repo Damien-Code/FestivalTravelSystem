@@ -9,11 +9,16 @@ use Illuminate\Http\RedirectResponse;
 class AdminController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @author Mischa Sasse
+     * @method Illuminate\Http\Request get()
+     * @method request()
+     * @return view + $busses
+     * This method gets all users, puts them in $users and sends them to the view.
+     * If the user searches in the searchbar, then the $users will change to 
+     * hold the values of the users that match the username or email to the search fully or partly.
      */
     public function index()
     {
-        // dd('test'); 
         $search = request()->get('search') ?? '';
         $users = User::where('users.name','like', "%{$search}%")
         ->withoutTrashed() //had to add this twice cause of the way Eloquent creates queries

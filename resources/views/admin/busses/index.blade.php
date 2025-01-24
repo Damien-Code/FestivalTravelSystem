@@ -2,7 +2,7 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6 text-white">
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
             <div class="md:flex justify-between sm:flex-none">
-                <p class="text-white text-3xl font-bold pb-6 md:pb-0">Busses</p>
+                <p class="text-white text-3xl font-bold pb-6 md:pb-0">Buses</p>
                 <div>
                     <a href="{{route('admin.index')}}">
                         <x-primary-button>
@@ -48,7 +48,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($busses as $bus)
+                                @foreach ($buses as $bus)
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                         <th scope="row"
                                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">

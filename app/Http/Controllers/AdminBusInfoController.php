@@ -13,10 +13,10 @@ class AdminBusInfoController extends Controller
     /**
      * @author Mischa Sasse
      * @method Illuminate\Http\Request get()
-     * @return view + $busses
-     * This method gets all busses, puts them in $busses and sends them to the view.
+     * @return view + $buses
+     * This method gets all buses, puts them in $buses and sends them to the view.
      * If the user searches in the searchbar, then the $busses will change to 
-     * hold the values of the busses that match the search fully or partly.
+     * hold the values of the buses that match the search fully or partly.
      * 
      */
     public function index()
@@ -24,7 +24,7 @@ class AdminBusInfoController extends Controller
         $search = request()->get('search') ?? '';
         $busses = BusInfo::where('bus_info.license_plate','like', "%{$search}%")
         ->orderBy('bus_info.id')->paginate(20);
-        return view('admin.busses.index', compact('busses'));
+        return view('admin.buses.index', compact('busses'));
     }
 
     /**
