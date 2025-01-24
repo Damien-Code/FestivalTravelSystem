@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class ContactFactory extends Factory
 {
     /**
+     * @author Brighton van Rouendal
      * Define the model's default state.
      *
      * @return array<string, mixed>

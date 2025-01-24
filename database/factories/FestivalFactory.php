@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class FestivalFactory extends Factory
 {
     /**
+     * @author Brighton van Rouendal
      * Define the model's default state.
      *
      * @return array<string, mixed>

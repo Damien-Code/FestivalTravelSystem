@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class FestivalInfoFactory extends Factory
 {
     /**
+     * @author Brighton van Rouendal + Mischa Sasse + Damiën van den IJssel
      * Define the model's default state.
      *
      * @return array<string, mixed>
