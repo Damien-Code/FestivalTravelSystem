@@ -13,7 +13,7 @@ class AdminBusInfoController extends Controller
     /**
      * @author Mischa Sasse
      * @method Illuminate\Http\Request get()
-     * @return view + $buses
+     * @return view + $busses
      * This method gets all buses, puts them in $buses and sends them to the view.
      * If the user searches in the searchbar, then the $busses will change to 
      * hold the values of the buses that match the search fully or partly.
