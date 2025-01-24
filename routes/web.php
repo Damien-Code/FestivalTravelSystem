@@ -4,6 +4,9 @@ use App\Http\Controllers\AdminContactController;
 use App\Http\Controllers\AdminFestivalController;
 use App\Http\Controllers\AdminLocationController;
 use App\Http\Controllers\AdminRouteController;
+use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\AdminBusInfoController;
+use App\Models\BusInfo;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FestivalController;
@@ -18,6 +21,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 
+// Unused route for this application, but page is used in some layouts
 Route::get('/welcome', function () {
     return view('welcome');
 });
@@ -38,11 +42,10 @@ Route::get('/vip', function () {
     return view('vip.index');
 })->name('vip.index');
 
-
 Route::resource('festivals', FestivalController::class)
     ->only(['index', 'show']);
 
-// No login required for festivals.order
+// Login required for festivals.order
 Route::get('/festivals/{festival}/order/{route}', function (\App\Models\Festival $festival, \App\Models\Route $route) {
     return view('festivals.order', compact('festival', 'route'));
 })->name('festivals.order')->middleware('auth');
@@ -60,11 +63,13 @@ Route::get('/admin', function () {
     $festival = Festival::all();
     $festivalInfo = FestivalInfo::all();
     $festivalCount = Festival::all()->count();
+    $busCount = BusInfo::all()->count();
     $routesCount = ModelsRoute::all()->count();
     $contactsCount = Contact::withoutTrashed()->count();
-    return view('admin.index', compact('festivalCount', 'festival', 'festivalInfo', 'routesCount', 'usersCount', 'contactsCount'));
+    return view('admin.index', compact('festivalCount', 'festival', 'festivalInfo', 'routesCount', 'usersCount','busCount','contactsCount'));
 })->middleware(['admin', 'auth', 'verified'])->name('admin.index');
 
+// Grouped routes for all the routes that belong to admin
 Route::middleware(['admin', 'auth', 'verified'])->group(function () {
     Route::name('admin.')->group(function () {
         Route::prefix('admin')->group(function () {
@@ -77,24 +82,24 @@ Route::middleware(['admin', 'auth', 'verified'])->group(function () {
             Route::resource('/routes', AdminRouteController::class)
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 
-
             Route::resource('users', AdminController::class)
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 
             Route::resource('/locations', AdminLocationController::class)
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 
-            Route::resource('contact', AdminContactController::class)
-                ->only(['index', 'show', 'destroy']);
+            Route::resource('busses', AdminBusInfoController::class)
+                ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+
+                Route::resource('contact', AdminContactController::class)
+                    ->only(['index', 'show', 'destroy']);
+            }); //put the  `});` here, else it would change admin/{file} to just /{file} 
+
         });
     });
-});
-
-// Login required for admin
-Route::get('/admin/show_busses', function () {
-    return view('admin.show_busses');
-})->middleware(['auth', 'verified'])->name('admin.show_busses');
-
+    Route::resource('contact', ContactController::class)
+    ->only(['index', 'show', 'destroy']);
+// Routes for profile
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

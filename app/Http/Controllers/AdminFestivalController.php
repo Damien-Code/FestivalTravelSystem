@@ -197,6 +197,7 @@ class AdminFestivalController extends Controller
     /**
      * @return RedirectResponse
      * Remove the specified resource from storage.
+     * With message that delete was successful
      * @author Damiën van den IJssel
      */
     public function destroy(Festival $festival): RedirectResponse

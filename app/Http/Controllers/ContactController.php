@@ -9,7 +9,7 @@ class ContactController extends Controller
 {
     /**
      * @author Brighton van Rouendal
-     * Display a listing of the resource.
+     * Show contact form for guest
      */
     public function index()
     {
@@ -18,7 +18,7 @@ class ContactController extends Controller
 
     /**
      * @author Brighton van Rouendal
-     * Store a newly created resource in storage.
+     * Create a new contact message
      */
     public function store(Request $request)
     {

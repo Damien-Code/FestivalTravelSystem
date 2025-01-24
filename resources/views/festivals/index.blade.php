@@ -4,8 +4,8 @@
             {{ __('Festivals') }}
         </h2>
     </x-slot>
-    {{-- Search bar --}}
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6 text-white">
+        {{-- Search bar --}}
         <x-search-bar :action="route('festivals.index')"></x-search-bar>
         {{-- All the festivals --}}
         @forelse($festivals as $festival)

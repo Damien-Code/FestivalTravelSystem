@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 
-class AdminController extends Controller
+class AdminUserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -65,10 +65,8 @@ class AdminController extends Controller
         // Update the resource
         $user->update([
             'role_id' => $validatedData['role_id'],
-        ]);
-        // dd($validatedData,$user);
-        return redirect(route('admin.users.index'))
-        ->with('success', 'User role updated successfully!');;
+             ]);
+        return redirect(route('admin.users.index'));
     }
     
     /**
