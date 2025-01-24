@@ -4,15 +4,14 @@
             Festival - {{ $festival->festivalInfo->title }}
         </h2>
     </x-slot>
-    <div class="mx-auto sm:px-6 lg:px-8 space-y-6 pt-6 text-white">
-        <section class="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
+    <div class="mx-auto sm:px-6 lg:px-8 space-y-6 text-white">
+        <section class="bg-white md:py-16 dark:bg-gray-900 antialiased">
             <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0" id="{{$festival->id}}">
                 @include('layouts.success')
                 <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
                     <div class="shrink-0 max-w-md lg:max-w-lg mx-auto">
                         @if(isset($festival->festivalInfo->image))
-                            <img class="w-full rounded-lg" src="{{$festival->festivalInfo->image}}" alt="image"
-                                 class="w-24">
+                            <img class="w-full rounded-lg" src="{{$festival->festivalInfo->image}}" alt="image">
                         @endif
                     </div>
 

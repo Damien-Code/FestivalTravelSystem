@@ -48,7 +48,8 @@ Route::get('/festivals/{festival}/order/{route}', function (Festival $festival, 
 })->name('festivals.order')->middleware('auth');
 
 // Route for storing tickets
-Route::post('/festivals/{festival}/order/{route}', [OrderController::class, 'store'])->name('order.store');
+Route::post('/festivals/{festival}/order/{route}', [OrderController::class, 'store'])->name('order.store')->middleware('auth');
+Route::delete('/order/{order}', [OrderController::class, 'destroy'])->name('order.destroy')->middleware('auth');
 
 // No login required for contact
 Route::resource('contact', ContactController::class)
