@@ -19,7 +19,12 @@
         @include('layouts.error')
         <section class="bg-white dark:bg-gray-900">
             <div class="py-8 px-4 mx-auto max-w-3xl">
-                <form class="" action="{{ route('admin.routes.store') }}" method="post">
+                @if($route->exists)
+                    <form class="" action="{{ route('admin.routes.update', $route->id) }}" method="post">
+                        @method('PUT')
+                @else
+                    <form class="" action="{{ route('admin.routes.store') }}" method="post">
+                @endif
                     @csrf
                     <div class="relative z-0 w-full mb-5 group">
                         <div class="relative z-0 w-full mb-5 group">
