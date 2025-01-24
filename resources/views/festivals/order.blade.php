@@ -31,7 +31,7 @@
                             <div class="flex flex-row justify-between gap-2">
                                 <div class="w-3/4">
                                     <label for="ticket-amount" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Tickets </label>
-                                    <input type="number" id="ticket-amount" name="ticket-amount" value="0" min="1" max="35" oninput="CheckTicketInput(this)" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" />
+                                    <input type="number" id="ticket-amount" name="ticket-amount" value="1" min="1" max="35" oninput="CheckTicketInput(this)" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" />
                                     <input type="hidden" id="ticket-price" value="{{$route->price}}">
                                     <input type="hidden" id="total-price-h" name="total-price-h" value="{{$route->price}}"></div>
                                 <div class="w-1/4">
