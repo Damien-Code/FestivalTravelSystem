@@ -4,8 +4,12 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-    <section class="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
+
+    <section class="bg-white antialiased dark:bg-gray-900 md:py-16">
         <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
+            @include('layouts.success')
+            @include('layouts.error')
+            @include('layouts.delete')
             <div class="mx-auto max-w-5xl">
                 <div class="gap-4 sm:flex sm:items-center sm:justify-between">
                     <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">My orders</h2>
@@ -71,8 +75,8 @@
                                 <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
                                     <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Cancel order:</dt>
                                     <dd class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">
-                                        @if($order->route->departure_time < now())
-                                            <form action="{{ route('contact.destroy', $order) }}" method="post">
+                                        @if($order->route->departure_time > now())
+                                            <form action="{{ route('order.destroy', $order) }}" method="post">
                                                 @method('DELETE')
                                                 @csrf
                                                 <x-danger-button>

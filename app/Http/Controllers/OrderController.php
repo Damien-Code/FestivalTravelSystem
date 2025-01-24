@@ -119,15 +119,20 @@ class OrderController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @author Ismael Winterman, Brighton van Rouendal
+     * Soft delete Order so that user can cancel it and remove tokens from user
      */
     public function destroy(Order $order)
     {
         //
-        if (auth()->user()->id == $order->user_id) {
+        $user = auth()->user();
+        if ($user->id == $order->user_id) {
+            $user->tokens -= $order->final_price;
+            $user->save();
             $order->delete();
-
+            return redirect()->back()->with('success', 'Your order has been cancelled!');
         }
+        return redirect()->back()->withErrors(['Incorrect order' => "Incorrect order id was given does not belong to {$user->name}."]);
     }
 
     /**
