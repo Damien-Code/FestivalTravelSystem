@@ -80,6 +80,7 @@
 <script>
     /**
      * Keeps the value of the field from fallen outside the set min & max
+     * @param field
      * @author Ismael Winterman
      */
     function CheckTicketInput(field){
