@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class LocationFactory extends Factory
 {
     /**
+     * @author Brighton van Rouendal + Mischa Sasse
      * Define the model's default state.
      *
      * @return array<string, mixed>

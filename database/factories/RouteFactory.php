@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class RouteFactory extends Factory
 {
     /**
+     * @author Brighton van Rouendal + Mischa Sasse
      * Define the model's default state.
      *
      * @return array<string, mixed>
