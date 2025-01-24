@@ -34,7 +34,11 @@ class OrderController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created Order in the database.
+     * @param Request $request The post request data.
+     * @param Festival $festival The festival that the current order is made for.
+     * @param Route $route The route that the current order is made for.
+     * @return RedirectResponse Returns the user back to the festival page that the order was placed for.
      * @author Ismael Winterman
      */
     public function store(Request $request, Festival $festival, Route $route)
@@ -119,14 +123,22 @@ class OrderController extends Controller
     }
 
     /**
+     * Soft delete Order so that user can cancel it and remove tokens from user.
+     * @param Order $order The order the user wants to cancel.
+     * @return RedirectResponse Redirect the user to the dashboard with a messaging indicating if cancelling the order was successful.
      * @author Ismael Winterman, Brighton van Rouendal
-     * Soft delete Order so that user can cancel it and remove tokens from user
      */
     public function destroy(Order $order)
     {
-        //
+        //Identify user cancelling their order
         $user = auth()->user();
+
         if ($user->id == $order->user_id) {
+            //Refund points spent by the user if applicable
+            if($order->tokens_used > 0)
+                $user->tokens += $order->tokens_used;
+
+            //Take points obtained through the order back from the user
             $user->tokens -= $order->final_price;
             $user->save();
             $order->delete();
@@ -139,6 +151,9 @@ class OrderController extends Controller
      * Automatic bus planning trigger.
      * Check if the quantity of tickets in the current order exceeds the capacity of the scheduled buses.
      * If it does, checks if there are any available buses and drivers on that day and schedules them in.
+     * @param Route $route The route the user is trying to place an order on.
+     * @param Int $tickets The amount of tickets the user is trying to buy.
+     * @return bool Returns true when there is enough capacity remaining or a new bus was successfully scheduled. Returns false if no bus or bus driver is available.
      * @author Ismael Winterman, Brighton van Rouendal
      * *brighton -> bus planning function check if available bus and driver.
      */
