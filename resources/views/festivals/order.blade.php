@@ -78,6 +78,11 @@
 </x-app-layout>
 
 <script>
+    //onload did not work, so this event listener is used to set the initial price.
+    document.addEventListener('DOMContentLoaded', () => {
+        UpdatePrice()
+    })
+
     /**
      * Keeps the value of the field from fallen outside the set min & max
      * @author Ismael Winterman
