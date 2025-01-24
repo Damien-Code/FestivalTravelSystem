@@ -24,7 +24,7 @@ class AdminBusInfoController extends Controller
         $search = request()->get('search') ?? '';
         $busses = BusInfo::where('bus_info.license_plate','like', "%{$search}%")
         ->orderBy('bus_info.id')->paginate(20);
-        return view('admin.buses.index', compact('busses'));
+        return view('admin.busses.index', compact('busses'));
     }
 
     /**
