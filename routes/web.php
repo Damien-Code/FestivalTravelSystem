@@ -6,7 +6,7 @@ use App\Http\Controllers\AdminLocationController;
 use App\Http\Controllers\AdminRouteController;
 use App\Http\Controllers\AdminBusInfoController;
 use App\Models\BusInfo;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FestivalController;
 use App\Http\Controllers\OrderController;
@@ -78,7 +78,7 @@ Route::middleware(['admin', 'auth', 'verified'])->group(function () {
             Route::resource('routes', AdminRouteController::class)
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 
-            Route::resource('users', AdminController::class)
+            Route::resource('users', AdminUserController::class)
                 ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 
             Route::resource('locations', AdminLocationController::class)
