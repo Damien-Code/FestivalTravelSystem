@@ -19,6 +19,7 @@ return new class extends Migration
             $table->double('final_price');
             $table->integer('amount_of_tickets')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
