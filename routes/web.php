@@ -13,7 +13,6 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Contact;
 use App\Models\Festival;
-use App\Models\FestivalInfo;
 use App\Models\Location;
 use App\Models\Route as ModelsRoute;
 use Illuminate\Support\Facades\Route;
@@ -44,7 +43,7 @@ Route::resource('festivals', FestivalController::class)
     ->only(['index', 'show']);
 
 // Login required for festivals.order
-Route::get('/festivals/{festival}/order/{route}', function (Festival $festival, Route $route) {
+Route::get('/festivals/{festival}/order/{route}', function (Festival $festival, ModelsRoute $route) {
     return view('festivals.order', compact('festival', 'route'));
 })->name('festivals.order')->middleware('auth');
 
