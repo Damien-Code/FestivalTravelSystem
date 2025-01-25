@@ -8,6 +8,7 @@
         <section class="bg-white md:py-16 dark:bg-gray-900 antialiased">
             <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0" id="{{$festival->id}}">
                 @include('layouts.success')
+                @include('layouts.error')
                 <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
                     <div class="shrink-0 max-w-md lg:max-w-lg mx-auto">
                         @if(isset($festival->festivalInfo->image))
@@ -82,7 +83,7 @@
                                             {{ $route->location->city }}
                                         </th>
                                         <td class="px-6 py-4">
-                                            {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$route->departure_time)->format('H:i')}}
+                                            {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$route->departure_time)->format('Y-m-d H:i')}}
                                         </td>
                                         <td class="px-6 py-4">
                                             {{ $route->signups() }}

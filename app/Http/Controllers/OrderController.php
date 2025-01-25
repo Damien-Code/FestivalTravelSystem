@@ -19,10 +19,21 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request) : RedirectResponse
+    public function index()
     {
         //
-        return Redirect::route('festival.order');
+    }
+
+    /**
+     * @author Brighton van Rouendal
+     * Display the specified resource.
+     */
+    public function show(Festival $festival, Route $route)
+    {
+        $now = Carbon::now();
+        if ($route->departure_time < $now)
+            return redirect()->route('festivals.show', $festival)->withErrors(['Departure Time' => "Departure Time must be after {$now}"]);
+        return view('festivals.order', compact('festival', 'route'));
     }
 
     /**
@@ -94,13 +105,7 @@ class OrderController extends Controller
         return redirect()->route('festivals.show', $festival)->with('success', 'Your order has been placed!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.

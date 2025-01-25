@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Festival;
 use App\Models\Location;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,10 +20,11 @@ class RouteFactory extends Factory
      */
     public function definition(): array
     {
+        $festival = Festival::inRandomOrder()->first() ?? Festival::factory()->create();
         return [
-            'festival_id' => Festival::inRandomOrder()->first(),
+            'festival_id' => $festival->id,
             'location_id' => Location::factory(),
-            'departure_time' => $this->faker->dateTimeBetween('-1 years', '+1 years'),
+            'departure_time' => Carbon::parse($festival->date)->subMinutes(rand(5, 300)),
             'price' => $this->faker->numberBetween(2.5,12.5),
         ];
     }
