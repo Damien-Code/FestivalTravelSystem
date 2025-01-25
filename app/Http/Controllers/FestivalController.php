@@ -29,7 +29,7 @@ class FestivalController extends Controller
         $festivals = Festival::withWhereHas('festivalInfo', function ($query) use ($search) {
             $query->where('festival_info.title', 'like', "%{$search}%");
             // Order the festivals on date
-        })->with('location')->where('date', '=>', now())->orderBy('festivals.date')->paginate(10);
+        })->with('location')->where('date', '>=', now())->orderBy('festivals.date')->paginate(10);
         return view('festivals.index', compact('festivals'));
     }
 
