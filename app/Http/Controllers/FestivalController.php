@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Festival;
-use App\Models\FestivalInfo;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 
@@ -30,18 +29,20 @@ class FestivalController extends Controller
         $festivals = Festival::withWhereHas('festivalInfo', function ($query) use ($search) {
             $query->where('festival_info.title', 'like', "%{$search}%");
             // Order the festivals on date
-        })->with('location')->orderBy('festivals.date')->paginate(10);
+        })->with('location')->where('date', '=>', now())->orderBy('festivals.date')->paginate(10);
         return view('festivals.index', compact('festivals'));
     }
 
     /**
      * @param Festival $festival
-     * @return View
+     * @return View|RedirectResponse
      * Display the specified resource.
      * @author Damiën van den IJssel
      */
-    public function show(Festival $festival): View
+    public function show(Festival $festival): View|RedirectResponse
     {
+        if ($festival->date < now())
+            return redirect()->route('festivals.index');
         return view('festivals.show', compact('festival'));
     }
 }
