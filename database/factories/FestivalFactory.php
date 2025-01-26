@@ -21,7 +21,7 @@ class FestivalFactory extends Factory
     public function definition(): array
     {
         return [
-            'info_festival_id' => FestivalInfo::inRandomOrder()->first(),
+            'info_festival_id' => FestivalInfo::inRandomOrder()->first() ?? FestivalInfo::factory()->create(),
             'location_id' => Location::inRandomOrder()->first() ?? Location::factory()->create(),
             'date' => $this->faker->dateTimeBetween('now', '+1 years')->format('Y-m-d'),
         ];

@@ -19,10 +19,24 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request) : RedirectResponse
+    public function index()
     {
         //
-        return Redirect::route('festival.order');
+    }
+
+    /**
+     * @author Brighton van Rouendal, Ismael Winterman
+     * Display the specified resource.
+     */
+    public function show(Festival $festival, Route $route)
+    {
+        $now = Carbon::now();
+        if ($route->departure_time < $now)
+            return redirect()->route('festivals.show', $festival)->withErrors(['Departure Time' => "Departure Time must be after {$now}"]);
+        //Prevents route not matching festival
+        if ($route->festival_id != $festival->id)
+            return redirect()->route('festivals.index')->withErrors(['Invalid Match' => 'Festival and Route does not match']);
+        return view('festivals.order', compact('festival', 'route'));
     }
 
     /**
@@ -39,10 +53,19 @@ class OrderController extends Controller
      * @param Festival $festival The festival that the current order is made for.
      * @param Route $route The route that the current order is made for.
      * @return RedirectResponse Returns the user back to the festival page that the order was placed for.
-     * @author Ismael Winterman
+     * @author Ismael Winterman, Brighton van Rouendal
+
      */
     public function store(Request $request, Festival $festival, Route $route)
     {
+        //Redirect back if route date has already happened
+        $now = Carbon::now();
+        if ($route->departure_time < $now)
+            return redirect()->route('festivals.show', $festival)->withErrors(['Departure Time' => "Departure Time must be after {$now}"]);
+        //Prevents route not matching festival
+        if ($route->festival_id != $festival->id)
+            return redirect()->route('festivals.index')->withErrors(['Invalid Match' => 'Festival and Route does not match']);
+
         //Identify user making the purchase
         $user = auth()->user();
 
@@ -98,13 +121,7 @@ class OrderController extends Controller
         return redirect()->route('festivals.show', $festival)->with('success', 'Your order has been placed!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.

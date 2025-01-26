@@ -121,14 +121,6 @@
             <x-responsive-nav-link :href="route('contact.index')" :active="request()->routeIs('contact.index')">
                 {{ __('Contact') }}
             </x-responsive-nav-link>
-            @auth()
-                {{--            User needs to be logged in to see admin. This will change to only see when user is admin--}}
-                @if(auth()->user()->role_id == 1)
-                    <x-responsive-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
-                        {{ __('Admin') }}
-                    </x-responsive-nav-link>
-                @endif
-            @endauth
         </div>
 
         <!-- Responsive Settings Options -->
@@ -143,6 +135,14 @@
                     <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-responsive-nav-link>
+                    @auth()
+                        {{--            User needs to be logged in to see admin. This will change to only see when user is admin--}}
+                        @if(auth()->user()->role_id == 1)
+                            <x-responsive-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
+                                {{ __('Admin') }}
+                            </x-responsive-nav-link>
+                        @endif
+                    @endauth
                     <x-responsive-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
                         {{ __('Profile') }}
                     </x-responsive-nav-link>
