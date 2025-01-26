@@ -100,3 +100,8 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+// If page does not exist go to homepage
+Route::fallback(function () {
+    return redirect('/')->withErrors(['Error' => 'Oops something went really wrong. We have send you back to the homepage.']);
+});
