@@ -72,6 +72,7 @@
                                     </dd>
                                 @endif
                             </dl>
+                            {{-- Cancel order --}}
                             @if($order->route->departure_time > now())
                                 <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
                                     <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Cancel order:</dt>
@@ -88,6 +89,7 @@
                             @endif
                         </div>
                         @empty
+                            {{-- Display message for empty dashboard --}}
                             <div class="bg-white dark:bg-gray-800 max-w-fit overflow-hidden shadow-sm sm:rounded-lg">
                                 <div class="p-2 text-gray-900 dark:text-gray-100">
                                     <p>You have not placed any orders yet.</p>

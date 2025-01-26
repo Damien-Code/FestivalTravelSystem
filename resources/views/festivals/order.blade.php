@@ -1,5 +1,6 @@
 <x-app-layout>
     <section class="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
+        {{-- Order Form--}}
         <form action="{{route('order.store', [$festival, $route])}}" method="POST" class="mx-auto max-w-screen-xl px-4 2xl:px-0">
             @include('layouts.error')
             @csrf
@@ -7,6 +8,7 @@
                 <div class="min-w-0 flex-1 space-y-8">
                     <div class="space-y-4">
                         <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Order Details</h2>
+                        {{-- Order details --}}
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div>
                                 <label for="your_name" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Your name </label>
@@ -36,11 +38,13 @@
                                     <input type="hidden" id="total-price-h" name="total-price-h" value="{{$route->price}}"></div>
                                 <div class="w-1/4">
                                     @if(auth()->user()->tokens > 100)
+                                        {{-- Discount checkbox available --}}
                                         <label for="vip-checkbox" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> VIP Discount </label>
                                         <div class="h-10 flex items-center justify-center border border-gray-600 rounded dark:bg-gray-700">
                                             <input type="checkbox" id="vip-checkbox" name="vip-checkbox" onclick="UpdatePrice()" class="block rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-400 dark:bg-gray-700 dark:text-gray-600 dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" />
                                         </div>
                                     @else
+                                        {{-- Discount checkbox unavailable --}}
                                         <label for="insufficient-tokens" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> VIP Discount </label>
                                         <input type="text" id="insufficient-tokens" value="Ineligible :(" disabled class="block h-10 w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" />
                                     @endif
@@ -49,7 +53,7 @@
                         </div>
                     </div>
                 </div>
-
+                {{-- Pricing --}}
                 <div class="mt-6 w-full space-y-6 sm:mt-8 lg:mt-0 lg:max-w-xs xl:max-w-md">
                     <div class="flow-root">
                         <div class="-my-3 divide-y divide-gray-200 dark:divide-gray-800">
@@ -67,7 +71,7 @@
                             </dl>
                         </div>
                     </div>
-
+                    {{-- Order button --}}
                     <div class="space-y-3">
                         <button type="submit" class="flex w-full items-center justify-center border rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4  focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Order your tickets!</button>
                     </div>
@@ -85,7 +89,7 @@
 
     /**
      * Keeps the value of the field from fallen outside the set min & max
-     * @param field
+     * @param field The input field holding the amount of tickets the user wants to order.
      * @author Ismael Winterman
      */
     function CheckTicketInput(field){
