@@ -26,7 +26,7 @@ class OrderFactory extends Factory
             'route_id' => $route->id,
             'tokens_used' => $this->faker->numberBetween(0,100) < 50 ? 0 : 100,
             'final_price' => $route->price * $tickets,
-            'amount_of_tickets' => $this->faker->numberBetween(0,5),
+            'amount_of_tickets' => $tickets,
         ];
     }
 }
