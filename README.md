@@ -21,3 +21,12 @@ After that run the following commands:
 ### To run the project locally run the following command:
 -`composer run dev`
 This command opens a server on default url:port http://127.0.0.1:8000
+
+### php.ini config
+We have enabled the following extensions in our php.ini to make this project function properly.
+
+![This image shows which extensions have been enabled in a php.ini file](./documents/image.png)
+
+We have additionally changed the variables_order:
+- From:  `variables_order = "EGPCS"`
+- To: &emsp; `variables_order = "GPCS"`
