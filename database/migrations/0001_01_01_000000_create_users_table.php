@@ -4,6 +4,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+    /**
+     * @author Brighton van Rouendal + Mischa Sasse
+     */
 return new class extends Migration
 {
     /**
@@ -19,6 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->integer('tokens')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
 

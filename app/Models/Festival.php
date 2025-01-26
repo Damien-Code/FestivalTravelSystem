@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+/**
+ * @author Brighton van Rouendal + Mischa Sasse
+ */
+class Festival extends Model
+{
+    /** @use HasFactory<\Database\Factories\FestivalFactory> */
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'info_festival_id',
+        'location_id',
+        'date',
+    ];
+    public function routes(){
+        return $this->hasMany(Route::class);
+    }
+
+    public function location(){
+        return $this->belongsTo(Location::class);
+    }
+
+    public function festivalInfo(){
+        return $this->belongsTo(FestivalInfo::class, 'info_festival_id');
+    }
+
+    protected $table = 'festivals';
+}

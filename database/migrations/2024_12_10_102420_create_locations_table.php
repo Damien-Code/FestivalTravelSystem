@@ -4,6 +4,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+    /**
+     * @author Brighton van Rouendal + Mischa Sasse
+     */
 return new class extends Migration
 {
     /**
@@ -15,8 +18,9 @@ return new class extends Migration
             $table->id();
             $table->string('country', 45);
             $table->string('city', 60);
-            $table->string('address', 45);
+            $table->string('street', 45);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

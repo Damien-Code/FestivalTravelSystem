@@ -6,7 +6,8 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('homepage') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200"/>
+                        {{--                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200"/>--}}
+                        <x-bus-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200"/>
                     </a>
                 </div>
 
@@ -54,9 +55,11 @@
                             <x-dropdown-link :href="route('profile.edit')">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('admin.index')">
-                                {{ __('Admin') }}
-                            </x-dropdown-link>
+                            @if(auth()->user()->role_id == 1)
+                                <x-dropdown-link :href="route('admin.index')">
+                                    {{ __('Admin') }}
+                                </x-dropdown-link>
+                            @endif
 
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
@@ -118,12 +121,6 @@
             <x-responsive-nav-link :href="route('contact.index')" :active="request()->routeIs('contact.index')">
                 {{ __('Contact') }}
             </x-responsive-nav-link>
-            {{--            User needs to be logged in to see admin. This will change to only see when user is admin--}}
-            @auth()
-                <x-responsive-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
-                    {{ __('Admin') }}
-                </x-responsive-nav-link>
-            @endauth
         </div>
 
         <!-- Responsive Settings Options -->
@@ -135,7 +132,18 @@
                 </div>
 
                 <div class="mt-3 space-y-1">
-                    <x-responsive-nav-link :href="route('profile.edit')">
+                    <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-responsive-nav-link>
+                    @auth()
+                        {{--            User needs to be logged in to see admin. This will change to only see when user is admin--}}
+                        @if(auth()->user()->role_id == 1)
+                            <x-responsive-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
+                                {{ __('Admin') }}
+                            </x-responsive-nav-link>
+                        @endif
+                    @endauth
+                    <x-responsive-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
                         {{ __('Profile') }}
                     </x-responsive-nav-link>
 

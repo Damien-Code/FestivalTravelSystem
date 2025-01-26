@@ -4,6 +4,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+    /**
+     * @author Brighton van Rouendal + Mischa Sasse
+     */
 return new class extends Migration
 {
     /**
@@ -13,11 +16,12 @@ return new class extends Migration
     {
         Schema::create('bus_info', function (Blueprint $table) {
             $table->id();
-            $table->string('licence_plate', 45);
+            $table->string('license_plate', 45);
+            $table->softDeletes();
             $table->timestamps();
         });
 
-        Schema::create('bus_in_use', function (Blueprint $table) {
+        Schema::create('bus_in_uses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('bus_id')->constrained('bus_info');
             $table->foreignId('route_id')->constrained('routes');

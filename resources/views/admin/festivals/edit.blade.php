@@ -1,0 +1,133 @@
+<x-app-layout>
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6 text-white">
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+            <div class="flex justify-between">
+                <p class="text-2xl">Festivals</p>
+                {{-- Back button to return to index --}}
+                <a href="{{route('admin.festivals.index')}}">
+                    <x-primary-button>Back</x-primary-button>
+                </a>
+            </div>
+        </div>
+        <div>
+            @include('layouts.success')
+            @include('layouts.error')
+
+            <div class="flex justify-between gap-6">
+                <section class="w-1/2">
+                    <div class="py-8 px-4 mx-auto max-w-3xl">
+                        <h2 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white">Update an existing
+                            festival</h2>
+                        <form action="{{route('admin.festivals.update', $festival->id)}}" method="post"
+                              enctype="multipart/form-data">
+                            @csrf
+                            @method('PATCH')
+                            <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                                <div class="sm:col-span-2">
+                                    <label for="title"
+                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Festival
+                                        Title</label>
+                                    <input name="title"
+                                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                           placeholder="Festival" required
+                                           value="{{$festival->festivalInfo->title}}">
+                                </div>
+                                <div class="sm:col-span-2">
+                                    <label for="image"
+                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image</label>
+                                    <input type="file" name="image" id="image"
+                                           value="{{$festival->festivalInfo->image}}"
+                                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                    <p id="fileName">Files supported: JPEG, PNG and JPG. Max-size: 5MB</p>
+                                    <div class="flex mt-6 items-center">
+                                        <input type="checkbox" name="remove_image">
+                                        <p class="pl-6">Update without image</p>
+                                    </div>
+                                </div>
+                                <div class="sm:col-span-2">
+                                    <label for="description"
+                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                                    <textarea name="description" rows="8"
+                                              class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                              placeholder="Your description here"
+                                              required> {{$festival->festivalInfo->description}} </textarea>
+                                </div>
+                                <input hidden value="{{$festival->date}}" name="date">
+                                <input hidden value="{{$festival->id}}" name="festival">
+                            </div>
+                            <x-primary-button class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6">Update festival
+                            </x-primary-button>
+                        </form>
+                    </div>
+                </section>
+                {{-- Form to update festival --}}
+                <section class="w-1/2">
+                    <div class="py-8 px-4 mx-auto max-w-2xl">
+                        <h2 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white">Pair an existing festival
+                            to a
+                            date and location</h2>
+                        <form action="{{route('admin.festivals.updatePair', $festival->id)}}" method="post">
+                            @csrf
+                            @method('PUT')
+                            <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+                                <div class="sm:col-span-2">
+                                    <label for="festival"
+                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Festival</label>
+                                    <select name="festival"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                        @foreach($festivalsInfo as $info)
+                                            <option
+                                                @selected($info->title == $festival->festivalInfo->title) value="{{$info->id}}">{{$info->title}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="sm:col-span-2">
+                                    <label for="name"
+                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Location</label>
+                                    <select id="location" name="location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        @foreach($locations as $location)
+                                            <option value="{{$location->id}}" @selected($location->id == $festival->location_id)>{{ $location->address() }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="date"
+                                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date</label>
+                                    <input type="date" name="date" min="{{date('Y-m-d')}}"
+                                           value="{{ \Carbon\Carbon::parse($festival->date)->format('Y-m-d') }}"
+                                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                </div>
+                            </div>
+                            <x-primary-button
+                                class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center">
+                                Update
+                            </x-primary-button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script>
+        const file = document.getElementById('image')
+        const text = document.getElementById('fileName')
+        file.addEventListener('change', (event) => {
+            const target = event.target
+            if (target.files && target.files[0]) {
+                const maxAllowedSize = 5 * 1024 * 1024;
+                if (target.files[0].size > maxAllowedSize) {
+                    target.value = ''
+                    file.classList.remove('dark:border-gray-600')
+                    file.classList.remove('border-green-500')
+                    file.classList.add('border-rose-500')
+                    text.innerText = 'File is not supported, please select JPEG, PNG or JPG and not bigger than 5MB'
+                } else {
+                    file.classList.remove('dark:border-gray-600')
+                    file.classList.remove('border-rose-500')
+                    file.classList.add('border-green-500')
+                    text.innerText = 'Image is supported to upload'
+                }
+            }
+        })
+    </script>
+</x-app-layout>

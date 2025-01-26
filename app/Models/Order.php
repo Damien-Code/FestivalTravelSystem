@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+/**
+ * @author Brighton van Rouendal + Mischa Sasse
+ */
+class Order extends Model
+{
+    /** @use HasFactory<\Database\Factories\OrderFactory> */
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'user_id',
+        'route_id',
+        'tokens_used',
+        'final_price',
+        'amount_of_tickets',
+    ];
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function route(){
+        return $this->belongsTo(Route::class);
+    }
+
+    protected $table = 'orders';
+}

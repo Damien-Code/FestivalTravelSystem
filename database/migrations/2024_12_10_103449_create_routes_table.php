@@ -4,6 +4,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+    /**
+     * @author Brighton van Rouendal + Mischa Sasse
+     */
 return new class extends Migration
 {
     /**
@@ -16,9 +19,9 @@ return new class extends Migration
             $table->foreignId('festival_id')->constrained('festivals');
             $table->foreignId('location_id')->constrained('locations');
             $table->dateTime('departure_time');
-            $table->date('date');
             $table->double('price');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -4,6 +4,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+    /**
+     * @author Brighton van Rouendal + Mischa Sasse
+     */
 return new class extends Migration
 {
     /**
@@ -15,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('title', 45);
             $table->text('description');
-            $table->binary('image')->nullable();
+            $table->longText('image')->nullable();
             $table->timestamps();
         });
 
@@ -25,6 +28,7 @@ return new class extends Migration
             $table->foreignId('location_id')->constrained('locations');
             $table->dateTime('date');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
