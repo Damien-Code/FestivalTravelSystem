@@ -30,3 +30,11 @@ We have enabled the following extensions in our php.ini to make this project fun
 We have additionally changed the variables_order:
 - From:  `variables_order = "EGPCS"`
 - To: &emsp; `variables_order = "GPCS"`
+
+The post_max_size:
+- From:  `post_max_size = 2M`
+- To: &emsp; `post_max_size = 8M`
+
+And lastly the upload_max_filesize:
+- From:  `upload_max_filesize = 2M`
+- To: &emsp; `upload_max_filesize = 5M`
