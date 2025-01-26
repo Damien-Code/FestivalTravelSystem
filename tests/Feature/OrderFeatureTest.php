@@ -65,6 +65,27 @@ class OrderFeatureTest extends TestCase
     }
 
     /**
+     * @return void
+     * @author Brighton van rouendal
+     * Create User
+     * Create a Festival which is a day in the past
+     * Create a Route which is a dat in the past
+     * Visit route
+     * Assert Redirect
+     * Assert View is the festival
+     */
+    public function test_user_cant_visit_route_that_has_happend()
+    {
+        $user = User::factory()->create();
+        $festival = Festival::factory()->create(['date' => now()->addDay()]);
+        $route = Route::factory()->create(['festival_id' => $festival->id, 'departure_time' => now()->subDay()]);
+        $response = $this->actingAs($user)->get(route('festivals.order', [$festival, $route]));
+        $response->assertStatus(302);
+        $response->assertRedirect(route('festivals.show', $festival));
+        $response->assertDontSee('Order Details');
+    }
+
+    /**
      * Test if the vip-checkbox is displayed on the order page, when a user has more than 100 points
      * @author Ismael Winterman
      * @return void

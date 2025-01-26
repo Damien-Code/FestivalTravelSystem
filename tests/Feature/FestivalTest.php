@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Festival;
 use App\Models\Location;
+use App\Models\Route;
 use App\Models\User;
 use Faker\Core\DateTime;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -151,5 +152,27 @@ class FestivalTest extends TestCase
         $this->assertSoftDeleted('festivals', [
             'id' => $festival_id,
         ]);
+    }
+
+    /**
+     * @return void
+     * @author Brighton van rouendal
+     * Create User
+     * Create a festival info with unique name for this test
+     * Create a Festival which is a day in the past
+     * Visit route
+     * Assert Redirect
+     * Assert View is the list of festivals
+     */
+    public function test_user_cant_visit_festival_that_has_happend()
+    {
+        $user = User::factory()->create();
+        $festival_info = FestivalInfo::factory()->create(['title' => 'Festival Test for redirect']);
+        $festival = Festival::factory()->create(['info_festival_id' => $festival_info->id, 'date' => now()->subDay()]);
+
+        $response = $this->actingAs($user)->get(route('festivals.show', $festival));
+        $response->assertStatus(302);
+        $response->assertRedirect(route('festivals.index'));
+        $response->assertDontSee($festival->festivalInfo->title);
     }
 }
