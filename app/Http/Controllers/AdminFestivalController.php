@@ -64,7 +64,7 @@ class AdminFestivalController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string|max:45|min:3',
             'description' => 'required|string|min:10',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:5192',
         ]);
         // Encode the uploaded image to base64
         // Image is nullable, so added if statement
@@ -155,7 +155,7 @@ class AdminFestivalController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string|max:45|min:3',
             'description' => 'required|string|min:10',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:5192',
         ]);
 
         // Encode the uploaded image to base64
