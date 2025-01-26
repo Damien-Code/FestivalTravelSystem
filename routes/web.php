@@ -15,6 +15,7 @@ use App\Models\Contact;
 use App\Models\Festival;
 use App\Models\Location;
 use App\Models\Route as ModelsRoute;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 
@@ -40,12 +41,12 @@ Route::get('/vip', function () {
 })->name('vip.index');
 
 Route::resource('festivals', FestivalController::class)
-    ->only(['index', 'show']);
+    ->only(['index', 'show'])->missing(function () {return redirect()->route('festivals.index')->withErrors(['Festival' => 'Invalid, Festival does not exist.']);});
 
 // Login required for festivals.order
-Route::get('/festivals/{festival}/order/{route}', [OrderController::class, 'show'])->name('festivals.order')->middleware('auth');
+Route::get('/festivals/{festival}/order/{route}', [OrderController::class, 'show'])->name('festivals.order')->missing(function () {return redirect()->route('festivals.index')->withErrors(['Route' => 'Invalid, Route or Festival does not exist.']);})->middleware('auth');
 // Route for storing tickets
-Route::post('/festivals/{festival}/order/{route}', [OrderController::class, 'store'])->name('order.store')->middleware('auth');
+Route::post('/festivals/{festival}/order/{route}', [OrderController::class, 'store'])->name('order.store')->missing(function () {return redirect()->route('festivals.index')->withErrors(['Route' => 'Invalid, Route or Festival does not exist.']);})->middleware('auth');
 Route::delete('/order/{order}', [OrderController::class, 'destroy'])->name('order.destroy')->middleware('auth');
 
 // No login required for contact

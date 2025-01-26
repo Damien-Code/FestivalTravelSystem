@@ -25,7 +25,7 @@ class OrderController extends Controller
     }
 
     /**
-     * @author Brighton van Rouendal
+     * @author Brighton van Rouendal, Ismael Winterman
      * Display the specified resource.
      */
     public function show(Festival $festival, Route $route)
@@ -33,6 +33,9 @@ class OrderController extends Controller
         $now = Carbon::now();
         if ($route->departure_time < $now)
             return redirect()->route('festivals.show', $festival)->withErrors(['Departure Time' => "Departure Time must be after {$now}"]);
+        //Prevents route not matching festival
+        if ($route->festival_id != $festival->id)
+            return redirect()->route('festivals.index')->withErrors(['Invalid Match' => 'Festival and Route does not match']);
         return view('festivals.order', compact('festival', 'route'));
     }
 
@@ -46,7 +49,7 @@ class OrderController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @author Ismael Winterman
+     * @author Ismael Winterman, Brighton van Rouendal
      */
     public function store(Request $request, Festival $festival, Route $route)
     {
@@ -54,6 +57,9 @@ class OrderController extends Controller
         $now = Carbon::now();
         if ($route->departure_time < $now)
             return redirect()->route('festivals.show', $festival)->withErrors(['Departure Time' => "Departure Time must be after {$now}"]);
+        //Prevents route not matching festival
+        if ($route->festival_id != $festival->id)
+            return redirect()->route('festivals.index')->withErrors(['Invalid Match' => 'Festival and Route does not match']);
 
         //Identify user making the purchase
         $user = auth()->user();

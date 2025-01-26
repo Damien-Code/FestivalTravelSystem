@@ -5,6 +5,7 @@
         </h2>
     </x-slot>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 pt-6 text-white">
+        @include('layouts.error')
         {{-- Search bar --}}
         <x-search-bar :action="route('festivals.index')"></x-search-bar>
         {{-- All the festivals --}}

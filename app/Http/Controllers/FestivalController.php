@@ -42,7 +42,7 @@ class FestivalController extends Controller
     public function show(Festival $festival): View|RedirectResponse
     {
         if ($festival->date < now())
-            return redirect()->route('festivals.index');
+            return redirect()->route('festivals.index')->withErrors(['Festival' => 'Festival has expired.']);
         return view('festivals.show', compact('festival'));
     }
 }
