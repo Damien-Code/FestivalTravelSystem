@@ -50,6 +50,11 @@ class OrderController extends Controller
      */
     public function store(Request $request, Festival $festival, Route $route)
     {
+        //Redirect back if route date has already happened
+        $now = Carbon::now();
+        if ($route->departure_time < $now)
+            return redirect()->route('festivals.show', $festival)->withErrors(['Departure Time' => "Departure Time must be after {$now}"]);
+
         //Identify user making the purchase
         $user = auth()->user();
 

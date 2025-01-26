@@ -69,7 +69,7 @@ class OrderFeatureTest extends TestCase
      * @author Brighton van rouendal
      * Create User
      * Create a Festival which is a day in the past
-     * Create a Route which is a dat in the past
+     * Create a Route which is a day in the past
      * Visit route
      * Assert Redirect
      * Assert View is the festival
@@ -80,6 +80,88 @@ class OrderFeatureTest extends TestCase
         $festival = Festival::factory()->create(['date' => now()->addDay()]);
         $route = Route::factory()->create(['festival_id' => $festival->id, 'departure_time' => now()->subDay()]);
         $response = $this->actingAs($user)->get(route('festivals.order', [$festival, $route]));
+        $response->assertStatus(302);
+        $response->assertRedirect(route('festivals.show', $festival));
+        $response->assertDontSee('Order Details');
+    }
+
+    /**
+     * @return void
+     * @author Brighton van rouendal
+     * Create User
+     * Create a Festival which is a day in the past
+     * Create a Route which is a day in the past
+     * Visit route
+     * Assert Redirect
+     * Assert View is the festival
+     */
+    public function test_user_cant_visit_route_that_has_happend_redirect_to_festivals_list()
+    {
+        $user = User::factory()->create();
+        $festival = Festival::factory()->create(['date' => now()->subDay()]);
+        $route = Route::factory()->create(['festival_id' => $festival->id, 'departure_time' => now()->subDay()]);
+        $response = $this->actingAs($user)->get(route('festivals.order', [$festival, $route]));
+        $response->assertStatus(302);
+        $response->assertDontSee("Festival - {$festival->festivalInfo->title}");
+    }
+
+    /**
+     * @return void
+     * @author Brighton van rouendal
+     * Create User
+     * Create a Festival which is a day in the past
+     * Create a Route which is a day in the past
+     * Visit route
+     * Place Order
+     * Assert Redirect to festival page
+     * Assert View is the festival page
+     */
+    public function test_user_cant_place_order_on_route_that_has_happened_redirect_to_festivals_list()
+    {
+        $user = User::factory()->create();
+        $festival_info = FestivalInfo::factory()->create(['title' => 'Festival Test for redirect when placing order']);
+        $festival = Festival::factory()->create(['info_festival_id' => $festival_info->id, 'date' => now()->subDay()]);
+        $route = Route::factory()->create(['festival_id' => $festival->id, 'departure_time' => now()->subDay()]);
+
+        $response = $this->actingAs($user)
+            ->post(
+                route('order.store', [$festival, $route]),
+                [
+                    'ticket-amount' => 1,
+                    'total-price-h' => $route->price,
+                ]
+            );
+
+        $response->assertStatus(302);
+        $response->assertDontSee("Festival - {$festival->festivalInfo->title}");
+    }
+
+    /**
+     * @return void
+     * @author Brighton van rouendal
+     * Create User
+     * Create a Festival which is a day in the past
+     * Create a Route which is a day in the past
+     * Visit route
+     * Place Order
+     * Assert Redirect to festival page
+     * Assert View is the festival page
+     */
+    public function test_user_cant_place_order_on_route_that_has_happened()
+    {
+        $user = User::factory()->create();
+        $festival = Festival::factory()->create(['date' => now()->addDay()]);
+        $route = Route::factory()->create(['festival_id' => $festival->id, 'departure_time' => now()->subDay()]);
+
+        $response = $this->actingAs($user)
+            ->post(
+                route('order.store', [$festival, $route]),
+                [
+                    'ticket-amount' => 1,
+                    'total-price-h' => $route->price,
+                ]
+            );
+
         $response->assertStatus(302);
         $response->assertRedirect(route('festivals.show', $festival));
         $response->assertDontSee('Order Details');
